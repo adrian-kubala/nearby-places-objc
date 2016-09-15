@@ -9,6 +9,7 @@
 import Foundation
 
 class Place {
-    let longitude = 54.189971
-    let latitude = 16.180962
+    let longitude = 16.180962
+    let latitude = 54.189971
+    
 }

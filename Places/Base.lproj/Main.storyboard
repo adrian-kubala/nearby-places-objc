@@ -3,13 +3,12 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Place Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Places" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="PlaceController" customModule="Places" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -18,16 +17,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="rHf-al-3r1">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="281"/>
-                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PeJ-wm-4Gn">
+                                <rect key="frame" x="265" y="285" width="70" height="30"/>
+                                <state key="normal" title="Pick place"/>
+                                <connections>
+                                    <action selector="pickPlace:" destination="BYZ-38-t0r" eventType="touchUpInside" id="19A-ex-bCK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="rHf-al-3r1" secondAttribute="trailing" id="9Mf-Pk-8Rr"/>
-                            <constraint firstAttribute="topMargin" secondItem="rHf-al-3r1" secondAttribute="top" id="MTn-cs-Epf"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="rHf-al-3r1" secondAttribute="bottom" constant="319" id="lsv-4Q-u1Z"/>
-                            <constraint firstItem="rHf-al-3r1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="r47-Cq-VMy"/>
+                            <constraint firstItem="PeJ-wm-4Gn" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="uGY-eB-n1t"/>
+                            <constraint firstItem="PeJ-wm-4Gn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zFD-aX-ahm"/>
                         </constraints>
                     </view>
                 </viewController>

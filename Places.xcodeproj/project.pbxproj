@@ -9,8 +9,9 @@
 /* Begin PBXBuildFile section */
 		22B7CD8E5EA4B193B8D20034 /* libPods-Places.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63D4235B3BC85DB056E43CBF /* libPods-Places.a */; };
 		3A72F5A81D8A6FCD00BA2F16 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A72F5A71D8A6FCD00BA2F16 /* Place.swift */; };
+		3A72F5AA1D8A751F00BA2F16 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A72F5A91D8A751F00BA2F16 /* MapKit.framework */; };
 		3A8C0E941D8A6D1C00F538B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C0E931D8A6D1C00F538B0 /* AppDelegate.swift */; };
-		3A8C0E961D8A6D1C00F538B0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C0E951D8A6D1C00F538B0 /* ViewController.swift */; };
+		3A8C0E961D8A6D1C00F538B0 /* PlaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C0E951D8A6D1C00F538B0 /* PlaceController.swift */; };
 		3A8C0E991D8A6D1D00F538B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A8C0E971D8A6D1D00F538B0 /* Main.storyboard */; };
 		3A8C0E9B1D8A6D1D00F538B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A8C0E9A1D8A6D1D00F538B0 /* Assets.xcassets */; };
 		3A8C0E9E1D8A6D1D00F538B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A8C0E9C1D8A6D1D00F538B0 /* LaunchScreen.storyboard */; };
@@ -37,9 +38,10 @@
 
 /* Begin PBXFileReference section */
 		3A72F5A71D8A6FCD00BA2F16 /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		3A72F5A91D8A751F00BA2F16 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3A8C0E901D8A6D1C00F538B0 /* Places.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Places.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A8C0E931D8A6D1C00F538B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3A8C0E951D8A6D1C00F538B0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3A8C0E951D8A6D1C00F538B0 /* PlaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceController.swift; sourceTree = "<group>"; };
 		3A8C0E981D8A6D1D00F538B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3A8C0E9A1D8A6D1D00F538B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A8C0E9D1D8A6D1D00F538B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A72F5AA1D8A751F00BA2F16 /* MapKit.framework in Frameworks */,
 				22B7CD8E5EA4B193B8D20034 /* libPods-Places.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -107,7 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				3A8C0E931D8A6D1C00F538B0 /* AppDelegate.swift */,
-				3A8C0E951D8A6D1C00F538B0 /* ViewController.swift */,
+				3A8C0E951D8A6D1C00F538B0 /* PlaceController.swift */,
 				3A8C0E971D8A6D1D00F538B0 /* Main.storyboard */,
 				3A8C0E9A1D8A6D1D00F538B0 /* Assets.xcassets */,
 				3A8C0E9C1D8A6D1D00F538B0 /* LaunchScreen.storyboard */,
@@ -147,6 +150,7 @@
 		F4B5849B592095F042FADBBC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3A72F5A91D8A751F00BA2F16 /* MapKit.framework */,
 				63D4235B3BC85DB056E43CBF /* libPods-Places.a */,
 			);
 			name = Frameworks;
@@ -335,7 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A72F5A81D8A6FCD00BA2F16 /* Place.swift in Sources */,
-				3A8C0E961D8A6D1C00F538B0 /* ViewController.swift in Sources */,
+				3A8C0E961D8A6D1C00F538B0 /* PlaceController.swift in Sources */,
 				3A8C0E941D8A6D1C00F538B0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
