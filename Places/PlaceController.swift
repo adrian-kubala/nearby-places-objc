@@ -8,9 +8,11 @@
 
 import UIKit
 import GooglePlacePicker
+import MapKit
 
 class PlaceController: UIViewController {
     var locationManager = CLLocationManager()
+    @IBOutlet var mapView: MKMapView!
     
     @IBAction func pickPlace(sender: AnyObject) {
         let place = Place()
@@ -69,9 +71,10 @@ class PlaceController: UIViewController {
                 for likelihood in placeLikelihoods.likelihoods {
                     let place = likelihood.place
                     print("Current Place name \(place.name) at likelihood \(likelihood.likelihood)")
-                    print("Current Place address \(place.formattedAddress)")
+                    print("Current Place address \(place.formattedAddress!)")
                     print("Current Place attributions \(place.attributions)")
                     print("Current PlaceID \(place.placeID)")
+                    print("", terminator: "\n")
                 }
             }
         })
@@ -79,5 +82,25 @@ class PlaceController: UIViewController {
 }
 
 extension PlaceController: CLLocationManagerDelegate {
-    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation = locations.last
+        guard let location = userLocation else {
+            return
+        }
+        
+        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        let region = MKCoordinateRegion(center: center, span: span)
+        
+        mapView.setRegion(region, animated: true)
+        
+        let point = MKPointAnnotation()
+        
+        point.coordinate = location.coordinate
+        point.title = "Current Location"
+        
+        mapView.addAnnotation(point)
+        
+        locationManager.stopUpdatingLocation()
+    }
 }
