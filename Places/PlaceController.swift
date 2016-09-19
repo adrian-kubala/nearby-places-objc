@@ -19,6 +19,7 @@ class PlaceController: UIViewController {
     let searchController = UISearchController(searchResultsController: nil)
     
     var places: [Place] = []
+    var filteredPlaces: [Place] = []
     
 //    @IBAction func pickPlace(sender: AnyObject) {
 //        let place = Place()
@@ -117,6 +118,27 @@ class PlaceController: UIViewController {
             }
         })
     }
+    
+    func filterContentForSearchText(searchText: String) {
+        filteredPlaces = places.filter { place in
+            if searchText != "" {
+                return place.name.lowercaseString.containsString(searchText.lowercaseString)
+            }
+            return false
+        }
+        placesView.reloadData()
+    }
+    
+    func chooseData(row: Int) -> Place {
+        if searchIsActive(){
+            return filteredPlaces[row]
+        }
+        return places[row]
+    }
+    
+    func searchIsActive() -> Bool {
+        return searchController.active && searchController.searchBar.text != "" ? true : false
+    }
 }
 
 extension PlaceController: CLLocationManagerDelegate {
@@ -151,6 +173,9 @@ extension PlaceController: UITableViewDelegate {
 
 extension PlaceController: UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchIsActive() {
+            return filteredPlaces.count
+        }
         return places.count
     }
     
@@ -158,8 +183,10 @@ extension PlaceController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier("place", forIndexPath: indexPath)
         
         let row = indexPath.row
-        cell.textLabel?.text = places[row].name
-        cell.detailTextLabel?.text = String(places[row].distance) + " m" + " | " + places[row].address
+        let data = chooseData(row)
+        
+        cell.textLabel?.text = data.name
+        cell.detailTextLabel?.text = String(data.distance) + " m" + " | " + data.address
         
         return cell
     }
@@ -178,20 +205,10 @@ extension PlaceController: UITableViewDataSource {
 extension PlaceController: UISearchResultsUpdating, UISearchBarDelegate {
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
-        guard let location = locationManager.location?.coordinate else {
+        guard let searchText = searchController.searchBar.text else {
             return
         }
         
-        let placesClient = GMSPlacesClient()
-        
-        let center = CLLocationCoordinate2DMake(location.latitude, location.longitude)
-        let northEast = CLLocationCoordinate2DMake(center.latitude + 0.001, center.longitude + 0.001)
-        let southWest = CLLocationCoordinate2DMake(center.latitude - 0.001, center.longitude - 0.001)
-        let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
-        //        let config = GMSPlacePickerConfig(viewport: viewport)
-        
-        placesClient.autocompleteQuery("A", bounds: viewport, filter: nil) { (prediction, error) in
-            print(prediction)
-        }
+        filterContentForSearchText(searchText)
     }
 }
