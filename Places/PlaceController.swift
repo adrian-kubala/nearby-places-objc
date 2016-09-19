@@ -15,6 +15,8 @@ class PlaceController: UIViewController {
     @IBOutlet var mapView: MKMapView!
     @IBOutlet weak var placesView: UITableView!
     
+    let searchController = UISearchController(searchResultsController: nil)
+    
     var places: [Place] = []
     
 //    @IBAction func pickPlace(sender: AnyObject) {
@@ -53,20 +55,15 @@ class PlaceController: UIViewController {
         
         placesView.delegate = self
         placesView.dataSource = self
+        
+        setupSearchController()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         let placesClient = GMSPlacesClient()
-        /*
-         placesClient.autocompleteQuery("A", bounds: viewport, filter: nil) { (prediction, error) in
-         print(prediction)
-         }
-         
-         // */
-        
-        //*
+ 
         placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
             guard error == nil else {
                 print("Current Place error: \(error?.localizedDescription)")
@@ -146,4 +143,44 @@ extension PlaceController: UITableViewDataSource {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("selected")
     }
+}
+
+extension PlaceController: UISearchResultsUpdating {
+    func setupSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        
+        setupSearchBar()
+    }
+    
+    private func setupSearchBar() {
+        let searchBar = searchController.searchBar
+        view.addSubview(searchBar)
+        searchBar.autocapitalizationType = .None
+        searchBar.placeholder = "Current location"
+        searchBar.delegate = self
+    }
+    
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        guard let location = locationManager.location?.coordinate else {
+            return
+        }
+        
+        let placesClient = GMSPlacesClient()
+        
+        let center = CLLocationCoordinate2DMake(location.latitude, location.longitude)
+        let northEast = CLLocationCoordinate2DMake(center.latitude + 0.001, center.longitude + 0.001)
+        let southWest = CLLocationCoordinate2DMake(center.latitude - 0.001, center.longitude - 0.001)
+        let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
+        //        let config = GMSPlacePickerConfig(viewport: viewport)
+        
+        placesClient.autocompleteQuery("A", bounds: viewport, filter: nil) { (prediction, error) in
+            print(prediction)
+        }
+    }
+}
+
+extension PlaceController: UISearchBarDelegate {
+    
 }

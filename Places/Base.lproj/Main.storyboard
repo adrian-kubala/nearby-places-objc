@@ -78,9 +78,18 @@
                     <connections>
                         <outlet property="mapView" destination="wue-zY-o69" id="Mgd-1k-0M5"/>
                         <outlet property="placesView" destination="Qa8-dh-IDV" id="2kn-P2-Sc7"/>
+                        <outlet property="searchDisplayController" destination="YuF-Zb-Ejd" id="VOm-zv-o6R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="YuF-Zb-Ejd">
+                    <connections>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="Pfa-0f-pzM"/>
+                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="nPV-jt-C93"/>
+                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="wIG-fX-CiH"/>
+                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="8HS-dM-pUU"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="304.5" y="348.5"/>
         </scene>
