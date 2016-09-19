@@ -15,6 +15,7 @@ class PlaceController: UIViewController {
     @IBOutlet var mapView: MKMapView!
     @IBOutlet weak var placesView: UITableView!
     
+    @IBOutlet weak var searchView: UIView!
     let searchController = UISearchController(searchResultsController: nil)
     
     var places: [Place] = []
@@ -48,42 +49,72 @@ class PlaceController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupLocationManager()
+        setupTableView()
+        
+        setupSearchController()
+    }
+    
+    func setupLocationManager() {
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
+    }
+    
+    func setupSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
         
+        setupSearchBar()
+    }
+    
+    func setupSearchBar() {
+        let searchBar = searchController.searchBar
+//        view.addSubview(searchBar)
+        autoComplete = searchBar
+        searchBar.autocapitalizationType = .None
+        searchBar.placeholder = "Current location"
+        searchBar.delegate = self
+    }
+    
+    func setupTableView() {
         placesView.delegate = self
         placesView.dataSource = self
-        
-        setupSearchController()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        showNearbyPlaces()
+    }
+    
+    func showNearbyPlaces() {
         let placesClient = GMSPlacesClient()
- 
+        
         placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
             guard error == nil else {
                 print("Current Place error: \(error?.localizedDescription)")
                 return
             }
             
-            if let placeLikelihoods = placeLikelihoods {
-                for likelihood in placeLikelihoods.likelihoods {
-                    let gmsPlace = likelihood.place
-                    
-                    guard let userLocation = self.locationManager.location?.coordinate else {
-                        continue
-                    }
-                    
-                    let place = Place(gmsPlace: gmsPlace, userLocation: userLocation)
-                    
-                    self.places.append(place)
-                    self.sortPlacesByDistance()
-                    self.placesView.reloadData()
+            guard let placeLikelihoods = placeLikelihoods else {
+                return
+            }
+            
+            for likelihood in placeLikelihoods.likelihoods {
+                let gmsPlace = likelihood.place
+                
+                guard let userLocation = self.locationManager.location?.coordinate else {
+                    continue
                 }
+                
+                let place = Place(gmsPlace: gmsPlace, userLocation: userLocation)
+                
+                self.places.append(place)
+                self.sortPlacesByDistance()
+                self.placesView.reloadData()
             }
         })
     }
@@ -145,22 +176,7 @@ extension PlaceController: UITableViewDataSource {
     }
 }
 
-extension PlaceController: UISearchResultsUpdating {
-    func setupSearchController() {
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
-        definesPresentationContext = true
-        
-        setupSearchBar()
-    }
-    
-    private func setupSearchBar() {
-        let searchBar = searchController.searchBar
-        view.addSubview(searchBar)
-        searchBar.autocapitalizationType = .None
-        searchBar.placeholder = "Current location"
-        searchBar.delegate = self
-    }
+extension PlaceController: UISearchResultsUpdating, UISearchBarDelegate {
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         guard let location = locationManager.location?.coordinate else {
@@ -179,8 +195,4 @@ extension PlaceController: UISearchResultsUpdating {
             print(prediction)
         }
     }
-}
-
-extension PlaceController: UISearchBarDelegate {
-    
 }
