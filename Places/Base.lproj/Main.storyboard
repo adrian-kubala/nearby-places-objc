@@ -18,11 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wue-zY-o69">
-                                <rect key="frame" x="0.0" y="28" width="375" height="273"/>
-                            </mapView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Qa8-dh-IDV">
-                                <rect key="frame" x="0.0" y="347" width="375" height="320"/>
+                                <rect key="frame" x="0.0" y="338" width="375" height="329"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="place" textLabel="Zpd-Xz-bEE" detailTextLabel="Vhu-ai-GkK" style="IBUITableViewCellStyleSubtitle" id="yNA-yO-VkB">
@@ -52,33 +49,54 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nearby places" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n2O-Sf-GcN">
-                                <rect key="frame" x="15" y="309" width="110" height="30"/>
+                                <rect key="frame" x="15" y="309" width="110" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c82-1Z-7SE">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Iws-G1-BL7"/>
+                                </constraints>
+                            </view>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wue-zY-o69">
+                                <rect key="frame" x="0.0" y="44" width="375" height="257"/>
+                            </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="wue-zY-o69" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="0KD-kT-P2j"/>
-                            <constraint firstItem="Qa8-dh-IDV" firstAttribute="top" secondItem="wue-zY-o69" secondAttribute="bottom" constant="46" id="0rS-o7-3c1"/>
-                            <constraint firstItem="Qa8-dh-IDV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="LLZ-un-amP"/>
-                            <constraint firstAttribute="trailing" secondItem="Qa8-dh-IDV" secondAttribute="trailing" id="M5a-VI-dwm"/>
-                            <constraint firstAttribute="trailing" secondItem="wue-zY-o69" secondAttribute="trailing" id="NOb-gb-nPy"/>
+                            <constraint firstAttribute="trailing" secondItem="n2O-Sf-GcN" secondAttribute="trailing" constant="250" id="2Ul-0Z-4cN"/>
+                            <constraint firstAttribute="trailing" secondItem="c82-1Z-7SE" secondAttribute="trailing" id="4cv-MF-vCm"/>
+                            <constraint firstItem="wue-zY-o69" firstAttribute="top" secondItem="c82-1Z-7SE" secondAttribute="bottom" id="6vt-MV-Wqq"/>
+                            <constraint firstItem="wue-zY-o69" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="B1v-F3-67g"/>
+                            <constraint firstItem="wue-zY-o69" firstAttribute="top" secondItem="c82-1Z-7SE" secondAttribute="bottom" id="KHy-Sl-tON"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="Qa8-dh-IDV" secondAttribute="bottom" id="NeA-tE-Lsb"/>
                             <constraint firstItem="wue-zY-o69" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="28" id="RRh-x4-HRg"/>
-                            <constraint firstAttribute="trailing" secondItem="n2O-Sf-GcN" secondAttribute="trailing" constant="250" id="WUo-dj-Ze8"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="Qa8-dh-IDV" secondAttribute="bottom" id="YwT-fa-Cxd"/>
-                            <constraint firstItem="n2O-Sf-GcN" firstAttribute="top" secondItem="wue-zY-o69" secondAttribute="bottom" constant="8" id="jjB-HJ-XwZ"/>
-                            <constraint firstItem="Qa8-dh-IDV" firstAttribute="top" secondItem="n2O-Sf-GcN" secondAttribute="bottom" constant="8" id="r3Z-fk-xQ1"/>
-                            <constraint firstItem="n2O-Sf-GcN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="rPl-15-GKj"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="wue-zY-o69" secondAttribute="bottom" constant="366" id="u2J-Gz-Qni"/>
+                            <constraint firstAttribute="topMargin" secondItem="c82-1Z-7SE" secondAttribute="top" id="Rk8-vZ-Zod"/>
+                            <constraint firstItem="Qa8-dh-IDV" firstAttribute="top" secondItem="n2O-Sf-GcN" secondAttribute="bottom" constant="8" id="Yxl-qe-lgY"/>
+                            <constraint firstItem="n2O-Sf-GcN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="eHR-8i-t9J"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="wue-zY-o69" secondAttribute="bottom" constant="366" id="kT1-Jw-0z5"/>
+                            <constraint firstItem="n2O-Sf-GcN" firstAttribute="top" secondItem="wue-zY-o69" secondAttribute="bottom" constant="8" id="mlC-ZD-bEg"/>
+                            <constraint firstAttribute="trailing" secondItem="wue-zY-o69" secondAttribute="trailing" id="u3b-xN-lmy"/>
+                            <constraint firstItem="c82-1Z-7SE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="unh-6g-rGN"/>
+                            <constraint firstItem="Qa8-dh-IDV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="wNS-2l-4zg"/>
+                            <constraint firstAttribute="trailing" secondItem="Qa8-dh-IDV" secondAttribute="trailing" id="zop-Bl-SXY"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="6vt-MV-Wqq"/>
+                                <exclude reference="RRh-x4-HRg"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="mapView" destination="wue-zY-o69" id="Mgd-1k-0M5"/>
                         <outlet property="placesView" destination="Qa8-dh-IDV" id="2kn-P2-Sc7"/>
                         <outlet property="searchDisplayController" destination="YuF-Zb-Ejd" id="VOm-zv-o6R"/>
+                        <outlet property="searchView" destination="c82-1Z-7SE" id="SVm-Jb-71f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

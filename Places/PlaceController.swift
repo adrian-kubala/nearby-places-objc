@@ -72,8 +72,7 @@ class PlaceController: UIViewController {
     
     func setupSearchBar() {
         let searchBar = searchController.searchBar
-//        view.addSubview(searchBar)
-        autoComplete = searchBar
+        searchView.addSubview(searchBar)
         searchBar.autocapitalizationType = .None
         searchBar.placeholder = "Current location"
         searchBar.delegate = self
