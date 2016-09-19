@@ -7,9 +7,27 @@
 //
 
 import Foundation
+import GooglePlaces
 
 class Place {
-    let longitude = 16.180962
-    let latitude = 54.189971
+    var name: String = ""
+    var address: String = ""
+    var distance: Int = 0
     
+    init(gmsPlace: GMSPlace, userLocation: CLLocationCoordinate2D) {
+        name = gmsPlace.name
+        if let formattedAddress = gmsPlace.formattedAddress {
+            address = formattedAddress
+        }
+        distance = getDistance(gmsPlace.coordinate, from: userLocation)
+    }
+    
+    func getDistance(place: CLLocationCoordinate2D, from otherPlace: CLLocationCoordinate2D) -> Int {
+        let firstLocation = CLLocation(latitude: place.latitude, longitude: place.longitude)
+        let secondLocation = CLLocation(latitude: otherPlace.latitude, longitude: otherPlace.longitude)
+        
+        let distanceInMeters = firstLocation.distanceFromLocation(secondLocation)
+        distance = Int(distanceInMeters)
+        return distance
+    }
 }

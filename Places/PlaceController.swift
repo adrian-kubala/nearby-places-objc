@@ -15,33 +15,33 @@ class PlaceController: UIViewController {
     @IBOutlet var mapView: MKMapView!
     @IBOutlet weak var placesView: UITableView!
     
-    var places: [GMSPlace] = []
+    var places: [Place] = []
     
-    @IBAction func pickPlace(sender: AnyObject) {
-        let place = Place()
-        
-        let center = CLLocationCoordinate2DMake(place.latitude, place.longitude)
-        let northEast = CLLocationCoordinate2DMake(center.latitude + 0.001, center.longitude + 0.001)
-        let southWest = CLLocationCoordinate2DMake(center.latitude - 0.001, center.longitude - 0.001)
-        let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
-        let config = GMSPlacePickerConfig(viewport: viewport)
-        let placePicker = GMSPlacePicker(config: config)
-        
-        placePicker.pickPlaceWithCallback({ (place: GMSPlace?, error: NSError?) -> Void in
-            if let error = error {
-                print("Pick Place error: \(error.localizedDescription)")
-                return
-            }
-            
-            if let place = place {
-                print("Place name \(place.name)")
-                print("Place address \(place.formattedAddress)")
-                print("Place attributions \(place.attributions)")
-            } else {
-                print("No place selected")
-            }
-        })
-    }
+//    @IBAction func pickPlace(sender: AnyObject) {
+//        let place = Place()
+//        
+//        let center = CLLocationCoordinate2DMake(place.latitude, place.longitude)
+//        let northEast = CLLocationCoordinate2DMake(center.latitude + 0.001, center.longitude + 0.001)
+//        let southWest = CLLocationCoordinate2DMake(center.latitude - 0.001, center.longitude - 0.001)
+//        let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
+//        let config = GMSPlacePickerConfig(viewport: viewport)
+//        let placePicker = GMSPlacePicker(config: config)
+//        
+//        placePicker.pickPlaceWithCallback({ (place: GMSPlace?, error: NSError?) -> Void in
+//            if let error = error {
+//                print("Pick Place error: \(error.localizedDescription)")
+//                return
+//            }
+//            
+//            if let place = place {
+//                print("Place name \(place.name)")
+//                print("Place address \(place.formattedAddress)")
+//                print("Place attributions \(place.attributions)")
+//            } else {
+//                print("No place selected")
+//            }
+//        })
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,8 +75,16 @@ class PlaceController: UIViewController {
             
             if let placeLikelihoods = placeLikelihoods {
                 for likelihood in placeLikelihoods.likelihoods {
-                    let place = likelihood.place
+                    let gmsPlace = likelihood.place
+                    
+                    guard let userLocation = self.locationManager.location?.coordinate else {
+                        continue
+                    }
+                    
+                    let place = Place(gmsPlace: gmsPlace, userLocation: userLocation)
+                    
                     self.places.append(place)
+                    self.sortPlacesByDistance()
                     self.placesView.reloadData()
                 }
             }
@@ -100,7 +108,7 @@ extension PlaceController: CLLocationManagerDelegate {
         let point = MKPointAnnotation()
         
         point.coordinate = location.coordinate
-        point.title = "Current Location"
+        point.title = "Current location"
         
         mapView.addAnnotation(point)
         
@@ -124,9 +132,15 @@ extension PlaceController: UITableViewDataSource {
         
         let row = indexPath.row
         cell.textLabel?.text = places[row].name
-        cell.detailTextLabel?.text = places[row].formattedAddress
+        cell.detailTextLabel?.text = String(places[row].distance) + " m" + " | " + places[row].address
         
         return cell
+    }
+    
+    func sortPlacesByDistance() {
+        places = places.sort {
+            $0.distance < $1.distance
+        }
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
