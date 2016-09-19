@@ -13,6 +13,9 @@ import MapKit
 class PlaceController: UIViewController {
     var locationManager = CLLocationManager()
     @IBOutlet var mapView: MKMapView!
+    @IBOutlet weak var placesView: UITableView!
+    
+    var places: [GMSPlace] = []
     
     @IBAction func pickPlace(sender: AnyObject) {
         let place = Place()
@@ -47,6 +50,9 @@ class PlaceController: UIViewController {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
+        
+        placesView.delegate = self
+        placesView.dataSource = self
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -70,11 +76,8 @@ class PlaceController: UIViewController {
             if let placeLikelihoods = placeLikelihoods {
                 for likelihood in placeLikelihoods.likelihoods {
                     let place = likelihood.place
-                    print("Current Place name \(place.name) at likelihood \(likelihood.likelihood)")
-                    print("Current Place address \(place.formattedAddress!)")
-                    print("Current Place attributions \(place.attributions)")
-                    print("Current PlaceID \(place.placeID)")
-                    print("", terminator: "\n")
+                    self.places.append(place)
+                    self.placesView.reloadData()
                 }
             }
         })
@@ -102,5 +105,31 @@ extension PlaceController: CLLocationManagerDelegate {
         mapView.addAnnotation(point)
         
         locationManager.stopUpdatingLocation()
+    }
+}
+
+extension PlaceController: UITableViewDelegate {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+}
+
+extension PlaceController: UITableViewDataSource {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return places.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("place", forIndexPath: indexPath)
+        
+        let row = indexPath.row
+        cell.textLabel?.text = places[row].name
+        cell.detailTextLabel?.text = places[row].formattedAddress
+        
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("selected")
     }
 }
