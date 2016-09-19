@@ -8,9 +8,10 @@
 
 import UIKit
 import GooglePlacePicker
-import GoogleMaps
 
 class PlaceController: UIViewController {
+    var locationManager = CLLocationManager()
+    
     @IBAction func pickPlace(sender: AnyObject) {
         let place = Place()
         
@@ -36,10 +37,47 @@ class PlaceController: UIViewController {
             }
         })
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
+        let placesClient = GMSPlacesClient()
+        /*
+         placesClient.autocompleteQuery("A", bounds: viewport, filter: nil) { (prediction, error) in
+         print(prediction)
+         }
+         
+         // */
+        
+        //*
+        placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
+            guard error == nil else {
+                print("Current Place error: \(error?.localizedDescription)")
+                return
+            }
+            
+            if let placeLikelihoods = placeLikelihoods {
+                for likelihood in placeLikelihoods.likelihoods {
+                    let place = likelihood.place
+                    print("Current Place name \(place.name) at likelihood \(likelihood.likelihood)")
+                    print("Current Place address \(place.formattedAddress)")
+                    print("Current Place attributions \(place.attributions)")
+                    print("Current PlaceID \(place.placeID)")
+                }
+            }
+        })
     }
 }
 
+extension PlaceController: CLLocationManagerDelegate {
+    
+}

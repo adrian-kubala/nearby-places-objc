@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "2A41813108E56755E51D962258391518CEF55F87",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "2A41813108E56755E51D962258391518CEF55F87" : 0,
+    "8E57E6BCCB6E0E954CBC143991AAEEF4F9288DC9" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "BFBB6C88-E265-40F0-A46B-C591D681D4F1",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "2A41813108E56755E51D962258391518CEF55F87" : "Places\/",
+    "8E57E6BCCB6E0E954CBC143991AAEEF4F9288DC9" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Places",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Places.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/adriankubala\/places.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "2A41813108E56755E51D962258391518CEF55F87"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/adriankubala\/daily-koszalin.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8E57E6BCCB6E0E954CBC143991AAEEF4F9288DC9"
+    }
+  ]
+}
