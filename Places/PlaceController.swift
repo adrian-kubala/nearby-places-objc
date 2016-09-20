@@ -192,9 +192,9 @@ extension PlaceController: UITableViewDataSource {
     }
     
     func sortPlacesByDistance() {
-        places = places.sort {
+        places.sortInPlace({
             $0.distance < $1.distance
-        }
+        })
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -203,7 +203,6 @@ extension PlaceController: UITableViewDataSource {
 }
 
 extension PlaceController: UISearchResultsUpdating, UISearchBarDelegate {
-    
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text else {
             return
