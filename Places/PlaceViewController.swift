@@ -10,13 +10,15 @@ import UIKit
 import GooglePlacePicker
 import MapKit
 
-class PlaceController: UIViewController {
+class PlaceViewController: UIViewController {
     var locationManager = CLLocationManager()
     @IBOutlet var mapView: MKMapView!
     @IBOutlet weak var placesView: UITableView!
     
     @IBOutlet weak var searchView: UIView!
     let searchController = UISearchController(searchResultsController: nil)
+    
+    let placesClient = GMSPlacesClient()
     
     var places: [Place] = []
     var filteredPlaces: [Place] = []
@@ -52,8 +54,8 @@ class PlaceController: UIViewController {
         
         setupLocationManager()
         setupTableView()
-        
         setupSearchController()
+        showNearbyPlaces()
     }
     
     func setupLocationManager() {
@@ -61,6 +63,7 @@ class PlaceController: UIViewController {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
     }
     
     func setupSearchController() {
@@ -73,10 +76,10 @@ class PlaceController: UIViewController {
     
     func setupSearchBar() {
         let searchBar = searchController.searchBar
-        searchView.addSubview(searchBar)
         searchBar.autocapitalizationType = .None
         searchBar.placeholder = "Current location"
         searchBar.delegate = self
+        searchView.addSubview(searchBar)
     }
     
     func setupTableView() {
@@ -84,15 +87,23 @@ class PlaceController: UIViewController {
         placesView.dataSource = self
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+    func setupMapView() {
+        guard let userCoordinate = locationManager.location?.coordinate else {
+            return
+        }
         
-        showNearbyPlaces()
+        let mapCamera = MKMapCamera(lookingAtCenterCoordinate: userCoordinate, fromEyeCoordinate: userCoordinate, eyeAltitude: 400.0)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = userCoordinate
+        
+        //Setup our Map View
+        mapView.mapType = MKMapType.Standard
+        mapView.addAnnotation(annotation)
+        mapView.setCamera(mapCamera, animated: true)
     }
     
     func showNearbyPlaces() {
         let placesClient = GMSPlacesClient()
-        
         placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
             guard error == nil else {
                 print("Current Place error: \(error?.localizedDescription)")
@@ -119,9 +130,15 @@ class PlaceController: UIViewController {
         })
     }
     
+    func sortPlacesByDistance() {
+        places.sortInPlace({
+            $0.distance < $1.distance
+        })
+    }
+    
     func filterContentForSearchText(searchText: String) {
         filteredPlaces = places.filter { place in
-            if searchText != "" {
+            if searchText.isEmpty == false {
                 return place.name.lowercaseString.containsString(searchText.lowercaseString)
             }
             return false
@@ -141,22 +158,24 @@ class PlaceController: UIViewController {
     }
 }
 
-extension PlaceController: CLLocationManagerDelegate {
+extension PlaceViewController: CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let userLocation = locations.last
-        guard let location = userLocation else {
+        let location = locations.last
+        guard let userLocation = location else {
             return
         }
         
-        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
         let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         let region = MKCoordinateRegion(center: center, span: span)
         
         mapView.setRegion(region, animated: true)
         
+        setupMapView()
+        
         let point = MKPointAnnotation()
         
-        point.coordinate = location.coordinate
+        point.coordinate = userLocation.coordinate
         point.title = "Current location"
         
         mapView.addAnnotation(point)
@@ -165,13 +184,13 @@ extension PlaceController: CLLocationManagerDelegate {
     }
 }
 
-extension PlaceController: UITableViewDelegate {
+extension PlaceViewController: UITableViewDelegate {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
 }
 
-extension PlaceController: UITableViewDataSource {
+extension PlaceViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchIsActive() {
             return filteredPlaces.count
@@ -191,23 +210,27 @@ extension PlaceController: UITableViewDataSource {
         return cell
     }
     
-    func sortPlacesByDistance() {
-        places.sortInPlace({
-            $0.distance < $1.distance
-        })
-    }
-    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("selected")
     }
 }
 
-extension PlaceController: UISearchResultsUpdating, UISearchBarDelegate {
+extension PlaceViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text else {
             return
         }
         
-        filterContentForSearchText(searchText)
+        let center = locationManager.location?.coordinate
+        let northEast = CLLocationCoordinate2DMake(center!.latitude + 0.001, center!.longitude + 0.001)
+        let southWest = CLLocationCoordinate2DMake(center!.latitude - 0.001, center!.longitude - 0.001)
+        let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
+//        let config = GMSPlacePickerConfig(viewport: viewport)
+//        let placePicker = GMSPlacePicker(config: config)
+        placesClient.autocompleteQuery(searchText, bounds: viewport, filter: nil) { (prediction, error) in
+            print(prediction)
+            print(error)
+        }
+//        filterContentForSearchText(searchText)
     }
 }
