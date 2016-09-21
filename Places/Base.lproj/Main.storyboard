@@ -49,7 +49,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nearby places" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n2O-Sf-GcN">
-                                <rect key="frame" x="15" y="309" width="110" height="21"/>
+                                <rect key="frame" x="15" y="309" width="179" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -75,6 +75,7 @@
                             <constraint firstAttribute="bottomMargin" secondItem="Qa8-dh-IDV" secondAttribute="bottom" id="NeA-tE-Lsb"/>
                             <constraint firstItem="wue-zY-o69" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="28" id="RRh-x4-HRg"/>
                             <constraint firstAttribute="topMargin" secondItem="c82-1Z-7SE" secondAttribute="top" id="Rk8-vZ-Zod"/>
+                            <constraint firstAttribute="trailing" secondItem="n2O-Sf-GcN" secondAttribute="trailing" constant="181" id="Rzu-Dn-Zm7"/>
                             <constraint firstItem="Qa8-dh-IDV" firstAttribute="top" secondItem="n2O-Sf-GcN" secondAttribute="bottom" constant="8" id="Yxl-qe-lgY"/>
                             <constraint firstItem="n2O-Sf-GcN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="eHR-8i-t9J"/>
                             <constraint firstAttribute="bottomMargin" secondItem="wue-zY-o69" secondAttribute="bottom" constant="366" id="kT1-Jw-0z5"/>
@@ -88,6 +89,7 @@
                             <mask key="constraints">
                                 <exclude reference="6vt-MV-Wqq"/>
                                 <exclude reference="RRh-x4-HRg"/>
+                                <exclude reference="2Ul-0Z-4cN"/>
                             </mask>
                         </variation>
                     </view>

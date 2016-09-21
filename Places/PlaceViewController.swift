@@ -18,8 +18,6 @@ class PlaceViewController: UIViewController {
     @IBOutlet weak var searchView: UIView!
     let searchController = UISearchController(searchResultsController: nil)
     
-    let placesClient = GMSPlacesClient()
-    
     var places: [Place] = []
     var filteredPlaces: [Place] = []
     
@@ -221,16 +219,24 @@ extension PlaceViewController: UISearchResultsUpdating, UISearchBarDelegate {
             return
         }
         
+        let placesClient = GMSPlacesClient()
+        
         let center = locationManager.location?.coordinate
         let northEast = CLLocationCoordinate2DMake(center!.latitude + 0.001, center!.longitude + 0.001)
         let southWest = CLLocationCoordinate2DMake(center!.latitude - 0.001, center!.longitude - 0.001)
         let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
 //        let config = GMSPlacePickerConfig(viewport: viewport)
 //        let placePicker = GMSPlacePicker(config: config)
-        placesClient.autocompleteQuery(searchText, bounds: viewport, filter: nil) { (prediction, error) in
-            print(prediction)
-            print(error)
-        }
-//        filterContentForSearchText(searchText)
+        placesClient.autocompleteQuery(searchText, bounds: viewport, filter: nil, callback: { (predictions, error) in
+            guard let predictions = predictions else {
+                return
+            }
+            
+            for prediction in predictions {
+                print(prediction.attributedPrimaryText)
+            }
+            
+        })
+        filterContentForSearchText(searchText)
     }
 }
