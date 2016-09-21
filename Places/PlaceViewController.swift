@@ -14,11 +14,8 @@ class PlaceViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var placesView: UITableView!
     @IBOutlet weak var searchView: UIView!
-    
-    @IBOutlet weak var nearbyPlacesLblHeight: NSLayoutConstraint!
+    @IBOutlet weak var nearbyPlacesLabel: UILabel!
     @IBOutlet weak var placesViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var mapViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var searchBarHeight: NSLayoutConstraint!
     
     var locationManager = CLLocationManager()
     let searchController = UISearchController(searchResultsController: nil)
@@ -224,11 +221,11 @@ extension PlaceViewController: UISearchResultsUpdating, UISearchBarDelegate {
     }
     
     func reloadTable() {
-        let frameHeight = view.frame.size.height
+        let frameHeight = view.frame.maxY
         if searchIsActive() {
-            placesViewHeight.constant = frameHeight - searchBarHeight.constant
+            placesViewHeight.constant = frameHeight - searchView.frame.maxY
         } else {
-            placesViewHeight.constant = frameHeight - mapViewHeight.constant - searchBarHeight.constant - nearbyPlacesLblHeight.constant
+            placesViewHeight.constant = frameHeight - nearbyPlacesLabel.frame.maxY
         }
         self.placesView.reloadData()
     }
