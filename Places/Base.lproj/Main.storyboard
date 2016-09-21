@@ -20,6 +20,9 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nearby places" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n2O-Sf-GcN">
                                 <rect key="frame" x="15" y="309" width="179" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="ff9-zX-UrY"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -43,6 +46,11 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="329" id="Pe5-gf-xXx"/>
                                 </constraints>
+                                <view key="tableFooterView" hidden="YES" contentMode="scaleToFill" id="RV9-W1-ZoG" userLabel="Blank View">
+                                    <rect key="frame" x="0.0" y="72" width="375" height="6"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="place" textLabel="Zpd-Xz-bEE" detailTextLabel="Vhu-ai-GkK" style="IBUITableViewCellStyleSubtitle" id="yNA-yO-VkB">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -76,6 +84,7 @@
                             <constraint firstAttribute="trailing" secondItem="n2O-Sf-GcN" secondAttribute="trailing" constant="250" id="2Ul-0Z-4cN"/>
                             <constraint firstAttribute="trailing" secondItem="c82-1Z-7SE" secondAttribute="trailing" id="4cv-MF-vCm"/>
                             <constraint firstItem="wue-zY-o69" firstAttribute="top" secondItem="c82-1Z-7SE" secondAttribute="bottom" id="6vt-MV-Wqq"/>
+                            <constraint firstItem="Qa8-dh-IDV" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="338" id="AYG-YJ-Vg5"/>
                             <constraint firstItem="wue-zY-o69" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="B1v-F3-67g"/>
                             <constraint firstItem="wue-zY-o69" firstAttribute="top" secondItem="c82-1Z-7SE" secondAttribute="bottom" id="KHy-Sl-tON"/>
                             <constraint firstAttribute="bottomMargin" secondItem="Qa8-dh-IDV" secondAttribute="bottom" id="NeA-tE-Lsb"/>
@@ -96,6 +105,7 @@
                                 <exclude reference="6vt-MV-Wqq"/>
                                 <exclude reference="RRh-x4-HRg"/>
                                 <exclude reference="2Ul-0Z-4cN"/>
+                                <exclude reference="AYG-YJ-Vg5"/>
                                 <exclude reference="Yxl-qe-lgY"/>
                             </mask>
                         </variation>
@@ -104,6 +114,7 @@
                     <connections>
                         <outlet property="mapView" destination="wue-zY-o69" id="Mgd-1k-0M5"/>
                         <outlet property="mapViewHeight" destination="HIT-Q1-RWZ" id="Joh-oq-cGQ"/>
+                        <outlet property="nearbyPlacesLblHeight" destination="ff9-zX-UrY" id="ZgD-H7-f5u"/>
                         <outlet property="placesView" destination="Qa8-dh-IDV" id="5eg-BS-Yfk"/>
                         <outlet property="placesViewHeight" destination="Pe5-gf-xXx" id="Ar1-QN-hTX"/>
                         <outlet property="searchBarHeight" destination="Iws-G1-BL7" id="6ed-cZ-waA"/>

@@ -15,6 +15,7 @@ class PlaceViewController: UIViewController {
     @IBOutlet weak var placesView: UITableView!
     @IBOutlet weak var searchView: UIView!
     
+    @IBOutlet weak var nearbyPlacesLblHeight: NSLayoutConstraint!
     @IBOutlet weak var placesViewHeight: NSLayoutConstraint!
     @IBOutlet weak var mapViewHeight: NSLayoutConstraint!
     @IBOutlet weak var searchBarHeight: NSLayoutConstraint!
@@ -24,32 +25,6 @@ class PlaceViewController: UIViewController {
     
     var places: [Place] = []
     var filteredPlaces: [Place] = []
-    
-//    @IBAction func pickPlace(sender: AnyObject) {
-//        let place = Place()
-//        
-//        let center = CLLocationCoordinate2DMake(place.latitude, place.longitude)
-//        let northEast = CLLocationCoordinate2DMake(center.latitude + 0.001, center.longitude + 0.001)
-//        let southWest = CLLocationCoordinate2DMake(center.latitude - 0.001, center.longitude - 0.001)
-//        let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
-//        let config = GMSPlacePickerConfig(viewport: viewport)
-//        let placePicker = GMSPlacePicker(config: config)
-//        
-//        placePicker.pickPlaceWithCallback({ (place: GMSPlace?, error: NSError?) -> Void in
-//            if let error = error {
-//                print("Pick Place error: \(error.localizedDescription)")
-//                return
-//            }
-//            
-//            if let place = place {
-//                print("Place name \(place.name)")
-//                print("Place address \(place.formattedAddress)")
-//                print("Place attributions \(place.attributions)")
-//            } else {
-//                print("No place selected")
-//            }
-//        })
-//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,7 +101,6 @@ class PlaceViewController: UIViewController {
         let annotation = MKPointAnnotation()
         annotation.coordinate = userCoordinate
         
-        //Setup our Map View
         mapView.mapType = MKMapType.Standard
         mapView.addAnnotation(annotation)
         mapView.setCamera(mapCamera, animated: true)
@@ -146,7 +120,8 @@ class PlaceViewController: UIViewController {
     }
     
     func searchIsActive() -> Bool {
-        return searchController.active && searchController.searchBar.text != "" ? true : false
+        let searchText = searchController.searchBar.text
+        return searchController.active && searchText?.isEmpty == false ? true : false
     }
 }
 
@@ -232,18 +207,18 @@ extension PlaceViewController: UISearchResultsUpdating, UISearchBarDelegate {
                 return
             }
             
-            var newPredictions: [Place] = []
+            var predicatedPlaces: [Place] = []
             for prediction in predictions {
                 let placeName = prediction.attributedPrimaryText.string
                 let placeSubname = prediction.attributedSecondaryText?.string
                 if let subname = placeSubname {
-                    newPredictions.append(Place(name: placeName, address: subname))
+                    predicatedPlaces.append(Place(name: placeName, address: subname))
                 } else {
-                    newPredictions.append(Place(name: placeName, address: ""))
+                    predicatedPlaces.append(Place(name: placeName, address: ""))
                 }
             }
             
-            self.filteredPlaces = newPredictions
+            self.filteredPlaces = predicatedPlaces
             self.reloadTable()
         })
     }
@@ -253,7 +228,7 @@ extension PlaceViewController: UISearchResultsUpdating, UISearchBarDelegate {
         if searchIsActive() {
             placesViewHeight.constant = frameHeight - searchBarHeight.constant
         } else {
-            placesViewHeight.constant = frameHeight - mapViewHeight.constant - searchBarHeight.constant
+            placesViewHeight.constant = frameHeight - mapViewHeight.constant - searchBarHeight.constant - nearbyPlacesLblHeight.constant
         }
         self.placesView.reloadData()
     }
