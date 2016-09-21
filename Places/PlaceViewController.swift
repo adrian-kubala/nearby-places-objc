@@ -7,16 +7,19 @@
 //
 
 import UIKit
-import GooglePlacePicker
+import GooglePlaces
 import MapKit
 
 class PlaceViewController: UIViewController {
-    var locationManager = CLLocationManager()
-    @IBOutlet var mapView: MKMapView!
+    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var placesView: UITableView!
-    
-    @IBOutlet weak var placeViewheight: NSLayoutConstraint!
     @IBOutlet weak var searchView: UIView!
+    
+    @IBOutlet weak var placesViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var mapViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var searchBarHeight: NSLayoutConstraint!
+    
+    var locationManager = CLLocationManager()
     let searchController = UISearchController(searchResultsController: nil)
     
     var places: [Place] = []
@@ -241,7 +244,17 @@ extension PlaceViewController: UISearchResultsUpdating, UISearchBarDelegate {
             }
             
             self.filteredPlaces = newPredictions
-            self.placesView.reloadData()
+            self.reloadTable()
         })
+    }
+    
+    func reloadTable() {
+        let frameHeight = view.frame.size.height
+        if searchIsActive() {
+            placesViewHeight.constant = frameHeight - searchBarHeight.constant
+        } else {
+            placesViewHeight.constant = frameHeight - mapViewHeight.constant - searchBarHeight.constant
+        }
+        self.placesView.reloadData()
     }
 }
