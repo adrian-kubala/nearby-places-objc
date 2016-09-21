@@ -14,6 +14,11 @@ class Place {
     var address: String = ""
     var distance: Int = 0
     
+    init(name: String, address: String) {
+        self.name = name
+        self.address = address
+    }
+    
     init(gmsPlace: GMSPlace, userLocation: CLLocationCoordinate2D) {
         name = gmsPlace.name
         if let formattedAddress = gmsPlace.formattedAddress {

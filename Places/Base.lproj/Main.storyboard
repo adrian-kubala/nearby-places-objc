@@ -21,6 +21,9 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Qa8-dh-IDV">
                                 <rect key="frame" x="0.0" y="338" width="375" height="329"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="329" id="Pe5-gf-xXx"/>
+                                </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="place" textLabel="Zpd-Xz-bEE" detailTextLabel="Vhu-ai-GkK" style="IBUITableViewCellStyleSubtitle" id="yNA-yO-VkB">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -90,12 +93,14 @@
                                 <exclude reference="6vt-MV-Wqq"/>
                                 <exclude reference="RRh-x4-HRg"/>
                                 <exclude reference="2Ul-0Z-4cN"/>
+                                <exclude reference="Yxl-qe-lgY"/>
                             </mask>
                         </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="mapView" destination="wue-zY-o69" id="Mgd-1k-0M5"/>
+                        <outlet property="placeViewheight" destination="Pe5-gf-xXx" id="hH9-ut-ao4"/>
                         <outlet property="placesView" destination="Qa8-dh-IDV" id="2kn-P2-Sc7"/>
                         <outlet property="searchDisplayController" destination="YuF-Zb-Ejd" id="VOm-zv-o6R"/>
                         <outlet property="searchView" destination="c82-1Z-7SE" id="SVm-Jb-71f"/>
