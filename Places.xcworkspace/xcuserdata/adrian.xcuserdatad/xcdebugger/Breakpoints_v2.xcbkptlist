@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Places/PlacesViewController.swift"
-            timestampString = "496321560.461453"
+            timestampString = "496323012.300772"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
-            landmarkName = "reloadTable()"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
+            landmarkName = "resizeTable()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

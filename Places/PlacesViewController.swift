@@ -23,7 +23,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        reloadTable()
+        resizeTable()
         setupLocationManager()
         setupTableView()
         setupSearchBar()
@@ -137,7 +137,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
             
             self.typedPlaces = predicatedPlaces
         })
-        reloadTable()
+        resizeTable()
     }
     
     func showNearbyPlaces() {
@@ -168,14 +168,21 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         })
     }
     
-    func reloadTable() {
+    func resizeTable() {
         let frameHeight = view.frame.maxY
         if searchIsActive() {
             placesViewHeight.constant = frameHeight - searchBar.frame.maxY
         } else {
             placesViewHeight.constant = frameHeight - nearbyPlacesLabel.frame.maxY
         }
-        placesView.reloadData()
+        
+        animateTableResizing()
+    }
+    
+    func animateTableResizing() {
+        UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
+            self.placesView.layoutIfNeeded()
+            }, completion: nil)
     }
     
     func setupMapView() {
