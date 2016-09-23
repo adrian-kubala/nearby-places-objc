@@ -1,6 +1,5 @@
 //
 //  PlacesViewController.swift
-//  Places
 //
 //  Created by Adrian on 23.09.2016.
 //  Copyright © 2016 Adrian Kubała. All rights reserved.
@@ -18,8 +17,8 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     @IBOutlet weak var placesViewHeight: NSLayoutConstraint!
     
     var locationManager = CLLocationManager()
-    var places: [Place] = []
-    var filteredPlaces: [Place] = []
+    var nearbyPlaces: [Place] = []
+    var typedPlaces: [Place] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +38,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         locationManager.startUpdatingLocation()
     }
     
+// MARK: - CLLocationManagerDelegate
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations.last
         guard let userLocation = location else {
@@ -68,11 +68,12 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         placesView.dataSource = self
     }
     
+// MARK: - UITableViewDataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchIsActive() {
-            return filteredPlaces.count
+            return typedPlaces.count
         }
-        return places.count
+        return nearbyPlaces.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -88,7 +89,6 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
             cell.detailTextLabel?.text = data.address
         }
         
-        
         return cell
     }
     
@@ -102,6 +102,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         searchBar.delegate = self
     }
     
+// MARK: - UISearchBarDelegate
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: #selector(PlacesViewController.makeRequestForPlaces), userInfo: nil, repeats: true)
     }
@@ -117,10 +118,8 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         let center = locationManager.location?.coordinate
         let northEast = CLLocationCoordinate2DMake(center!.latitude + 0.001, center!.longitude + 0.001)
         let southWest = CLLocationCoordinate2DMake(center!.latitude - 0.001, center!.longitude - 0.001)
-        let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
-        //        let config = GMSPlacePickerConfig(viewport: viewport)
-        //        let placePicker = GMSPlacePicker(config: config)
-        placesClient.autocompleteQuery(searchText, bounds: viewport, filter: filter, callback: { (predictions, error) -> Void in
+        let bounds = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
+        placesClient.autocompleteQuery(searchText, bounds: bounds, filter: filter, callback: { (predictions, error) -> Void in
             guard let predictions = predictions else {
                 return
             }
@@ -136,9 +135,9 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
                 }
             }
             
-            self.filteredPlaces = predicatedPlaces
-            self.reloadTable()
+            self.typedPlaces = predicatedPlaces
         })
+        reloadTable()
     }
     
     func showNearbyPlaces() {
@@ -162,7 +161,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
                 
                 let place = Place(gmsPlace: gmsPlace, userLocation: userLocation)
                 
-                self.places.append(place)
+                self.nearbyPlaces.append(place)
                 self.sortPlacesByDistance()
                 self.placesView.reloadData()
             }
@@ -194,16 +193,16 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     }
     
     func sortPlacesByDistance() {
-        places.sortInPlace({
+        nearbyPlaces.sortInPlace({
             $0.distance < $1.distance
         })
     }
     
     func chooseData(row: Int) -> Place {
         if searchIsActive(){
-            return filteredPlaces[row]
+            return typedPlaces[row]
         }
-        return places[row]
+        return nearbyPlaces[row]
     }
     
     func searchIsActive() -> Bool {
