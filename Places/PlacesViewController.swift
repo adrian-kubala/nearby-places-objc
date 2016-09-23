@@ -11,9 +11,9 @@ import GooglePlaces
 import MapKit
 
 class PlacesViewController: UIViewController {
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var placesView: UITableView!
-    @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var nearbyPlacesLabel: UILabel!
     @IBOutlet weak var placesViewHeight: NSLayoutConstraint!
     
@@ -25,10 +25,10 @@ class PlacesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        reloadTable()
         setupLocationManager()
         setupTableView()
-        setupSearchController()
+        setupSearchBar()
         showNearbyPlaces()
     }
     
@@ -45,20 +45,10 @@ class PlacesViewController: UIViewController {
         placesView.dataSource = self
     }
     
-    func setupSearchController() {
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
-        definesPresentationContext = true
-        
-        setupSearchBar()
-    }
-    
     func setupSearchBar() {
-        let searchBar = searchController.searchBar
         searchBar.autocapitalizationType = .None
         searchBar.placeholder = "Current location"
         searchBar.delegate = self
-        searchView.addSubview(searchBar)
     }
     
     func showNearbyPlaces() {
@@ -223,7 +213,7 @@ extension PlacesViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func reloadTable() {
         let frameHeight = view.frame.maxY
         if searchIsActive() {
-            placesViewHeight.constant = frameHeight - searchView.frame.maxY
+            placesViewHeight.constant = frameHeight - searchBar.frame.maxY
         } else {
             placesViewHeight.constant = frameHeight - nearbyPlacesLabel.frame.maxY
         }
