@@ -1,8 +1,8 @@
 //
-//  ViewController.swift
+//  PlacesViewController.swift
 //  Places
 //
-//  Created by Adrian on 15.09.2016.
+//  Created by Adrian on 23.09.2016.
 //  Copyright © 2016 Adrian Kubała. All rights reserved.
 //
 
@@ -11,37 +11,54 @@ import GooglePlaces
 import MapKit
 
 class PlacesViewController: UIViewController {
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var nearbyPlacesLabel: UILabel!
     @IBOutlet weak var placesView: UITableView!
+    @IBOutlet weak var searchView: UIView!
+    @IBOutlet weak var nearbyPlacesLabel: UILabel!
     @IBOutlet weak var placesViewHeight: NSLayoutConstraint!
     
-    let locationManager = CLLocationManager()
+    var locationManager = CLLocationManager()
+    let searchController = UISearchController(searchResultsController: nil)
     
     var places: [Place] = []
-    var searchedPlaces: [Place] = []
+    var filteredPlaces: [Place] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupLocationManager()
+        setupTableView()
+        setupSearchController()
         showNearbyPlaces()
     }
     
-    func searchIsActive() -> Bool {
-        return searchBar.text?.isEmpty == false ? true : false
-    }
-    
     func setupLocationManager() {
+        locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
     }
     
+    func setupTableView() {
+        placesView.delegate = self
+        placesView.dataSource = self
+    }
+    
+    func setupSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        
+        setupSearchBar()
+    }
+    
     func setupSearchBar() {
+        let searchBar = searchController.searchBar
+        searchBar.autocapitalizationType = .None
+        searchBar.placeholder = "Current location"
         searchBar.delegate = self
+        searchView.addSubview(searchBar)
     }
     
     func showNearbyPlaces() {
@@ -64,36 +81,12 @@ class PlacesViewController: UIViewController {
                 }
                 
                 let place = Place(gmsPlace: gmsPlace, userLocation: userLocation)
+                
                 self.places.append(place)
+                self.sortPlacesByDistance()
+                self.placesView.reloadData()
             }
         })
-        sortPlacesByDistance()
-        reloadTableinMainThreadAsync()
-    }
-    
-    func sortPlacesByDistance() {
-        places.sortInPlace({
-            $0.distance < $1.distance
-        })
-    }
-    
-    func reloadTableinMainThreadAsync() {
-        self.placesView.reloadData()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        updateTableViewContraints()
-    }
-    
-    func updateTableViewContraints() {
-        let frameHeight = view.frame.maxY
-        if searchIsActive() {
-            placesViewHeight.constant = frameHeight - searchBar.frame.maxY
-        } else {
-            placesViewHeight.constant = frameHeight - nearbyPlacesLabel.frame.maxY
-        }
     }
     
     func setupMapView() {
@@ -110,17 +103,23 @@ class PlacesViewController: UIViewController {
         mapView.setCamera(mapCamera, animated: true)
     }
     
+    func sortPlacesByDistance() {
+        places.sortInPlace({
+            $0.distance < $1.distance
+        })
+    }
+    
     func chooseData(row: Int) -> Place {
-        if searchIsActive() {
-            return searchedPlaces[row]
+        if searchIsActive(){
+            return filteredPlaces[row]
         }
         return places[row]
     }
     
-    @IBAction func reloadTable(sender: AnyObject) {
-        reloadTableinMainThreadAsync()
+    func searchIsActive() -> Bool {
+        let searchText = searchController.searchBar.text
+        return searchController.active && searchText?.isEmpty == false ? true : false
     }
-    
 }
 
 extension PlacesViewController: CLLocationManagerDelegate {
@@ -144,6 +143,7 @@ extension PlacesViewController: CLLocationManagerDelegate {
         point.title = "Current location"
         
         mapView.addAnnotation(point)
+        
         locationManager.stopUpdatingLocation()
     }
 }
@@ -157,13 +157,13 @@ extension PlacesViewController: UITableViewDelegate {
 extension PlacesViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchIsActive() {
-            return searchedPlaces.count
+            return filteredPlaces.count
         }
         return places.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("placesView", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("place", forIndexPath: indexPath)
         
         let row = indexPath.row
         let data = chooseData(row)
@@ -174,12 +174,22 @@ extension PlacesViewController: UITableViewDataSource {
         } else {
             cell.detailTextLabel?.text = data.address
         }
+        
+        
         return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("selected")
     }
 }
 
-extension PlacesViewController: UISearchBarDelegate {
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+extension PlacesViewController: UISearchResultsUpdating, UISearchBarDelegate {
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text else {
+            return
+        }
+        
         let placesClient = GMSPlacesClient()
         let filter = GMSAutocompleteFilter()
         filter.country = "PL"
@@ -205,8 +215,18 @@ extension PlacesViewController: UISearchBarDelegate {
                 }
             }
             
-            self.searchedPlaces = predicatedPlaces
-            self.updateTableViewContraints()
+            self.filteredPlaces = predicatedPlaces
+            self.reloadTable()
         })
+    }
+    
+    func reloadTable() {
+        let frameHeight = view.frame.maxY
+        if searchIsActive() {
+            placesViewHeight.constant = frameHeight - searchView.frame.maxY
+        } else {
+            placesViewHeight.constant = frameHeight - nearbyPlacesLabel.frame.maxY
+        }
+        self.placesView.reloadData()
     }
 }
