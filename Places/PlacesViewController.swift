@@ -18,14 +18,11 @@ class PlacesViewController: UIViewController {
     @IBOutlet weak var placesViewHeight: NSLayoutConstraint!
     
     var locationManager = CLLocationManager()
-    let searchController = UISearchController(searchResultsController: nil)
-    
     var places: [Place] = []
     var filteredPlaces: [Place] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        reloadTable()
         setupLocationManager()
         setupTableView()
         setupSearchBar()
@@ -79,6 +76,12 @@ class PlacesViewController: UIViewController {
         })
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        reloadTable()
+    }
+    
     func setupMapView() {
         guard let userCoordinate = locationManager.location?.coordinate else {
             return
@@ -107,8 +110,7 @@ class PlacesViewController: UIViewController {
     }
     
     func searchIsActive() -> Bool {
-        let searchText = searchController.searchBar.text
-        return searchController.active && searchText?.isEmpty == false ? true : false
+        return searchBar.text?.isEmpty == false ? true : false
     }
 }
 
@@ -174,12 +176,8 @@ extension PlacesViewController: UITableViewDataSource {
     }
 }
 
-extension PlacesViewController: UISearchResultsUpdating, UISearchBarDelegate {
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-        guard let searchText = searchController.searchBar.text else {
-            return
-        }
-        
+extension PlacesViewController: UISearchBarDelegate {
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         let placesClient = GMSPlacesClient()
         let filter = GMSAutocompleteFilter()
         filter.country = "PL"
@@ -217,6 +215,6 @@ extension PlacesViewController: UISearchResultsUpdating, UISearchBarDelegate {
         } else {
             placesViewHeight.constant = frameHeight - nearbyPlacesLabel.frame.maxY
         }
-        self.placesView.reloadData()
+        placesView.reloadData()
     }
 }
