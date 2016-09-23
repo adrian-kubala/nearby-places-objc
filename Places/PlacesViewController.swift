@@ -82,6 +82,16 @@ class PlacesViewController: UIViewController {
         reloadTable()
     }
     
+    func reloadTable() {
+        let frameHeight = view.frame.maxY
+        if searchIsActive() {
+            placesViewHeight.constant = frameHeight - searchBar.frame.maxY
+        } else {
+            placesViewHeight.constant = frameHeight - nearbyPlacesLabel.frame.maxY
+        }
+        placesView.reloadData()
+    }
+    
     func setupMapView() {
         guard let userCoordinate = locationManager.location?.coordinate else {
             return
@@ -178,6 +188,14 @@ extension PlacesViewController: UITableViewDataSource {
 
 extension PlacesViewController: UISearchBarDelegate {
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: #selector(PlacesViewController.makeRequestForPlaces), userInfo: nil, repeats: true)
+    }
+    
+    func makeRequestForPlaces() {
+        guard let searchText = searchBar.text else {
+            return
+        }
+        
         let placesClient = GMSPlacesClient()
         let filter = GMSAutocompleteFilter()
         filter.country = "PL"
@@ -206,15 +224,5 @@ extension PlacesViewController: UISearchBarDelegate {
             self.filteredPlaces = predicatedPlaces
             self.reloadTable()
         })
-    }
-    
-    func reloadTable() {
-        let frameHeight = view.frame.maxY
-        if searchIsActive() {
-            placesViewHeight.constant = frameHeight - searchBar.frame.maxY
-        } else {
-            placesViewHeight.constant = frameHeight - nearbyPlacesLabel.frame.maxY
-        }
-        placesView.reloadData()
     }
 }

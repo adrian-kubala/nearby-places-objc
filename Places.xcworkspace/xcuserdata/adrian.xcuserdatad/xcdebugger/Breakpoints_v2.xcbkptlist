@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Places/PlacesViewController.swift"
-            timestampString = "496312469.446797"
+            timestampString = "496317000.282678"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
-            landmarkName = "reloadTable()"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
+            landmarkName = "searchBar(_:textDidChange:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
