@@ -17,17 +17,23 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     @IBOutlet weak var placesViewHeight: NSLayoutConstraint!
     
     var locationManager = CLLocationManager()
+    var placesClient = GMSPlacesClient()
     var nearbyPlaces: [Place] = []
     var typedPlaces: [Place] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupPlacesClient()
         resizeTable()
         setupLocationManager()
         setupTableView()
         setupSearchBar()
         showNearbyPlaces()
+    }
+    
+    func setupPlacesClient() {
+        placesClient = GMSPlacesClient.sharedClient()
     }
     
     func setupLocationManager() {
@@ -104,7 +110,8 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     
 // MARK: - UISearchBarDelegate
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: #selector(PlacesViewController.makeRequestForPlaces), userInfo: nil, repeats: true)
+        NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: #selector(PlacesViewController.makeRequestForPlaces), userInfo: nil, repeats: true)
+        resizeTable()
     }
     
     func makeRequestForPlaces() {
@@ -112,7 +119,6 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
             return
         }
         
-        let placesClient = GMSPlacesClient()
         let filter = GMSAutocompleteFilter()
         filter.country = "PL"
         let center = locationManager.location?.coordinate
@@ -137,11 +143,9 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
             
             self.typedPlaces = predicatedPlaces
         })
-        resizeTable()
     }
     
     func showNearbyPlaces() {
-        let placesClient = GMSPlacesClient()
         placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
             guard error == nil else {
                 print("Current Place error: \(error?.localizedDescription)")
@@ -175,12 +179,12 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         } else {
             placesViewHeight.constant = frameHeight - nearbyPlacesLabel.frame.maxY
         }
-        
+        placesView.reloadData()
         animateTableResizing()
     }
     
     func animateTableResizing() {
-        UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
+        UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
             self.placesView.layoutIfNeeded()
             }, completion: nil)
     }
@@ -206,7 +210,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     }
     
     func chooseData(row: Int) -> Place {
-        if searchIsActive(){
+        if searchIsActive() {
             return typedPlaces[row]
         }
         return nearbyPlaces[row]
