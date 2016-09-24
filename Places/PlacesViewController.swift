@@ -51,22 +51,16 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
             return
         }
         
-        let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        setupMapRegion(userLocation)
+        locationManager.stopUpdatingLocation()
+    }
+    
+    func setupMapRegion(location: CLLocation) {
+        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        let span = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
         let region = MKCoordinateRegion(center: center, span: span)
         
         mapView.setRegion(region, animated: true)
-        
-        setupMapView()
-        
-        let point = MKPointAnnotation()
-        
-        point.coordinate = userLocation.coordinate
-        point.title = "Current location"
-        
-        mapView.addAnnotation(point)
-        
-        locationManager.stopUpdatingLocation()
     }
     
     func setupTableView() {
@@ -121,9 +115,12 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         
         let filter = GMSAutocompleteFilter()
         filter.country = "PL"
-        let center = locationManager.location?.coordinate
-        let northEast = CLLocationCoordinate2DMake(center!.latitude + 0.001, center!.longitude + 0.001)
-        let southWest = CLLocationCoordinate2DMake(center!.latitude - 0.001, center!.longitude - 0.001)
+        guard let center = locationManager.location?.coordinate else {
+            return
+        }
+        
+        let northEast = CLLocationCoordinate2DMake(center.latitude + 0.001, center.longitude + 0.001)
+        let southWest = CLLocationCoordinate2DMake(center.latitude - 0.001, center.longitude - 0.001)
         let bounds = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
         placesClient.autocompleteQuery(searchText, bounds: bounds, filter: filter, callback: { (predictions, error) -> Void in
             guard let predictions = predictions else {
@@ -187,20 +184,6 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
             self.placesView.layoutIfNeeded()
             }, completion: nil)
-    }
-    
-    func setupMapView() {
-        guard let userCoordinate = locationManager.location?.coordinate else {
-            return
-        }
-        
-        let mapCamera = MKMapCamera(lookingAtCenterCoordinate: userCoordinate, fromEyeCoordinate: userCoordinate, eyeAltitude: 400.0)
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = userCoordinate
-        
-        mapView.mapType = MKMapType.Standard
-        mapView.addAnnotation(annotation)
-        mapView.setCamera(mapCamera, animated: true)
     }
     
     func sortPlacesByDistance() {
