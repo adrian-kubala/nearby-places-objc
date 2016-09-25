@@ -70,7 +70,7 @@
                                     <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="place" textLabel="Zpd-Xz-bEE" detailTextLabel="Vhu-ai-GkK" style="IBUITableViewCellStyleSubtitle" id="yNA-yO-VkB">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="place" textLabel="Zpd-Xz-bEE" detailTextLabel="Vhu-ai-GkK" style="IBUITableViewCellStyleSubtitle" id="yNA-yO-VkB" customClass="PlaceView" customModule="Places" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yNA-yO-VkB" id="u2L-8l-fkg">
@@ -93,6 +93,10 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="address" destination="Vhu-ai-GkK" id="ug1-fb-VFu"/>
+                                            <outlet property="name" destination="Zpd-Xz-bEE" id="Mfz-hx-h6e"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

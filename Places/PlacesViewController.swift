@@ -25,7 +25,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         super.viewDidLoad()
         
         setupPlacesClient()
-        resizeTable()
+//        resizeTable()
         setupLocationManager()
         setupTableView()
         setupSearchBar()
@@ -77,14 +77,16 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("place", forIndexPath: indexPath)
+        guard let cell = tableView.dequeueReusableCellWithIdentifier("place") as? PlaceView else {
+            return UITableViewCell()
+        }
         
         let row = indexPath.row
         let data = chooseData(row)
         
-        cell.textLabel?.text = data.name
+        cell.name.text = data.name
         if data.distance > 0 {
-            cell.detailTextLabel?.text = String(data.distance) + " m" + " | " + data.address
+            cell.address.text = String(data.distance) + " m" + " | " + data.address
         } else {
             cell.detailTextLabel?.text = data.address
         }
@@ -93,11 +95,25 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("selected")
+        guard let coordinate = chooseData(indexPath.row).coordinate else {
+            return
+        }
+        
+        removeAnnotationsIfNeeded()
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        mapView.addAnnotation(annotation)
+    }
+    
+    func removeAnnotationsIfNeeded() {
+        if mapView.annotations.count > 0 {
+            mapView.removeAnnotations(mapView.annotations)
+        }
     }
     
     @IBAction func sendImageFromMapView(sender: AnyObject) {
-        performSegueWithIdentifier("showChatVC", sender: sender)
+        performSegueWithIdentifier("showChatVC", sender: nil)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -195,6 +211,12 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
                 self.placesView.reloadData()
             }
         })
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        resizeTable()
     }
     
     func resizeTable() {

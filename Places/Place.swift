@@ -13,6 +13,7 @@ class Place {
     var name: String = ""
     var address: String = ""
     var distance: Int = 0
+    var coordinate: CLLocationCoordinate2D?
     
     init(name: String, address: String) {
         self.name = name
@@ -25,6 +26,7 @@ class Place {
             address = formattedAddress
         }
         distance = getDistance(gmsPlace.coordinate, from: userLocation)
+        coordinate = gmsPlace.coordinate
     }
     
     func getDistance(place: CLLocationCoordinate2D, from otherPlace: CLLocationCoordinate2D) -> Int {
