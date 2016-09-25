@@ -96,6 +96,34 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         print("selected")
     }
     
+    @IBAction func sendImageFromMapView(sender: AnyObject) {
+        performSegueWithIdentifier("showChatVC", sender: sender)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        guard let destinationVC = segue.destinationViewController as? ChatViewController where segue.identifier == "showChatVC" else {
+            return
+        }
+        
+        guard let mapViewImage = getImageFromView(mapView) else {
+            return
+        }
+        
+        destinationVC.image = mapViewImage
+    }
+    
+    func getImageFromView(view: UIView) -> UIImage? {
+        UIGraphicsBeginImageContext(view.bounds.size)
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return nil
+        }
+        
+        view.layer.renderInContext(context)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+    
     func setupSearchBar() {
         searchBar.autocapitalizationType = .None
         searchBar.placeholder = "Current location"

@@ -54,6 +54,9 @@
                                         <exclude reference="c3J-J2-wl5"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="sendImageFromMapView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iU5-1h-l1G"/>
+                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Qa8-dh-IDV">
                                 <rect key="frame" x="0.0" y="415" width="375" height="252"/>
@@ -139,6 +142,7 @@
                         <outlet property="placesViewHeight" destination="IfV-1K-hZT" id="AZa-Tg-oF0"/>
                         <outlet property="searchBar" destination="Oou-t2-KuA" id="cny-DT-oVw"/>
                         <outlet property="searchDisplayController" destination="YuF-Zb-Ejd" id="VOm-zv-o6R"/>
+                        <segue destination="x5Q-fJ-pGt" kind="show" identifier="showChatVC" id="fM5-Ua-KdW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -152,6 +156,40 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1116.5" y="348.5"/>
+        </scene>
+        <!--Chat View Controller-->
+        <scene sceneID="LbR-6e-P52">
+            <objects>
+                <viewController id="x5Q-fJ-pGt" customClass="ChatViewController" customModule="Places" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5LR-Ga-fgs"/>
+                        <viewControllerLayoutGuide type="bottom" id="mWW-vc-AFo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5yc-VA-TJI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tVe-a6-bUk">
+                                <rect key="frame" x="27" y="249" width="320" height="170"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="tVe-a6-bUk" firstAttribute="centerY" secondItem="5yc-VA-TJI" secondAttribute="centerY" id="Bbh-dK-M6p"/>
+                            <constraint firstAttribute="trailing" secondItem="tVe-a6-bUk" secondAttribute="trailing" constant="28" id="SPT-IP-brP"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="tVe-a6-bUk" secondAttribute="bottom" constant="248" id="SQJ-dM-WpH"/>
+                            <constraint firstItem="tVe-a6-bUk" firstAttribute="leading" secondItem="5yc-VA-TJI" secondAttribute="leading" constant="27" id="ZMp-km-MBC"/>
+                            <constraint firstItem="tVe-a6-bUk" firstAttribute="centerX" secondItem="5yc-VA-TJI" secondAttribute="centerX" id="Zte-lg-CGW"/>
+                            <constraint firstItem="tVe-a6-bUk" firstAttribute="top" secondItem="5LR-Ga-fgs" secondAttribute="bottom" constant="185" id="icY-9b-EPD"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapViewImage" destination="tVe-a6-bUk" id="zaS-cv-XLi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hZp-IL-vch" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1662.5" y="348.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="n15-wd-T75">
