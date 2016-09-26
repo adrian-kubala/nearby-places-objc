@@ -32,7 +32,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         setupTableView()
         setupSearchBar()
     }
-    
+
     func setupMapView() {
         mapView.delegate = self
     }
@@ -83,8 +83,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         let span = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
         let region = MKCoordinateRegion(center: center, span: span)
         
-        mapView.setRegion(region, animated: true)
-
+        mapView.setRegion(region, animated: false)
     }
     
     func setupGeocoder(location: CLLocation) {
@@ -235,13 +234,13 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
                 self.setupPlaceByID(placeID, at: userLocation)
             }
         })
-        placesView.reloadData()
     }
     
     func setupPlaceByID(placeID: String, at location: CLLocationCoordinate2D) {
         placesClient.lookUpPlaceID(placeID, callback: {(place, error) -> Void in
             if let predictedPlace = place {
                 self.typedPlaces.append(Place(gmsPlace: predictedPlace, userLocation: location))
+                self.placesView.reloadData()
             }
         })
     }

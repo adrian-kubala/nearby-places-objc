@@ -174,17 +174,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tVe-a6-bUk">
-                                <rect key="frame" x="27" y="249" width="320" height="170"/>
+                                <rect key="frame" x="65" y="453" width="290" height="170"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="tVe-a6-bUk" firstAttribute="centerY" secondItem="5yc-VA-TJI" secondAttribute="centerY" id="Bbh-dK-M6p"/>
-                            <constraint firstAttribute="trailing" secondItem="tVe-a6-bUk" secondAttribute="trailing" constant="28" id="SPT-IP-brP"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="tVe-a6-bUk" secondAttribute="bottom" constant="248" id="SQJ-dM-WpH"/>
-                            <constraint firstItem="tVe-a6-bUk" firstAttribute="leading" secondItem="5yc-VA-TJI" secondAttribute="leading" constant="27" id="ZMp-km-MBC"/>
-                            <constraint firstItem="tVe-a6-bUk" firstAttribute="centerX" secondItem="5yc-VA-TJI" secondAttribute="centerX" id="Zte-lg-CGW"/>
-                            <constraint firstItem="tVe-a6-bUk" firstAttribute="top" secondItem="5LR-Ga-fgs" secondAttribute="bottom" constant="185" id="icY-9b-EPD"/>
+                            <constraint firstItem="tVe-a6-bUk" firstAttribute="leading" secondItem="5yc-VA-TJI" secondAttribute="leadingMargin" constant="49" id="9cL-tU-LH0"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="tVe-a6-bUk" secondAttribute="trailing" constant="4" id="C7p-HG-Dcx"/>
+                            <constraint firstItem="tVe-a6-bUk" firstAttribute="top" secondItem="5LR-Ga-fgs" secondAttribute="bottom" constant="389" id="aWY-52-u6C"/>
+                            <constraint firstItem="mWW-vc-AFo" firstAttribute="top" secondItem="tVe-a6-bUk" secondAttribute="bottom" constant="44" id="xxn-g6-Ga2"/>
                         </constraints>
                     </view>
                     <connections>
