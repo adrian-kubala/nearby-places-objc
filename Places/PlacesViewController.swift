@@ -9,7 +9,7 @@ import UIKit
 import GooglePlaces
 import MapKit
 
-class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MKMapViewDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var placesView: UITableView!
@@ -24,11 +24,11 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mapView.delegate = self
         setupPlacesClient()
         setupLocationManager()
         setupTableView()
         setupSearchBar()
-        showNearbyPlaces()
     }
     
     func setupPlacesClient() {
@@ -45,21 +45,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     
 // MARK: - CLLocationManagerDelegate
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location = locations.last
-        guard let userLocation = location else {
-            return
-        }
-        
-        setupMapRegion(userLocation)
         locationManager.stopUpdatingLocation()
-    }
-    
-    func setupMapRegion(location: CLLocation) {
-        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        let span = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
-        let region = MKCoordinateRegion(center: center, span: span)
-        
-        mapView.setRegion(region, animated: true)
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
@@ -74,6 +60,20 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         locationManager.stopUpdatingLocation()
         print(error)
+    }
+    
+// MARK: - MKMapViewDelegate
+    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+        setupMapRegion(userLocation)
+        showNearbyPlaces()
+    }
+    
+    func setupMapRegion(location: MKUserLocation) {
+        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        let span = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
+        let region = MKCoordinateRegion(center: center, span: span)
+        
+        mapView.setRegion(region, animated: true)
     }
     
     func setupTableView() {
@@ -210,6 +210,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
                 return
             }
             
+            self.nearbyPlaces = []
             for likelihood in placeLikelihoods.likelihoods {
                 let gmsPlace = likelihood.place
                 
