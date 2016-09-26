@@ -24,11 +24,15 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapView.delegate = self
-        setupPlacesClient()
+        setupMapView()
         setupLocationManager()
+        setupPlacesClient()
         setupTableView()
         setupSearchBar()
+    }
+    
+    func setupMapView() {
+        mapView.delegate = self
     }
     
     func setupPlacesClient() {
@@ -134,16 +138,19 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         }
         
         removeAnnotationsIfNeeded()
-        
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate
-        mapView.addAnnotation(annotation)
+        setupAnnotationWithCoordinate(coordinate)
     }
     
     func removeAnnotationsIfNeeded() {
         if mapView.annotations.count > 0 {
             mapView.removeAnnotations(mapView.annotations)
         }
+    }
+    
+    func setupAnnotationWithCoordinate(coordinate: CLLocationCoordinate2D) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        mapView.addAnnotation(annotation)
     }
     
     @IBAction func sendImageFromMapView(sender: AnyObject) {
@@ -187,65 +194,83 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     }
     
     func makeRequestForPlaces() {
-        guard let searchText = searchBar.text else {
+        guard let searchText = searchBar.text, userLocation = locationManager.location?.coordinate else {
             return
         }
         
-        let filter = GMSAutocompleteFilter()
-        filter.country = "PL"
-        guard let center = locationManager.location?.coordinate else {
-            return
-        }
-        
-        let northEast = CLLocationCoordinate2DMake(center.latitude + 0.001, center.longitude + 0.001)
-        let southWest = CLLocationCoordinate2DMake(center.latitude - 0.001, center.longitude - 0.001)
-        let bounds = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
+        let bounds = setupQueryBounds(userLocation)
+        let filter = setupAutocompleteFilter()
         placesClient.autocompleteQuery(searchText, bounds: bounds, filter: filter, callback: { (predictions, error) -> Void in
-            guard let predictions = predictions else {
+            guard let predictions = predictions where error == nil else {
+                print("Autocomplete error: \(error?.localizedDescription)")
                 return
             }
             
-            var predicatedPlaces: [Place] = []
+            self.typedPlaces = []
             for prediction in predictions {
-                let placeName = prediction.attributedPrimaryText.string
-                let placeSubname = prediction.attributedSecondaryText?.string
-                if let subname = placeSubname {
-                    predicatedPlaces.append(Place(name: placeName, address: subname))
-                } else {
-                    predicatedPlaces.append(Place(name: placeName, address: ""))
+                guard let placeID = prediction.placeID else {
+                    continue
                 }
+                
+                self.setupPlaceByID(placeID, at: userLocation)
+//                let placeName = prediction.attributedPrimaryText.string
+//                let placeSubname = prediction.attributedSecondaryText?.string
+//                if let subname = placeSubname {
+//                    predicatedPlaces.append(Place(name: placeName, address: subname))
+//                } else {
+//                    predicatedPlaces.append(Place(name: placeName, address: ""))
+//                }
             }
-            
-            self.typedPlaces = predicatedPlaces
         })
+    }
+    
+    func setupPlaceByID(placeID: String, at location: CLLocationCoordinate2D) {
+        placesClient.lookUpPlaceID(placeID, callback: {(place, error) -> Void in
+            if let predictedPlace = place {
+                self.typedPlaces.append(Place(gmsPlace: predictedPlace, userLocation: location))
+            }
+        })
+    }
+    
+    func setupQueryBounds(location: CLLocationCoordinate2D) -> GMSCoordinateBounds {
+        let northEast = CLLocationCoordinate2DMake(location.latitude + 0.001, location.longitude + 0.001)
+        let southWest = CLLocationCoordinate2DMake(location.latitude - 0.001, location.longitude - 0.001)
+        return GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
+    }
+    
+    func setupAutocompleteFilter() -> GMSAutocompleteFilter {
+        let filter = GMSAutocompleteFilter()
+        filter.country = "PL"
+        return filter
     }
     
     func showNearbyPlaces() {
         placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
-            guard error == nil else {
-                print("Current Place error: \(error?.localizedDescription)")
-                return
-            }
-            
-            guard let placeLikelihoods = placeLikelihoods else {
+            guard let placeLikelihoods = placeLikelihoods where error == nil else {
+                print("Nearby places error: \(error?.localizedDescription)")
                 return
             }
             
             self.nearbyPlaces = []
             for likelihood in placeLikelihoods.likelihoods {
-                let gmsPlace = likelihood.place
-                
                 guard let userLocation = self.locationManager.location?.coordinate else {
                     continue
                 }
                 
-                let place = Place(gmsPlace: gmsPlace, userLocation: userLocation)
-                
-                self.nearbyPlaces.append(place)
-                self.sortPlacesByDistance()
-                self.placesView.reloadData()
+                self.setupPlace(likelihood.place, at: userLocation)
+                self.updatePlaces()
             }
         })
+    }
+    
+    func setupPlace(place: GMSPlace, at location: CLLocationCoordinate2D) {
+        let place = Place(gmsPlace: place, userLocation: location)
+        self.nearbyPlaces.append(place)
+    }
+    
+    func updatePlaces() {
+        self.sortPlacesByDistance()
+        self.placesView.reloadData()
     }
     
     override func viewDidAppear(animated: Bool) {

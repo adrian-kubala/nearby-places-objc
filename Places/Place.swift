@@ -10,15 +10,15 @@ import Foundation
 import GooglePlaces
 
 class Place {
-    var name: String = ""
+    var name: String
     var address: String = ""
     var distance: Int = 0
     var coordinate: CLLocationCoordinate2D?
     
-    init(name: String, address: String) {
-        self.name = name
-        self.address = address
-    }
+//    init(name: String, address: String) {
+//        self.name = name
+//        self.address = address
+//    }
     
     init(gmsPlace: GMSPlace, userLocation: CLLocationCoordinate2D) {
         name = gmsPlace.name
