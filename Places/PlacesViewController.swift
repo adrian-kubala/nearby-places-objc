@@ -66,6 +66,9 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
         setupMapRegion(userLocation)
         showNearbyPlaces()
+        if let location = userLocation.location {
+            setupGeocoder(location)
+        }
     }
     
     func setupMapRegion(location: MKUserLocation) {
@@ -74,6 +77,24 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         let region = MKCoordinateRegion(center: center, span: span)
         
         mapView.setRegion(region, animated: true)
+    }
+    
+    func setupGeocoder(location: CLLocation) {
+        let geocoder = CLGeocoder()
+        let completionHandler: CLGeocodeCompletionHandler = { (placemarks, error) -> Void in
+            if let placemark = placemarks?.first {
+                self.updateSearchBarPlaceholder(placemark)
+            }
+        }
+        geocoder.reverseGeocodeLocation(location, completionHandler: completionHandler)
+    }
+    
+    func updateSearchBarPlaceholder(placemark: CLPlacemark) {
+        if let street = placemark.thoroughfare, city = placemark.locality, country = placemark.country {
+            let separator = ", "
+            let formattedAddress = street + separator + city + separator + country
+            searchBar.placeholder = formattedAddress
+        }
     }
     
     func setupTableView() {
