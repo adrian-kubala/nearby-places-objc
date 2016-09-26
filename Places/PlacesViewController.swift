@@ -25,7 +25,6 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         super.viewDidLoad()
         
         setupPlacesClient()
-//        resizeTable()
         setupLocationManager()
         setupTableView()
         setupSearchBar()
@@ -61,6 +60,20 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         let region = MKCoordinateRegion(center: center, span: span)
         
         mapView.setRegion(region, animated: true)
+    }
+    
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        switch status {
+        case .Denied, .NotDetermined, .Restricted:
+            print("Authorization error")
+        default:
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        locationManager.stopUpdatingLocation()
+        print(error)
     }
     
     func setupTableView() {
