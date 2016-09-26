@@ -83,7 +83,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         let span = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
         let region = MKCoordinateRegion(center: center, span: span)
         
-        mapView.setRegion(region, animated: false)
+        mapView.setRegion(region, animated: true)
     }
     
     func setupGeocoder(location: CLLocation) {
@@ -142,10 +142,17 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         
         removeAnnotationsIfNeeded()
         setupAnnotationWithCoordinate(coordinate)
-        fitRegionToAnnotations()
+        updateMapRegion()
+        
     }
     
-    
+    func updateMapRegion() {
+        if searchIsActive() {
+            fitRegionToAnnotations()
+        } else {
+            setupMapRegion(locationManager.location!)
+        }
+    }
     
     func removeAnnotationsIfNeeded() {
         if mapView.annotations.count > 0 {
@@ -200,10 +207,6 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     }
     
 // MARK: - UISearchBarDelegate
-    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-        
-    }
-    
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         requestTimer.invalidate()
         requestTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(PlacesViewController.makeRequestForPlaces), userInfo: nil, repeats: false)
