@@ -68,19 +68,21 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     
 // MARK: - MKMapViewDelegate
     func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
-        setupMapRegion(userLocation)
+        
         showNearbyPlaces()
         if let location = userLocation.location {
+            setupMapRegion(location)
             setupGeocoder(location)
         }
     }
     
-    func setupMapRegion(location: MKUserLocation) {
+    func setupMapRegion(location: CLLocation) {
         let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         let span = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
         let region = MKCoordinateRegion(center: center, span: span)
         
         mapView.setRegion(region, animated: true)
+
     }
     
     func setupGeocoder(location: CLLocation) {
@@ -139,7 +141,10 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         
         removeAnnotationsIfNeeded()
         setupAnnotationWithCoordinate(coordinate)
+        fitRegionToAnnotations()
     }
+    
+    
     
     func removeAnnotationsIfNeeded() {
         if mapView.annotations.count > 0 {
@@ -151,6 +156,12 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
         mapView.addAnnotation(annotation)
+    }
+    
+    func fitRegionToAnnotations() {
+        if mapView.annotations.isEmpty == false {
+            mapView.showAnnotations(mapView.annotations, animated: true)
+        }
     }
     
     @IBAction func sendImageFromMapView(sender: AnyObject) {
