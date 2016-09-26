@@ -21,6 +21,8 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     var nearbyPlaces: [Place] = []
     var typedPlaces: [Place] = []
     
+    private var requestTimer = NSTimer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -199,15 +201,22 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     }
     
 // MARK: - UISearchBarDelegate
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        
+    }
+    
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: #selector(PlacesViewController.makeRequestForPlaces), userInfo: nil, repeats: true)
+        requestTimer.invalidate()
+        requestTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(PlacesViewController.makeRequestForPlaces), userInfo: nil, repeats: false)
         resizeTable()
     }
     
     func makeRequestForPlaces() {
-        guard let searchText = searchBar.text, userLocation = locationManager.location?.coordinate else {
+        guard let searchText = searchBar.text, userLocation = locationManager.location?.coordinate where searchText.isEmpty == false else {
             return
         }
+        
+        print(searchText)
         
         let bounds = setupQueryBounds(userLocation)
         let filter = setupAutocompleteFilter()
@@ -224,15 +233,9 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
                 }
                 
                 self.setupPlaceByID(placeID, at: userLocation)
-//                let placeName = prediction.attributedPrimaryText.string
-//                let placeSubname = prediction.attributedSecondaryText?.string
-//                if let subname = placeSubname {
-//                    predicatedPlaces.append(Place(name: placeName, address: subname))
-//                } else {
-//                    predicatedPlaces.append(Place(name: placeName, address: ""))
-//                }
             }
         })
+        placesView.reloadData()
     }
     
     func setupPlaceByID(placeID: String, at location: CLLocationCoordinate2D) {
