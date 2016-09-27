@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        GMSPlacesClient.provideAPIKey("AIzaSyBdCDxLVbtUAqdvmKP0hqudQTwy2dn9FXM")
+        GMSPlacesClient.provideAPIKey("AIzaSyAFaxXNXWso0cq2r7bDBE8Clwo0J-uJC2E")
         return true
     }
 

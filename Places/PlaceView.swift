@@ -12,4 +12,5 @@ import GooglePlaces
 class PlaceView: UITableViewCell {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var address: UILabel!
+    @IBOutlet weak var photo: UIImageView!
 }

@@ -134,6 +134,12 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
             cell.address.text = String(format: "%.2f", distanceInKM) + " km" + " | " + data.address!
         }
         
+        print("Width: \(cell.photo.frame.width)")
+        print("Height: \(cell.photo.frame.height)")
+        cell.photo.layer.cornerRadius = cell.photo.frame.width/2
+        cell.photo.clipsToBounds = true
+        cell.photo.image = data.photo
+        
         return cell
     }
     
@@ -299,7 +305,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     
     func setupPlaceWithPhoto(place: GMSPlace, photo: GMSPlacePhotoMetadata?, location: CLLocationCoordinate2D) {
         guard let photo = photo else {
-            let place = Place(name: place.name, address: place.formattedAddress, coordinate: place.coordinate, photo: nil, userLocation: location)
+            let place = Place(name: place.name, address: place.formattedAddress, coordinate: place.coordinate, photo: UIImage(), userLocation: location)
             self.updatePlaces(with: place)
             
             return
@@ -311,8 +317,67 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
                 return
             }
             
-            let place = Place(name: place.name, address: place.formattedAddress, coordinate: place.coordinate, photo: placePhoto, userLocation: location)
+            let place = Place(name: place.name, address: place.formattedAddress, coordinate: place.coordinate, photo: UIImage(), userLocation: location)
+            
+            let croppedPhoto = self.cropToBounds(placePhoto!, width: 40, height: 40)
+            self.resizeImage(croppedPhoto, newWidth: 40) { (scaledImage) in
+                place.photo = scaledImage
+            }
+
             self.updatePlaces(with: place)
+        })
+    }
+    
+    func cropToBounds(image: UIImage, width: Double, height: Double) -> UIImage {
+        let contextImage = UIImage(CGImage: image.CGImage!)
+        let contextSize = contextImage.size
+        
+        var posX = CGFloat(0.0)
+        var posY = CGFloat(0.0)
+        var cgWidth = CGFloat(width)
+        var cgHeight = CGFloat(height)
+        
+        if contextSize.width > contextSize.height {
+            posX = ((contextSize.width - contextSize.height) / 2)
+            posY = 0
+            cgWidth = contextSize.height
+            cgHeight = contextSize.height
+        } else {
+            posX = 0
+            posY = ((contextSize.height - contextSize.width) / 2)
+            cgWidth = contextSize.width
+            cgHeight = contextSize.width
+        }
+        
+        let rect = CGRectMake(posX, posY, cgWidth, cgHeight)
+        
+        // Create bitmap image from context using the rect
+        let imageRef: CGImageRef = CGImageCreateWithImageInRect(contextImage.CGImage, rect)!
+        
+        // Create a new image based on the imageRef and rotate back to the original orientation
+        let image: UIImage = UIImage(CGImage: imageRef, scale: image.scale, orientation: image.imageOrientation)
+        
+        return image
+    }
+    
+    func resizeImage(image: UIImage, newWidth: CGFloat, completion: (scaledImage: UIImage) -> ()) {
+        
+        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
+        dispatch_async(backgroundQueue, {
+            // This is run on the background queue
+            
+            let scale = newWidth / image.size.width
+            let newHeight = image.size.height * scale
+            UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
+            image.drawInRect(CGRectMake(0, 0, newWidth, newHeight))
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                // This is run on the main queue, after the previous code in outer block
+                completion(scaledImage: newImage)
+            })
         })
     }
     
