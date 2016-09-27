@@ -127,10 +127,11 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         let data = chooseData(row)
         
         cell.name.text = data.name
-        if let dataAddress = data.address where data.distance > 0 {
+        if let dataAddress = data.address where data.distance < 1000 {
             cell.address.text = String(data.distance) + " m" + " | " + dataAddress
         } else {
-            cell.detailTextLabel?.text = data.address
+            let distanceInKM = Double(data.distance) / 1000
+            cell.address.text = String(format: "%.2f", distanceInKM) + " km" + " | " + data.address!
         }
         
         return cell
