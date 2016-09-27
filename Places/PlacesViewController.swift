@@ -127,8 +127,8 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         let data = chooseData(row)
         
         cell.name.text = data.name
-        if data.distance > 0 {
-            cell.address.text = String(data.distance) + " m" + " | " + data.address
+        if let dataAddress = data.address where data.distance > 0 {
+            cell.address.text = String(data.distance) + " m" + " | " + dataAddress
         } else {
             cell.detailTextLabel?.text = data.address
         }
@@ -137,10 +137,8 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        guard let coordinate = chooseData(indexPath.row).coordinate else {
-            return
-        }
-        
+        let coordinate = chooseData(indexPath.row).coordinate
+
         removeAnnotationsIfNeeded()
         setupAnnotationWithCoordinate(coordinate)
         updateMapRegion()
@@ -176,6 +174,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     
     func clearSearchBarText() {
         searchBar.text?.removeAll()
+        view.endEditing(true)
     }
     
     @IBAction func sendImageFromMapView(sender: AnyObject) {
@@ -221,6 +220,8 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     
     func makeRequestForPlaces() {
         guard let searchText = searchBar.text, userLocation = locationManager.location?.coordinate where searchText.isEmpty == false else {
+            view.endEditing(true)
+            typedPlaces.removeAll()
             return
         }
         
@@ -240,16 +241,15 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
                     continue
                 }
                 
-                self.setupPlaceByID(placeID, at: userLocation)
+                self.setupPlaceByID(placeID, location: userLocation)
             }
         })
     }
     
-    func setupPlaceByID(placeID: String, at location: CLLocationCoordinate2D) {
+    func setupPlaceByID(placeID: String, location: CLLocationCoordinate2D) {
         placesClient.lookUpPlaceID(placeID, callback: {(place, error) -> Void in
             if let predictedPlace = place {
-                self.typedPlaces.append(Place(gmsPlace: predictedPlace, userLocation: location))
-                self.placesView.reloadData()
+                self.checkForPlacePhotos(predictedPlace, location: location)
             }
         })
     }
@@ -279,20 +279,63 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
                     continue
                 }
                 
-                self.setupPlace(likelihood.place, at: userLocation)
-                self.updatePlaces()
+                let nearbyPlace = likelihood.place
+                self.checkForPlacePhotos(nearbyPlace, location: userLocation)
             }
         })
     }
     
-    func setupPlace(place: GMSPlace, at location: CLLocationCoordinate2D) {
-        let place = Place(gmsPlace: place, userLocation: location)
-        self.nearbyPlaces.append(place)
+    func checkForPlacePhotos(place: GMSPlace, location: CLLocationCoordinate2D) {
+        placesClient.lookUpPhotosForPlaceID(place.placeID, callback: { (photos, error) -> Void in
+            guard error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            
+            self.setupPlaceWithPhoto(place, photo: photos?.results.first, location: location)
+        })
     }
     
-    func updatePlaces() {
-        self.sortPlacesByDistance()
-        self.placesView.reloadData()
+    func setupPlaceWithPhoto(place: GMSPlace, photo: GMSPlacePhotoMetadata?, location: CLLocationCoordinate2D) {
+        guard let photo = photo else {
+            let place = Place(name: place.name, address: place.formattedAddress, coordinate: place.coordinate, photo: nil, userLocation: location)
+            self.updatePlaces(with: place)
+            
+            return
+        }
+        
+        placesClient.loadPlacePhoto(photo, callback: {(placePhoto, error) -> Void in
+            guard error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            
+            let place = Place(name: place.name, address: place.formattedAddress, coordinate: place.coordinate, photo: placePhoto, userLocation: location)
+            self.updatePlaces(with: place)
+        })
+    }
+    
+    func updatePlaces(with place: Place) {
+        if searchIsActive() {
+            typedPlaces.append(place)
+        } else {
+            nearbyPlaces.append(place)
+        }
+        sortPlacesByDistance()
+        placesView.reloadData()
+    }
+    
+    func sortPlacesByDistance() {
+        if searchIsActive() {
+            typedPlaces.sortInPlace({
+                $0.distance < $1.distance
+            })
+        } else {
+            nearbyPlaces.sortInPlace({
+                $0.distance < $1.distance
+            })
+        }
+
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -316,12 +359,6 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
             self.placesView.layoutIfNeeded()
             }, completion: nil)
-    }
-    
-    func sortPlacesByDistance() {
-        nearbyPlaces.sortInPlace({
-            $0.distance < $1.distance
-        })
     }
     
     func chooseData(row: Int) -> Place {
