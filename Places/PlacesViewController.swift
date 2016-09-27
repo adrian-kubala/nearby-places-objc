@@ -70,12 +70,13 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     
 // MARK: - MKMapViewDelegate
     func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
-        
-        showNearbyPlaces()
-        if let location = userLocation.location {
-            setupMapRegion(location)
-            setupGeocoder(location)
+        guard let location = userLocation.location else {
+            return
         }
+        
+        setupMapRegion(location)
+        setupGeocoder(location)
+        showNearbyPlaces()
     }
     
     func setupMapRegion(location: CLLocation) {
@@ -143,17 +144,10 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         removeAnnotationsIfNeeded()
         setupAnnotationWithCoordinate(coordinate)
         updateMapRegion()
-        
+        clearSearchBarText()
+        resizeTable()
     }
-    
-    func updateMapRegion() {
-        if searchIsActive() {
-            fitRegionToAnnotations()
-        } else {
-            setupMapRegion(locationManager.location!)
-        }
-    }
-    
+	
     func removeAnnotationsIfNeeded() {
         if mapView.annotations.count > 0 {
             mapView.removeAnnotations(mapView.annotations)
@@ -166,10 +160,22 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         mapView.addAnnotation(annotation)
     }
     
+	func updateMapRegion() {
+		if searchIsActive() {
+			fitRegionToAnnotations()
+		} else {
+			setupMapRegion(locationManager.location!)
+		}
+	}
+    
     func fitRegionToAnnotations() {
         if mapView.annotations.isEmpty == false {
             mapView.showAnnotations(mapView.annotations, animated: true)
         }
+    }
+    
+    func clearSearchBarText() {
+        searchBar.text?.removeAll()
     }
     
     @IBAction func sendImageFromMapView(sender: AnyObject) {
@@ -224,7 +230,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         let filter = setupAutocompleteFilter()
         placesClient.autocompleteQuery(searchText, bounds: bounds, filter: filter, callback: { (predictions, error) -> Void in
             guard let predictions = predictions where error == nil else {
-                print("Autocomplete error: \(error?.localizedDescription)")
+                print("Autocomplete error: \(error!.localizedDescription)")
                 return
             }
             
@@ -263,7 +269,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     func showNearbyPlaces() {
         placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
             guard let placeLikelihoods = placeLikelihoods where error == nil else {
-                print("Nearby places error: \(error?.localizedDescription)")
+                print("Nearby places error: \(error!.localizedDescription)")
                 return
             }
             
