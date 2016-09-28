@@ -32,6 +32,18 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wue-zY-o69">
                                 <rect key="frame" x="0.0" y="108" width="375" height="200"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lvh-QF-ahZ">
+                                <rect key="frame" x="10" y="275" width="25" height="25"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="1" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="6JI-2d-RTc"/>
+                                    <constraint firstAttribute="width" constant="25" id="tAE-BR-U8M"/>
+                                </constraints>
+                                <state key="normal" image="loc-current"/>
+                                <connections>
+                                    <action selector="centerMapView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FUO-8r-CGy"/>
+                                </connections>
+                            </button>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Oou-t2-KuA">
                                 <rect key="frame" x="0.0" y="64" width="375" height="44"/>
                                 <color key="barTintColor" red="0.9137254901960784" green="0.9137254901960784" blue="0.90980392156862744" alpha="1" colorSpace="calibratedRGB"/>
@@ -133,6 +145,7 @@
                             <constraint firstAttribute="trailing" secondItem="n2O-Sf-GcN" secondAttribute="trailing" id="J1O-eJ-UbZ"/>
                             <constraint firstItem="wue-zY-o69" firstAttribute="top" secondItem="Oou-t2-KuA" secondAttribute="bottom" id="Ktg-oH-KOm"/>
                             <constraint firstItem="qVQ-Of-Vd5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="LJC-4N-jjZ"/>
+                            <constraint firstItem="Lvh-QF-ahZ" firstAttribute="top" secondItem="wue-zY-o69" secondAttribute="bottom" constant="-33" id="MBl-HC-UeX"/>
                             <constraint firstAttribute="bottomMargin" secondItem="Qa8-dh-IDV" secondAttribute="bottom" id="Oel-wH-UUz"/>
                             <constraint firstAttribute="trailing" secondItem="wue-zY-o69" secondAttribute="trailing" id="QC0-IW-SId"/>
                             <constraint firstItem="wue-zY-o69" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="28" id="RRh-x4-HRg"/>
@@ -142,6 +155,7 @@
                             <constraint firstItem="qVQ-Of-Vd5" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="375:667" id="Xj3-kp-ruc"/>
                             <constraint firstItem="Qa8-dh-IDV" firstAttribute="top" secondItem="n2O-Sf-GcN" secondAttribute="bottom" constant="8" id="Yxl-qe-lgY"/>
                             <constraint firstAttribute="trailing" secondItem="qVQ-Of-Vd5" secondAttribute="trailing" id="g0x-wn-DM1"/>
+                            <constraint firstItem="Lvh-QF-ahZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="kSu-bF-Y8h"/>
                             <constraint firstItem="n2O-Sf-GcN" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="375:667" id="nca-YP-9lV"/>
                             <constraint firstItem="wue-zY-o69" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.3" id="pnb-ds-SD1"/>
                             <constraint firstItem="Oou-t2-KuA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ud8-c8-PBe"/>
@@ -235,4 +249,7 @@
             <point key="canvasLocation" x="304" y="348"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="loc-current" width="20" height="20"/>
+    </resources>
 </document>

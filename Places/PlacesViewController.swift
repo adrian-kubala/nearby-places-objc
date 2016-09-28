@@ -200,6 +200,14 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         view.endEditing(true)
     }
     
+  @IBAction func centerMapView(sender: AnyObject) {
+    guard let userLocation = locationManager.location else {
+      return
+    }
+    
+    setupMapRegion(userLocation)
+  }
+  
     @IBAction func sendImageFromMapView(sender: AnyObject) {
         performSegueWithIdentifier("showChatVC", sender: nil)
     }
