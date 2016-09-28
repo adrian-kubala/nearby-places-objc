@@ -18,6 +18,7 @@
 		3A8C0E9E1D8A6D1D00F538B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A8C0E9C1D8A6D1D00F538B0 /* LaunchScreen.storyboard */; };
 		3A8C0EA91D8A6D1D00F538B0 /* PlacesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C0EA81D8A6D1D00F538B0 /* PlacesTests.swift */; };
 		3A8C0EB41D8A6D1D00F538B0 /* PlacesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C0EB31D8A6D1D00F538B0 /* PlacesUITests.swift */; };
+		3AF51AAC1D9C297A0039D426 /* UIImageView+tintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF51AAB1D9C297A0039D426 /* UIImageView+tintColor.swift */; };
 		3AF807DD1D97FBC6007E4BA7 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF807DC1D97FBC6007E4BA7 /* ChatViewController.swift */; };
 		3AF807E01D9851F8007E4BA7 /* PlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF807DF1D9851F8007E4BA7 /* PlaceView.swift */; };
 /* End PBXBuildFile section */
@@ -56,6 +57,7 @@
 		3A8C0EAF1D8A6D1D00F538B0 /* PlacesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlacesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A8C0EB31D8A6D1D00F538B0 /* PlacesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesUITests.swift; sourceTree = "<group>"; };
 		3A8C0EB51D8A6D1D00F538B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3AF51AAB1D9C297A0039D426 /* UIImageView+tintColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+tintColor.swift"; sourceTree = "<group>"; };
 		3AF807DC1D97FBC6007E4BA7 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		3AF807DF1D9851F8007E4BA7 /* PlaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceView.swift; sourceTree = "<group>"; };
 		63D4235B3BC85DB056E43CBF /* libPods-Places.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Places.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,6 +137,7 @@
 				3A0887B41D91334300F99385 /* Model */,
 				3AF807DE1D9851CA007E4BA7 /* View */,
 				3A0887B51D91335300F99385 /* ViewController */,
+				3AF51AAA1D9C294E0039D426 /* Extensions */,
 				3A8C0E931D8A6D1C00F538B0 /* AppDelegate.swift */,
 				3A8C0E971D8A6D1D00F538B0 /* Main.storyboard */,
 				3A8C0E9A1D8A6D1D00F538B0 /* Assets.xcassets */,
@@ -160,6 +163,14 @@
 				3A8C0EB51D8A6D1D00F538B0 /* Info.plist */,
 			);
 			path = PlacesUITests;
+			sourceTree = "<group>";
+		};
+		3AF51AAA1D9C294E0039D426 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3AF51AAB1D9C297A0039D426 /* UIImageView+tintColor.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		3AF807DE1D9851CA007E4BA7 /* View */ = {
@@ -377,6 +388,7 @@
 				3AF807E01D9851F8007E4BA7 /* PlaceView.swift in Sources */,
 				3AF807DD1D97FBC6007E4BA7 /* ChatViewController.swift in Sources */,
 				3A8C0E941D8A6D1C00F538B0 /* AppDelegate.swift in Sources */,
+				3AF51AAC1D9C297A0039D426 /* UIImageView+tintColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
