@@ -105,6 +105,22 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         }
     }
     
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKPointAnnotation {
+            let identifier = "placePin"
+            var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+            if pinView == nil {
+                pinView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                pinView?.image = UIImage(named: "map-location")
+            } else {
+                pinView?.annotation = annotation
+            }
+            return pinView
+        }
+        
+        return nil
+    }
+    
     func setupTableView() {
         placesView.delegate = self
         placesView.dataSource = self
