@@ -319,12 +319,27 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
             
             let place = Place(name: place.name, address: place.formattedAddress, coordinate: place.coordinate, photo: UIImage(), userLocation: location)
             
-            let croppedPhoto = self.cropToBounds(placePhoto!, width: 40, height: 40)
-            self.resizeImage(croppedPhoto, newWidth: 40) { (scaledImage) in
+            self.resizeImageAsync(placePhoto!, newWidth: 40) { (scaledImage) in
                 place.photo = scaledImage
             }
 
             self.updatePlaces(with: place)
+        })
+    }
+    
+    func resizeImageAsync(image: UIImage, newWidth: Double, completion: (scaledImage: UIImage) -> ()) {
+        
+        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
+        dispatch_async(backgroundQueue, {
+            // This is run on the background queue
+            let croppedImage = self.cropToBounds(image, width: newWidth, height: newWidth)
+            let newImage = self.scaleImage(croppedImage, width: newWidth)
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                // This is run on the main queue, after the previous code in outer block
+                completion(scaledImage: newImage)
+            })
         })
     }
     
@@ -360,25 +375,16 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         return image
     }
     
-    func resizeImage(image: UIImage, newWidth: CGFloat, completion: (scaledImage: UIImage) -> ()) {
+    func scaleImage(image: UIImage, width: Double) -> UIImage {
+        let newWidth = CGFloat(width)
+        let scale = newWidth / image.size.width
+        let newHeight = image.size.height * scale
+        UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
+        image.drawInRect(CGRectMake(0, 0, newWidth, newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
         
-        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
-        dispatch_async(backgroundQueue, {
-            // This is run on the background queue
-            
-            let scale = newWidth / image.size.width
-            let newHeight = image.size.height * scale
-            UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
-            image.drawInRect(CGRectMake(0, 0, newWidth, newHeight))
-            let newImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                // This is run on the main queue, after the previous code in outer block
-                completion(scaledImage: newImage)
-            })
-        })
+        return newImage
     }
     
     func updatePlaces(with place: Place) {
