@@ -235,8 +235,8 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         print(searchText)
         
         let bounds = setupQueryBounds(userLocation)
-        let filter = setupAutocompleteFilter()
-        placesClient.autocompleteQuery(searchText, bounds: bounds, filter: filter, callback: { (predictions, error) -> Void in
+//        let filter = setupAutocompleteFilter()
+        placesClient.autocompleteQuery(searchText, bounds: bounds, filter: nil, callback: { (predictions, error) -> Void in
             guard let predictions = predictions where error == nil else {
                 print("Autocomplete error: \(error!.localizedDescription)")
                 return
@@ -305,7 +305,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     
     func setupPlaceWithPhoto(place: GMSPlace, photo: GMSPlacePhotoMetadata?, location: CLLocationCoordinate2D) {
         guard let photo = photo else {
-            let place = Place(name: place.name, address: place.formattedAddress, coordinate: place.coordinate, photo: UIImage(), userLocation: location)
+            let place = Place(name: place.name, address: place.formattedAddress, coordinate: place.coordinate, photo: UIImage(named: "av-location")!, userLocation: location)
             self.updatePlaces(with: place)
             
             return
@@ -318,28 +318,12 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
             }
             
             let place = Place(name: place.name, address: place.formattedAddress, coordinate: place.coordinate, photo: UIImage(), userLocation: location)
-            
-            self.resizeImageAsync(placePhoto!, newWidth: 40) { (scaledImage) in
-                place.photo = scaledImage
-            }
+
+            let croppedImage = self.cropToBounds(placePhoto!, width: 40, height: 40)
+            let scaledImage = self.scaleImage(croppedImage, width: 40)
+            place.photo = scaledImage
 
             self.updatePlaces(with: place)
-        })
-    }
-    
-    func resizeImageAsync(image: UIImage, newWidth: Double, completion: (scaledImage: UIImage) -> ()) {
-        
-        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
-        dispatch_async(backgroundQueue, {
-            // This is run on the background queue
-            let croppedImage = self.cropToBounds(image, width: newWidth, height: newWidth)
-            let newImage = self.scaleImage(croppedImage, width: newWidth)
-            
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                // This is run on the main queue, after the previous code in outer block
-                completion(scaledImage: newImage)
-            })
         })
     }
     
