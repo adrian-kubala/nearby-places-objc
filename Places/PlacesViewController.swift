@@ -119,7 +119,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCellWithIdentifier("place") as? PlaceView else {
+        guard let cell = tableView.dequeueReusableCellWithIdentifier("placeView") as? PlaceView else {
             return UITableViewCell()
         }
         
@@ -134,8 +134,8 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
             cell.address.text = String(format: "%.2f", distanceInKM) + " km" + " | " + data.address!
         }
         
-        print("Width: \(cell.photo.frame.width)")
-        print("Height: \(cell.photo.frame.height)")
+        print("Width: \(data.photo.size.width)")
+        print("Height: \(data.photo.size.height)")
         cell.photo.layer.cornerRadius = cell.photo.frame.width/2
         cell.photo.clipsToBounds = true
         cell.photo.image = data.photo
