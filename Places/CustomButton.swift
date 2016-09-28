@@ -10,6 +10,8 @@ import UIKit
 
 @IBDesignable
 class CustomButton: UIButton {
+  @IBInspectable var leftBottomCornerOffset: CGFloat = 0.0
+  
   override func drawRect(rect: CGRect) {
     drawButtonByBezierPath()
   }
@@ -19,7 +21,7 @@ class CustomButton: UIButton {
     bezierPath.moveToPoint(bounds.origin)
     bezierPath.addLineToPoint(CGPoint(x: bounds.maxX, y: bounds.origin.y))
     bezierPath.addLineToPoint(CGPoint(x:bounds.maxX, y: bounds.maxY))
-    bezierPath.addLineToPoint(CGPoint(x: bounds.origin.x, y: bounds.maxY - CGFloat(5)))
+    bezierPath.addLineToPoint(CGPoint(x: bounds.origin.x, y: bounds.maxY - leftBottomCornerOffset))
     bezierPath.closePath()
     
     bezierPath.fill()
