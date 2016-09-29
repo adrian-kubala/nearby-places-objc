@@ -21,6 +21,14 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   var nearbyPlaces: [Place] = []
   var typedPlaces: [Place] = []
   
+  var userLocation: CLLocationCoordinate2D {
+    guard let location = locationManager.location?.coordinate else {
+      print("Retrieving location error")
+      return CLLocationCoordinate2D()
+    }
+    return location
+  }
+  
   private var requestTimer = NSTimer()
   
   override func viewDidLoad() {
@@ -260,7 +268,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   }
   
   func makeRequestForPlaces() {
-    guard let searchText = searchBar.text, userLocation = locationManager.location?.coordinate where searchText.isEmpty == false else {
+    guard let searchText = searchBar.text where searchText.isEmpty == false else {
       view.endEditing(true)
       typedPlaces.removeAll()
       return
@@ -282,7 +290,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
           continue
         }
         
-        self.setupPlaceByID(placeID, location: userLocation)
+        self.setupPlaceByID(placeID, location: self.userLocation)
       }
     })
   }
@@ -316,12 +324,8 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
       
       self.nearbyPlaces = []
       for likelihood in placeLikelihoods.likelihoods {
-        guard let userLocation = self.locationManager.location?.coordinate else {
-          continue
-        }
-        
         let nearbyPlace = likelihood.place
-        self.checkForPlacePhotos(nearbyPlace, location: userLocation)
+        self.checkForPlacePhotos(nearbyPlace, location: self.userLocation)
       }
     })
   }
