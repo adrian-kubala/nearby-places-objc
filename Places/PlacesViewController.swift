@@ -13,7 +13,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   @IBOutlet weak var searchBar: UISearchBar!
   @IBOutlet weak var mapView: MKMapView!
   @IBOutlet weak var placesView: UITableView!
-  @IBOutlet weak var nearbyPlacesLabel: UILabel!
+  @IBOutlet weak var labelView: UIView!
   @IBOutlet weak var placesViewHeight: NSLayoutConstraint!
   
   var locationManager = CLLocationManager()
@@ -429,7 +429,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     if searchIsActive() {
       placesViewHeight.constant = frameHeight - searchBar.frame.maxY
     } else {
-      placesViewHeight.constant = frameHeight - nearbyPlacesLabel.frame.maxY
+      placesViewHeight.constant = frameHeight - labelView.frame.maxY
     }
     placesView.reloadData()
     animateTableResizing()
