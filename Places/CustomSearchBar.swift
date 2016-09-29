@@ -34,4 +34,19 @@ class CustomSearchBar: UISearchBar {
     let textField = valueForKey("searchField") as? UITextField
     textField?.clearButtonMode = UITextFieldViewMode.WhileEditing
   }
+  
+  func changeSearchIcon() {
+    var image = UIImage()
+    if isActive() {
+      image = UIImage(named: "loc-search")!
+      setImage(image, forSearchBarIcon: .Search, state: .Normal)
+    } else {
+      image = UIImage(named: "loc-current")!
+      setImage(image, forSearchBarIcon: .Search, state: .Normal)
+    }
+  }
+  
+  func isActive() -> Bool {
+    return isFirstResponder() ? true : false
+  }
 }

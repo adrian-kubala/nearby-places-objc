@@ -10,7 +10,7 @@ import GooglePlaces
 import MapKit
 
 class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MKMapViewDelegate {
-  @IBOutlet weak var searchBar: UISearchBar!
+  @IBOutlet weak var searchBar: CustomSearchBar!
   @IBOutlet weak var mapView: MKMapView!
   @IBOutlet weak var placesView: UITableView!
   @IBOutlet weak var labelView: UIView!
@@ -144,7 +144,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   
   // MARK: - UITableViewDataSource
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if searchIsActive() {
+    if searchBar.isActive() {
       return typedPlaces.count
     }
     return nearbyPlaces.count
@@ -198,7 +198,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   }
   
   func updateMapRegion() {
-    if searchIsActive() {
+    if searchBar.isActive() {
       fitRegionToAnnotations()
     } else {
       setupMapRegion(locationManager.location!)
@@ -265,13 +265,13 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   }
   
   func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-    changeSearchIcon()
+    self.searchBar.changeSearchIcon()
     resizeTable()
     searchBar.text?.removeAll()
   }
   
   func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
-    if searchIsActive() {
+    if self.searchBar.isActive() {
       searchBar.resignFirstResponder()
       return true
     }
@@ -279,21 +279,10 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   }
   
   func searchBarTextDidEndEditing(searchBar: UISearchBar) {
-    changeSearchIcon()
+    self.searchBar.changeSearchIcon()
     resizeTable()
     updateSearchBarText(placemark!)
     typedPlaces.removeAll()
-  }
-  
-  func changeSearchIcon() {
-    var image = UIImage()
-    if searchIsActive() {
-      image = UIImage(named: "loc-search")!
-      searchBar.setImage(image, forSearchBarIcon: .Search, state: .Normal)
-    } else {
-      image = UIImage(named: "loc-current")!
-      searchBar.setImage(image, forSearchBarIcon: .Search, state: .Normal)
-    }
   }
   
   func makeRequestForPlaces() {
@@ -438,7 +427,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   }
   
   func updatePlaces(with place: Place) {
-    if searchIsActive() {
+    if searchBar.isActive() {
       typedPlaces.append(place)
     } else {
       nearbyPlaces.append(place)
@@ -448,7 +437,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   }
   
   func sortPlacesByDistance() {
-    if searchIsActive() {
+    if searchBar.isActive() {
       typedPlaces.sortInPlace({
         $0.distance < $1.distance
       })
@@ -457,7 +446,6 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         $0.distance < $1.distance
       })
     }
-    
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -468,7 +456,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   
   func resizeTable() {
     let frameHeight = view.frame.maxY
-    if searchIsActive() {
+    if searchBar.isActive() {
       placesViewHeight.constant = frameHeight - searchBar.frame.maxY
     } else {
       placesViewHeight.constant = frameHeight - labelView.frame.maxY
@@ -484,14 +472,9 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   }
   
   func chooseData(row: Int) -> Place {
-    if searchIsActive() {
+    if searchBar.isActive() {
       return typedPlaces[row]
     }
     return nearbyPlaces[row]
-  }
-  
-  func searchIsActive() -> Bool {
-    return searchBar.isFirstResponder() ? true : false
-//    return searchBar.text?.isEmpty == false ? true : false
   }
 }
