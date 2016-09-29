@@ -26,11 +26,21 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    setupNavigationItem()
     setupMapView()
     setupLocationManager()
     setupPlacesClient()
     setupTableView()
     setupSearchBar()
+  }
+  
+  func setupNavigationItem() {
+    var image = UIImage(named: "icon-location-active")
+    image = image?.imageWithRenderingMode(.AlwaysOriginal)
+    
+    let locationImage = UIBarButtonItem(image: image, style: .Plain, target: nil, action: nil)
+    let flexibleSpace = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+    navigationItem.leftBarButtonItems = [flexibleSpace, locationImage]
   }
   
   func setupMapView() {
