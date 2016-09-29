@@ -214,16 +214,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tVe-a6-bUk">
-                                <rect key="frame" x="65" y="453" width="290" height="170"/>
-                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hfQ-vP-SvL" userLabel="FrontView">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tVe-a6-bUk">
+                                        <rect key="frame" x="67" y="363" width="290" height="170"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="170" id="fPx-Qq-cVR"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="tVe-a6-bUk" secondAttribute="bottom" constant="22" id="7SG-BQ-X23"/>
+                                    <constraint firstItem="tVe-a6-bUk" firstAttribute="top" secondItem="hfQ-vP-SvL" secondAttribute="top" constant="411" id="GPw-hr-urI"/>
+                                    <constraint firstItem="tVe-a6-bUk" firstAttribute="leading" secondItem="hfQ-vP-SvL" secondAttribute="leading" constant="67" id="gGN-TB-DbK"/>
+                                    <constraint firstAttribute="bottom" secondItem="tVe-a6-bUk" secondAttribute="bottom" constant="70" id="imS-Hs-BFQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="tVe-a6-bUk" secondAttribute="trailing" constant="18" id="nkw-Sq-w38"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="7SG-BQ-X23"/>
+                                        <exclude reference="GPw-hr-urI"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.82352941180000006" green="0.98823529409999999" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="tVe-a6-bUk" firstAttribute="leading" secondItem="5yc-VA-TJI" secondAttribute="leadingMargin" constant="49" id="9cL-tU-LH0"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="tVe-a6-bUk" secondAttribute="trailing" constant="4" id="C7p-HG-Dcx"/>
-                            <constraint firstItem="tVe-a6-bUk" firstAttribute="top" secondItem="5LR-Ga-fgs" secondAttribute="bottom" constant="389" id="aWY-52-u6C"/>
-                            <constraint firstItem="mWW-vc-AFo" firstAttribute="top" secondItem="tVe-a6-bUk" secondAttribute="bottom" constant="44" id="xxn-g6-Ga2"/>
+                            <constraint firstAttribute="trailing" secondItem="hfQ-vP-SvL" secondAttribute="trailing" id="8mL-8L-mTl"/>
+                            <constraint firstItem="hfQ-vP-SvL" firstAttribute="top" secondItem="5LR-Ga-fgs" secondAttribute="bottom" id="Bpt-83-zpb"/>
+                            <constraint firstItem="mWW-vc-AFo" firstAttribute="top" secondItem="hfQ-vP-SvL" secondAttribute="bottom" id="DZa-Fo-ecx"/>
+                            <constraint firstItem="hfQ-vP-SvL" firstAttribute="leading" secondItem="5yc-VA-TJI" secondAttribute="leading" id="l2b-Mh-fZE"/>
                         </constraints>
                     </view>
                     <connections>
