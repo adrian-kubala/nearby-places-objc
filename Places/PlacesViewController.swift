@@ -157,20 +157,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     
     let row = indexPath.row
     let data = chooseData(row)
-    
-    cell.name.text = data.name
-    if let dataAddress = data.address where data.distance < 1000 {
-      cell.address.text = String(data.distance) + " m" + " | " + dataAddress
-    } else {
-      let distanceInKM = Double(data.distance) / 1000
-      cell.address.text = String(format: "%.2f", distanceInKM) + " km" + " | " + data.address!
-    }
-    
-    print("Width: \(data.photo.size.width)")
-    print("Height: \(data.photo.size.height)")
-    cell.photo.layer.cornerRadius = cell.photo.frame.width/2
-    cell.photo.clipsToBounds = true
-    cell.photo.image = data.photo
+    cell.setupWithData(data)
     
     return cell
   }
@@ -213,7 +200,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   
   func clearSearchBarText() {
     searchBar.text?.removeAll()
-    view.endEditing(true)
+    searchBarShouldEndEditing(searchBar)
   }
   
   @IBAction func centerMapView(sender: AnyObject) {

@@ -194,8 +194,8 @@
 				3AF51AAF1D9C45F60039D426 /* CustomView.swift */,
 				3A8B47DE1D9BCD6900901F86 /* CustomButton.swift */,
 				3A2E72F11D9CF1C6008CDE51 /* CustomNavigationBar.swift */,
-				3A2E72F51D9D245D008CDE51 /* CustomSearchBar.swift */,
 				3AFF213C1D9DADD1005A3AA0 /* CustomNavigationitem.swift */,
+				3A2E72F51D9D245D008CDE51 /* CustomSearchBar.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
