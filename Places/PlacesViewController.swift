@@ -374,56 +374,12 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
       
       let place = Place(name: place.name, address: place.formattedAddress, coordinate: place.coordinate, photo: UIImage(), userLocation: location)
       
-      let croppedImage = self.cropToBounds(placePhoto!, width: 40, height: 40)
-      let scaledImage = self.scaleImage(croppedImage, width: 40)
+      let croppedImage = placePhoto?.cropToBounds(width: 40, height: 40)
+      let scaledImage = croppedImage!.scaleImage(width: 40)
       place.photo = scaledImage
       
       self.updatePlaces(with: place)
     })
-  }
-  
-  func cropToBounds(image: UIImage, width: Double, height: Double) -> UIImage {
-    let contextImage = UIImage(CGImage: image.CGImage!)
-    let contextSize = contextImage.size
-    
-    var posX = CGFloat(0.0)
-    var posY = CGFloat(0.0)
-    var cgWidth = CGFloat(width)
-    var cgHeight = CGFloat(height)
-    
-    if contextSize.width > contextSize.height {
-      posX = ((contextSize.width - contextSize.height) / 2)
-      posY = 0
-      cgWidth = contextSize.height
-      cgHeight = contextSize.height
-    } else {
-      posX = 0
-      posY = ((contextSize.height - contextSize.width) / 2)
-      cgWidth = contextSize.width
-      cgHeight = contextSize.width
-    }
-    
-    let rect = CGRectMake(posX, posY, cgWidth, cgHeight)
-    
-    // Create bitmap image from context using the rect
-    let imageRef: CGImageRef = CGImageCreateWithImageInRect(contextImage.CGImage, rect)!
-    
-    // Create a new image based on the imageRef and rotate back to the original orientation
-    let image: UIImage = UIImage(CGImage: imageRef, scale: image.scale, orientation: image.imageOrientation)
-    
-    return image
-  }
-  
-  func scaleImage(image: UIImage, width: Double) -> UIImage {
-    let newWidth = CGFloat(width)
-    let scale = newWidth / image.size.width
-    let newHeight = image.size.height * scale
-    UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
-    image.drawInRect(CGRectMake(0, 0, newWidth, newHeight))
-    let newImage = UIGraphicsGetImageFromCurrentImageContext()
-    UIGraphicsEndImageContext()
-    
-    return newImage
   }
   
   func updatePlaces(with place: Place) {
