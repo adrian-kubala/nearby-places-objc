@@ -9,19 +9,29 @@
 import UIKit
 
 class CustomSearchBar: UISearchBar {
-//  override func drawRect(rect: CGRect) {
-//    drawSearchBar()
-//    
-//    var image = UIImage(named: "loc-search")
-//    setImage(image, forSearchBarIcon: .Search, state: .Selected)
-//    image = UIImage(named: "loc-clear")
-//    setImage(image, forSearchBarIcon: .Clear, state: .Normal)
-//    image = UIImage(named: "loc-current")
-//    setImage(image, forSearchBarIcon: .Search, state: .Normal)
-//  }
-//  
-//  func drawSearchBar() {
-//    let customView = CustomView(view: self)
-//    customView.drawViewByBezierPath(5.0, with: tintColor)
-//  }
+  
+  override func drawRect(rect: CGRect) {
+    drawSearchBar()
+    
+    setupImages()
+    setupClearButton()
+  }
+  
+  func drawSearchBar() {
+    let customView = CustomView(view: self)
+    customView.drawViewByBezierPath(5.0, with: tintColor)
+  }
+  
+  func setupImages() {
+    var image = UIImage(named: "loc-clear")
+    setImage(image, forSearchBarIcon: .Clear, state: .Normal)
+    
+    image = UIImage(named: "loc-current")
+    setImage(image, forSearchBarIcon: .Search, state: .Normal)
+  }
+  
+  func setupClearButton() {
+    let textField = valueForKey("searchField") as? UITextField
+    textField?.clearButtonMode = UITextFieldViewMode.WhileEditing
+  }
 }

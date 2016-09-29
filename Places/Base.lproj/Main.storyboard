@@ -185,7 +185,7 @@
                         <outlet property="mapView" destination="wue-zY-o69" id="Mgd-1k-0M5"/>
                         <outlet property="placesView" destination="Qa8-dh-IDV" id="5eg-BS-Yfk"/>
                         <outlet property="placesViewHeight" destination="IfV-1K-hZT" id="AZa-Tg-oF0"/>
-                        <outlet property="searchBar" destination="Oou-t2-KuA" id="cny-DT-oVw"/>
+                        <outlet property="searchBar" destination="Oou-t2-KuA" id="EqF-2A-vkH"/>
                         <outlet property="searchDisplayController" destination="YuF-Zb-Ejd" id="VOm-zv-o6R"/>
                         <segue destination="x5Q-fJ-pGt" kind="show" identifier="showChatVC" id="fM5-Ua-KdW"/>
                     </connections>

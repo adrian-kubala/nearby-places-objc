@@ -28,6 +28,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     }
     return location
   }
+  var placemark: CLPlacemark?
   
   private var requestTimer = NSTimer()
   
@@ -109,17 +110,18 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     let geocoder = CLGeocoder()
     let completionHandler: CLGeocodeCompletionHandler = { (placemarks, error) -> Void in
       if let placemark = placemarks?.first {
-        self.updateSearchBarPlaceholder(placemark)
+        self.updateSearchBarText(placemark)
+        self.placemark = placemark
       }
     }
     geocoder.reverseGeocodeLocation(location, completionHandler: completionHandler)
   }
   
-  func updateSearchBarPlaceholder(placemark: CLPlacemark) {
+  func updateSearchBarText(placemark: CLPlacemark) {
     if let street = placemark.thoroughfare, city = placemark.locality, country = placemark.country {
       let separator = ", "
       let formattedAddress = street + separator + city + separator + country
-      searchBar.placeholder = formattedAddress
+      searchBar.text = formattedAddress
     }
   }
   
@@ -256,7 +258,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   
   func setupSearchBar() {
     searchBar.autocapitalizationType = .None
-    searchBar.placeholder = "Current location"
+    searchBar.text = "Current location"
     searchBar.delegate = self
   }
   
@@ -264,13 +266,43 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
     requestTimer.invalidate()
     requestTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(PlacesViewController.makeRequestForPlaces), userInfo: nil, repeats: false)
+  }
+  
+  func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+    changeSearchIcon()
     resizeTable()
+    searchBar.text?.removeAll()
+  }
+  
+  func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
+    if searchIsActive() {
+      searchBar.resignFirstResponder()
+      return true
+    }
+    return false
+  }
+  
+  func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+    changeSearchIcon()
+    resizeTable()
+    updateSearchBarText(placemark!)
+    typedPlaces.removeAll()
+  }
+  
+  func changeSearchIcon() {
+    var image = UIImage()
+    if searchIsActive() {
+      image = UIImage(named: "loc-search")!
+      searchBar.setImage(image, forSearchBarIcon: .Search, state: .Normal)
+    } else {
+      image = UIImage(named: "loc-current")!
+      searchBar.setImage(image, forSearchBarIcon: .Search, state: .Normal)
+    }
   }
   
   func makeRequestForPlaces() {
     guard let searchText = searchBar.text where searchText.isEmpty == false else {
-      view.endEditing(true)
-      typedPlaces.removeAll()
+      searchBarShouldEndEditing(searchBar)
       return
     }
     
@@ -463,6 +495,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   }
   
   func searchIsActive() -> Bool {
-    return searchBar.text?.isEmpty == false ? true : false
+    return searchBar.isFirstResponder() ? true : false
+//    return searchBar.text?.isEmpty == false ? true : false
   }
 }
