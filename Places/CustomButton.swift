@@ -12,12 +12,11 @@ class CustomButton: UIButton {
   override func drawRect(rect: CGRect) {
     drawButton()
     setupImageView()
-//    changeImagePosition()
   }
   
   func drawButton() {
     let customView = CustomView(view: self)
-    customView.drawViewByBezierPath(5.0)
+    customView.drawViewByBezierPath(5.0, with: UIColor.blackColor())
   }
   
   func setupImageView() {
@@ -26,10 +25,4 @@ class CustomButton: UIButton {
     imgView.changeTintColor(UIColor.whiteColor())
     setImage(imgView.image, forState: .Normal)
   }
-  
-//  func changeImagePosition() {
-//    transform = CGAffineTransformMakeScale(-1, 1)
-//    titleLabel?.transform = CGAffineTransformMakeScale(-1, 1)
-//    imageView?.transform = CGAffineTransformMakeScale(-1, 1)
-//  }
 }

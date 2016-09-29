@@ -136,7 +136,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.82352941180000006" green="0.98823529409999999" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="n2O-Sf-GcN" secondAttribute="trailing" constant="250" id="2Ul-0Z-4cN"/>
                             <constraint firstItem="Qa8-dh-IDV" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="338" id="AYG-YJ-Vg5"/>
@@ -157,11 +157,11 @@
                             <constraint firstItem="Qa8-dh-IDV" firstAttribute="top" secondItem="n2O-Sf-GcN" secondAttribute="bottom" constant="8" id="Yxl-qe-lgY"/>
                             <constraint firstAttribute="trailing" secondItem="qVQ-Of-Vd5" secondAttribute="trailing" id="g0x-wn-DM1"/>
                             <constraint firstItem="Lvh-QF-ahZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="kSu-bF-Y8h"/>
+                            <constraint firstItem="Oou-t2-KuA" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-5" id="lSW-Tt-jBD"/>
                             <constraint firstItem="n2O-Sf-GcN" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="375:667" id="nca-YP-9lV"/>
                             <constraint firstItem="wue-zY-o69" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.3" id="pnb-ds-SD1"/>
                             <constraint firstItem="Oou-t2-KuA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ud8-c8-PBe"/>
                             <constraint firstItem="wue-zY-o69" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="w0k-kh-tHT"/>
-                            <constraint firstItem="Oou-t2-KuA" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-5" id="z3u-Nz-HJ8"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -214,7 +214,7 @@
                                 <rect key="frame" x="65" y="453" width="290" height="170"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.82352941180000006" green="0.98823529409999999" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="tVe-a6-bUk" firstAttribute="leading" secondItem="5yc-VA-TJI" secondAttribute="leadingMargin" constant="49" id="9cL-tU-LH0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tVe-a6-bUk" secondAttribute="trailing" constant="4" id="C7p-HG-Dcx"/>
@@ -235,7 +235,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7Or-zg-gAr" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ujx-R7-72S">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ujx-R7-72S" customClass="CustomNavigationBar" customModule="Places" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.82352941176470584" green="0.9882352941176471" blue="0.078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
