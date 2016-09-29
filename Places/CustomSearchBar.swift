@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class CustomSearchBar: UISearchBar {
   
@@ -43,6 +44,14 @@ class CustomSearchBar: UISearchBar {
     } else {
       image = UIImage(named: "loc-current")!
       setImage(image, forSearchBarIcon: .Search, state: .Normal)
+    }
+  }
+  
+  func updateSearchText(with placemark: CLPlacemark) {
+    if let street = placemark.thoroughfare, city = placemark.locality, country = placemark.country {
+      let separator = ", "
+      let formattedAddress = street + separator + city + separator + country
+      text = formattedAddress
     }
   }
   

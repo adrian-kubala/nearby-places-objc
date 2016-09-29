@@ -27,6 +27,7 @@
 		3AFF213D1D9DADD1005A3AA0 /* CustomNavigationitem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF213C1D9DADD1005A3AA0 /* CustomNavigationitem.swift */; };
 		3AFF213F1D9DB662005A3AA0 /* UIImage+cropToBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF213E1D9DB662005A3AA0 /* UIImage+cropToBounds.swift */; };
 		3AFF21411D9DB790005A3AA0 /* UIImage+scaleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF21401D9DB790005A3AA0 /* UIImage+scaleImage.swift */; };
+		3AFF21431D9DC407005A3AA0 /* CustomMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF21421D9DC407005A3AA0 /* CustomMapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		3AFF213C1D9DADD1005A3AA0 /* CustomNavigationitem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationitem.swift; sourceTree = "<group>"; };
 		3AFF213E1D9DB662005A3AA0 /* UIImage+cropToBounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+cropToBounds.swift"; sourceTree = "<group>"; };
 		3AFF21401D9DB790005A3AA0 /* UIImage+scaleImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+scaleImage.swift"; sourceTree = "<group>"; };
+		3AFF21421D9DC407005A3AA0 /* CustomMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMapView.swift; sourceTree = "<group>"; };
 		63D4235B3BC85DB056E43CBF /* libPods-Places.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Places.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C943431030427DD0D0361180 /* Pods-Places.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Places.release.xcconfig"; path = "Pods/Target Support Files/Pods-Places/Pods-Places.release.xcconfig"; sourceTree = "<group>"; };
 		F5D6FB190A515D752F58A85C /* Pods-Places.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Places.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Places/Pods-Places.debug.xcconfig"; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				3A2E72F11D9CF1C6008CDE51 /* CustomNavigationBar.swift */,
 				3AFF213C1D9DADD1005A3AA0 /* CustomNavigationitem.swift */,
 				3A2E72F51D9D245D008CDE51 /* CustomSearchBar.swift */,
+				3AFF21421D9DC407005A3AA0 /* CustomMapView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 				3AF51AB01D9C45F60039D426 /* CustomView.swift in Sources */,
 				3AFF213D1D9DADD1005A3AA0 /* CustomNavigationitem.swift in Sources */,
 				3AFF213F1D9DB662005A3AA0 /* UIImage+cropToBounds.swift in Sources */,
+				3AFF21431D9DC407005A3AA0 /* CustomMapView.swift in Sources */,
 				3A2E72F61D9D245D008CDE51 /* CustomSearchBar.swift in Sources */,
 				3A72F5A81D8A6FCD00BA2F16 /* Place.swift in Sources */,
 				3A2E72F21D9CF1C6008CDE51 /* CustomNavigationBar.swift in Sources */,

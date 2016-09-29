@@ -11,7 +11,7 @@ import MapKit
 
 class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MKMapViewDelegate {
   @IBOutlet weak var searchBar: CustomSearchBar!
-  @IBOutlet weak var mapView: MKMapView!
+  @IBOutlet weak var mapView: CustomMapView!
   @IBOutlet weak var placesView: UITableView!
   @IBOutlet weak var labelView: UIView!
   @IBOutlet weak var placesViewHeight: NSLayoutConstraint!
@@ -89,36 +89,20 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
       return
     }
     
-    setupMapRegion(location)
+    self.mapView.setupMapRegion(location)
     setupGeocoder(location)
     showNearbyPlaces()
-  }
-  
-  func setupMapRegion(location: CLLocation) {
-    let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-    let span = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
-    let region = MKCoordinateRegion(center: center, span: span)
-    
-    mapView.setRegion(region, animated: true)
   }
   
   func setupGeocoder(location: CLLocation) {
     let geocoder = CLGeocoder()
     let completionHandler: CLGeocodeCompletionHandler = { (placemarks, error) -> Void in
       if let placemark = placemarks?.first {
-        self.updateSearchBarText(placemark)
+        self.searchBar.updateSearchText(with: placemark)
         self.placemark = placemark
       }
     }
     geocoder.reverseGeocodeLocation(location, completionHandler: completionHandler)
-  }
-  
-  func updateSearchBarText(placemark: CLPlacemark) {
-    if let street = placemark.thoroughfare, city = placemark.locality, country = placemark.country {
-      let separator = ", "
-      let formattedAddress = street + separator + city + separator + country
-      searchBar.text = formattedAddress
-    }
   }
   
   func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
@@ -165,30 +149,18 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     let coordinate = chooseData(indexPath.row).coordinate
     
-    removeAnnotationsIfNeeded()
-    setupAnnotationWithCoordinate(coordinate)
+    mapView.removeAnnotationsIfNeeded()
+    mapView.setupAnnotationWithCoordinate(coordinate)
     updateMapRegion()
     clearSearchBarText()
     resizeTable()
-  }
-  
-  func removeAnnotationsIfNeeded() {
-    if mapView.annotations.count > 0 {
-      mapView.removeAnnotations(mapView.annotations)
-    }
-  }
-  
-  func setupAnnotationWithCoordinate(coordinate: CLLocationCoordinate2D) {
-    let annotation = MKPointAnnotation()
-    annotation.coordinate = coordinate
-    mapView.addAnnotation(annotation)
   }
   
   func updateMapRegion() {
     if searchBar.isActive() {
       fitRegionToAnnotations()
     } else {
-      setupMapRegion(locationManager.location!)
+      mapView.setupMapRegion(locationManager.location!)
     }
   }
   
@@ -208,7 +180,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
       return
     }
     
-    setupMapRegion(userLocation)
+    mapView.setupMapRegion(userLocation)
   }
   
   @IBAction func sendImageFromMapView(sender: AnyObject) {
@@ -268,7 +240,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   func searchBarTextDidEndEditing(searchBar: UISearchBar) {
     self.searchBar.changeSearchIcon()
     resizeTable()
-    updateSearchBarText(placemark!)
+    self.searchBar.updateSearchText(with: placemark!)
     typedPlaces.removeAll()
   }
   
@@ -281,7 +253,6 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     print(searchText)
     
     let bounds = setupQueryBounds(userLocation)
-    //        let filter = setupAutocompleteFilter()
     placesClient.autocompleteQuery(searchText, bounds: bounds, filter: nil, callback: { (predictions, error) -> Void in
       guard let predictions = predictions where error == nil else {
         print("Autocomplete error: \(error!.localizedDescription)")
