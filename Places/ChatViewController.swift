@@ -9,13 +9,13 @@
 import UIKit
 
 class ChatViewController: UIViewController {
-    @IBOutlet weak var mapViewImage: UIImageView!
+  @IBOutlet weak var mapViewImage: UIImageView!
+  
+  var image = UIImage()
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
     
-    var image = UIImage()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        mapViewImage.image = image
-    }
+    mapViewImage.image = image
+  }
 }

@@ -8,37 +8,28 @@
 
 import UIKit
 
-@IBDesignable
 class CustomButton: UIButton {
-  @IBInspectable var leftBottomCornerOffset: CGFloat = 0.0
-  
   override func drawRect(rect: CGRect) {
-    drawButtonByBezierPath()
-    setupImage()
-    changeImagePosition()
+    drawButton()
+    setupImageView()
+//    changeImagePosition()
   }
   
-  func drawButtonByBezierPath() {
-    let bezierPath = UIBezierPath()
-    bezierPath.moveToPoint(bounds.origin)
-    bezierPath.addLineToPoint(CGPoint(x: bounds.maxX, y: bounds.origin.y))
-    bezierPath.addLineToPoint(CGPoint(x:bounds.maxX, y: bounds.maxY - leftBottomCornerOffset))
-    bezierPath.addLineToPoint(CGPoint(x: bounds.origin.x, y: bounds.maxY))
-    bezierPath.closePath()
-    
-    bezierPath.fill()
+  func drawButton() {
+    let customView = CustomView(view: self)
+    customView.drawViewByBezierPath(5.0)
   }
   
-  func setupImage() {
-    let img = UIImageView()
-    img.image = UIImage(named: "tick")
-    img.changeTintColor(UIColor.whiteColor())
-    setImage(img.image, forState: .Normal)
+  func setupImageView() {
+    let imgView = UIImageView()
+    imgView.image = UIImage(named: "tick")
+    imgView.changeTintColor(UIColor.whiteColor())
+    setImage(imgView.image, forState: .Normal)
   }
   
-  func changeImagePosition() {
-    transform = CGAffineTransformMakeScale(-1, 1)
-    titleLabel?.transform = CGAffineTransformMakeScale(-1, 1)
-    imageView?.transform = CGAffineTransformMakeScale(-1, 1)
-  }
+//  func changeImagePosition() {
+//    transform = CGAffineTransformMakeScale(-1, 1)
+//    titleLabel?.transform = CGAffineTransformMakeScale(-1, 1)
+//    imageView?.transform = CGAffineTransformMakeScale(-1, 1)
+//  }
 }
