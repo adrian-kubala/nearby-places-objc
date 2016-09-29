@@ -178,7 +178,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="SEND MESSAGE" id="rCD-Mo-kGN"/>
+                    <navigationItem key="navigationItem" title="SEND MESSAGE" id="rCD-Mo-kGN" customClass="CustomNavigationitem" customModule="Places" customModuleProvider="target"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="labelView" destination="k5X-Qf-VDx" id="9oH-7e-B4D"/>

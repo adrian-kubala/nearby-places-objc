@@ -24,6 +24,7 @@
 		3AF51AB01D9C45F60039D426 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF51AAF1D9C45F60039D426 /* CustomView.swift */; };
 		3AF807DD1D97FBC6007E4BA7 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF807DC1D97FBC6007E4BA7 /* ChatViewController.swift */; };
 		3AF807E01D9851F8007E4BA7 /* PlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF807DF1D9851F8007E4BA7 /* PlaceView.swift */; };
+		3AFF213D1D9DADD1005A3AA0 /* CustomNavigationitem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF213C1D9DADD1005A3AA0 /* CustomNavigationitem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		3AF51AAF1D9C45F60039D426 /* CustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		3AF807DC1D97FBC6007E4BA7 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		3AF807DF1D9851F8007E4BA7 /* PlaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceView.swift; sourceTree = "<group>"; };
+		3AFF213C1D9DADD1005A3AA0 /* CustomNavigationitem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationitem.swift; sourceTree = "<group>"; };
 		63D4235B3BC85DB056E43CBF /* libPods-Places.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Places.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C943431030427DD0D0361180 /* Pods-Places.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Places.release.xcconfig"; path = "Pods/Target Support Files/Pods-Places/Pods-Places.release.xcconfig"; sourceTree = "<group>"; };
 		F5D6FB190A515D752F58A85C /* Pods-Places.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Places.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Places/Pods-Places.debug.xcconfig"; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				3A8B47DE1D9BCD6900901F86 /* CustomButton.swift */,
 				3A2E72F11D9CF1C6008CDE51 /* CustomNavigationBar.swift */,
 				3A2E72F51D9D245D008CDE51 /* CustomSearchBar.swift */,
+				3AFF213C1D9DADD1005A3AA0 /* CustomNavigationitem.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 			files = (
 				3A5F64EB1D95150F00FF8645 /* PlacesViewController.swift in Sources */,
 				3AF51AB01D9C45F60039D426 /* CustomView.swift in Sources */,
+				3AFF213D1D9DADD1005A3AA0 /* CustomNavigationitem.swift in Sources */,
 				3A2E72F61D9D245D008CDE51 /* CustomSearchBar.swift in Sources */,
 				3A72F5A81D8A6FCD00BA2F16 /* Place.swift in Sources */,
 				3A2E72F21D9CF1C6008CDE51 /* CustomNavigationBar.swift in Sources */,

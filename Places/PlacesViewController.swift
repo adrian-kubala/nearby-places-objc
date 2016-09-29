@@ -44,12 +44,8 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   }
   
   func setupNavigationItem() {
-    var image = UIImage(named: "icon-location-active")
-    image = image?.imageWithRenderingMode(.AlwaysOriginal)
-    
-    let locationImage = UIBarButtonItem(image: image, style: .Plain, target: nil, action: nil)
-    let flexibleSpace = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-    navigationItem.leftBarButtonItems = [flexibleSpace, locationImage]
+    let navigationItem = self.navigationItem as! CustomNavigationitem
+    navigationItem.setupIcon("map-location")
   }
   
   func setupMapView() {
