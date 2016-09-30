@@ -131,14 +131,13 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     let userIsInsideBounds = bounds.containsCoordinate(userLocation)
     
     guard userIsInsideBounds == false else {
-      self.mapView.removeAnnotationsIfNeeded()
+      self.mapView.hideAnnotationIfNeeded()
       centerLocationButton.hidden = true
       searchBar.setupCurrentLocationIcon()
       return
     }
     
-    self.mapView.removeAnnotationsIfNeeded()
-    self.mapView.setupAnnotationWithCoordinate(center)
+    self.mapView.showAnnotation()
     self.mapView.setupMapRegionWithCoordinate(center)
     searchBar.setupSearchIcon()
     centerLocationButton.hidden = false
@@ -177,8 +176,6 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     let address = data.address
     let coordinate = data.coordinate
     
-    mapView.removeAnnotationsIfNeeded()
-    mapView.setupAnnotationWithCoordinate(coordinate)
     mapView.setupMapRegionWithCoordinate(coordinate)
     currentAddress = address!
     clearSearchBarText()
