@@ -43,14 +43,21 @@ class CustomSearchBar: UISearchBar {
   }
   
   func changeSearchIcon() {
-    var image = UIImage()
     if isActive() {
-      image = UIImage(named: "loc-search")!
-      setImage(image, forSearchBarIcon: .Search, state: .Normal)
+      setupSearchIcon()
     } else {
-      image = UIImage(named: "loc-current")!
-      setImage(image, forSearchBarIcon: .Search, state: .Normal)
+      setupCurrentLocationIcon()
     }
+  }
+  
+  func setupSearchIcon() {
+    let image = UIImage(named: "loc-search")!
+    setImage(image, forSearchBarIcon: .Search, state: .Normal)
+  }
+  
+  func setupCurrentLocationIcon() {
+    let image = UIImage(named: "loc-current")!
+    setImage(image, forSearchBarIcon: .Search, state: .Normal)
   }
   
   func updateSearchText(with placemark: CLPlacemark) {

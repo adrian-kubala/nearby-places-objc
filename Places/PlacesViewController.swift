@@ -15,6 +15,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   @IBOutlet weak var placesView: UITableView!
   @IBOutlet weak var labelView: UIView!
   @IBOutlet weak var placesViewHeight: NSLayoutConstraint!
+  @IBOutlet weak var centerLocationButton: UIButton!
   
   var locationManager = CLLocationManager()
   var placesClient = GMSPlacesClient()
@@ -28,6 +29,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     }
     return location
   }
+  
   var placemark: CLPlacemark?
   var currentAddress = String()
   
@@ -36,6 +38,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    centerLocationButton.hidden = true
     setupNavigationItem()
     setupMapView()
     setupLocationManager()
@@ -122,6 +125,35 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     return nil
   }
   
+  func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+    let center = mapView.centerCoordinate
+
+    
+//    let latDelta: CLLocationDegrees = 0.01
+//    let longDelta: CLLocationDegrees = 0.01
+//    
+//    let theSpan = MKCoordinateSpanMake(latDelta, longDelta)
+//    let region = MKCoordinateRegionMake(center, theSpan)
+//    let mapPoint = MKMapPointForCoordinate(userLocation)
+//    let containsPoint = MKMapRectContainsPoint(mapView.visibleMapRect, mapPoint)
+    
+    let bounds = setupMapBounds(center, span: 0.0005)
+    let userIsInsideBounds = bounds.containsCoordinate(userLocation)
+    
+    guard userIsInsideBounds == false else {
+      self.mapView.removeAnnotationsIfNeeded()
+      centerLocationButton.hidden = true
+      searchBar.setupCurrentLocationIcon()
+      return
+    }
+    
+    self.mapView.removeAnnotationsIfNeeded()
+    self.mapView.setupAnnotationWithCoordinate(center)
+    self.mapView.setupMapRegionWithCoordinate(center)
+    searchBar.setupSearchIcon()
+    centerLocationButton.hidden = false
+  }
+  
   func setupTableView() {
     placesView.delegate = self
     placesView.dataSource = self
@@ -172,6 +204,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     }
     
     mapView.setupMapRegion(userLocation)
+    centerLocationButton.hidden = true
   }
   
   @IBAction func sendImageFromMapView(sender: AnyObject) {
@@ -242,7 +275,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     
     print(searchText)
     
-    let bounds = setupQueryBounds(userLocation)
+    let bounds = setupMapBounds(userLocation, span: 0.01)
     placesClient.autocompleteQuery(searchText, bounds: bounds, filter: nil, callback: { (predictions, error) -> Void in
       guard let predictions = predictions where error == nil else {
         print("Autocomplete error: \(error!.localizedDescription)")
@@ -268,9 +301,9 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     })
   }
   
-  func setupQueryBounds(location: CLLocationCoordinate2D) -> GMSCoordinateBounds {
-    let northEast = CLLocationCoordinate2DMake(location.latitude + 0.001, location.longitude + 0.001)
-    let southWest = CLLocationCoordinate2DMake(location.latitude - 0.001, location.longitude - 0.001)
+  func setupMapBounds(location: CLLocationCoordinate2D, span: Double) -> GMSCoordinateBounds {
+    let northEast = CLLocationCoordinate2DMake(location.latitude + span, location.longitude + span)
+    let southWest = CLLocationCoordinate2DMake(location.latitude - span, location.longitude - span)
     return GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
   }
   

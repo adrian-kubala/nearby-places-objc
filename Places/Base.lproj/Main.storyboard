@@ -181,6 +181,7 @@
                     <navigationItem key="navigationItem" title="SEND MESSAGE" id="rCD-Mo-kGN" customClass="CustomNavigationitem" customModule="Places" customModuleProvider="target"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="centerLocationButton" destination="Lvh-QF-ahZ" id="apN-6i-DKT"/>
                         <outlet property="labelView" destination="k5X-Qf-VDx" id="9oH-7e-B4D"/>
                         <outlet property="mapView" destination="wue-zY-o69" id="Mgd-1k-0M5"/>
                         <outlet property="placesView" destination="Qa8-dh-IDV" id="5eg-BS-Yfk"/>
