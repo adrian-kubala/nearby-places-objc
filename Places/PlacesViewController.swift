@@ -127,17 +127,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   
   func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
     let center = mapView.centerCoordinate
-
-    
-//    let latDelta: CLLocationDegrees = 0.01
-//    let longDelta: CLLocationDegrees = 0.01
-//    
-//    let theSpan = MKCoordinateSpanMake(latDelta, longDelta)
-//    let region = MKCoordinateRegionMake(center, theSpan)
-//    let mapPoint = MKMapPointForCoordinate(userLocation)
-//    let containsPoint = MKMapRectContainsPoint(mapView.visibleMapRect, mapPoint)
-    
-    let bounds = setupMapBounds(center, span: 0.0005)
+    let bounds = setupMapBounds(center, span: 0.0002)
     let userIsInsideBounds = bounds.containsCoordinate(userLocation)
     
     guard userIsInsideBounds == false else {
@@ -152,6 +142,9 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     self.mapView.setupMapRegionWithCoordinate(center)
     searchBar.setupSearchIcon()
     centerLocationButton.hidden = false
+    
+    let annotationLocation = CLLocation(latitude: center.latitude, longitude: center.longitude)
+    setupGeocoder(annotationLocation)
   }
   
   func setupTableView() {
