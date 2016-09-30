@@ -212,8 +212,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   }
   
   func setupSearchBar() {
-    searchBar.autocapitalizationType = .None
-    searchBar.text = "Current location"
+    searchBar.setupSearchBar()
     searchBar.delegate = self
   }
   

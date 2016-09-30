@@ -10,20 +10,16 @@ import UIKit
 import CoreLocation
 
 class CustomSearchBar: UISearchBar {
+  var textField: UITextField {
+    return valueForKey("searchField") as! UITextField
+  }
   
-  override func drawRect(rect: CGRect) {
-    drawSearchBar()
-    
+  func setupSearchBar() {
     setupImages()
-    setupClearButton()
+    setupTextField()
   }
   
-  func drawSearchBar() {
-    let customView = CustomView(view: self)
-    customView.drawViewByBezierPath(5.0, with: tintColor)
-  }
-  
-  func setupImages() {
+  private func setupImages() {
     var image = UIImage(named: "loc-clear")
     setImage(image, forSearchBarIcon: .Clear, state: .Normal)
     
@@ -31,9 +27,19 @@ class CustomSearchBar: UISearchBar {
     setImage(image, forSearchBarIcon: .Search, state: .Normal)
   }
   
-  func setupClearButton() {
-    let textField = valueForKey("searchField") as? UITextField
-    textField?.clearButtonMode = UITextFieldViewMode.WhileEditing
+  private func setupTextField() {
+    setupTextFieldBackgroundColor()
+    setupClearButton()
+    autocapitalizationType = .None
+    text = "Current location"
+  }
+  
+  private func setupTextFieldBackgroundColor() {
+    textField.backgroundColor = barTintColor
+  }
+  
+  private func setupClearButton() {
+    textField.clearButtonMode = UITextFieldViewMode.WhileEditing
   }
   
   func changeSearchIcon() {
