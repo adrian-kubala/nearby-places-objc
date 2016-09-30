@@ -61,6 +61,10 @@ class CustomSearchBar: UISearchBar {
     }
   }
   
+  func updateSearchText(text: String) {
+    self.text = text
+  }
+  
   func isActive() -> Bool {
     return isFirstResponder() ? true : false
   }

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import GooglePlaces
 
 class PlaceView: UITableViewCell {
   @IBOutlet weak var name: UILabel!

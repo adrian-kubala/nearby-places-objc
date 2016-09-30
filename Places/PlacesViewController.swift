@@ -29,6 +29,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     return location
   }
   var placemark: CLPlacemark?
+  var currentAddress = String()
   
   private var requestTimer = NSTimer()
   
@@ -147,11 +148,14 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   }
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    let coordinate = chooseData(indexPath.row).coordinate
+    let data = chooseData(indexPath.row)
+    let address = data.address
+    let coordinate = data.coordinate
     
     mapView.removeAnnotationsIfNeeded()
     mapView.setupAnnotationWithCoordinate(coordinate)
     mapView.setupMapRegionWithCoordinate(coordinate)
+    currentAddress = address!
     clearSearchBarText()
     resizeTable()
   }
@@ -159,6 +163,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   func clearSearchBarText() {
     searchBar.text?.removeAll()
     searchBarShouldEndEditing(searchBar)
+    searchBar.updateSearchText(currentAddress)
   }
   
   @IBAction func centerMapView(sender: AnyObject) {
@@ -225,7 +230,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   func searchBarTextDidEndEditing(searchBar: UISearchBar) {
     self.searchBar.changeSearchIcon()
     resizeTable()
-    self.searchBar.updateSearchText(with: placemark!)
+    self.searchBar.updateSearchText(currentAddress)
     typedPlaces.removeAll()
   }
   
