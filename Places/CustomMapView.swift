@@ -12,6 +12,14 @@ import MapKit
 class CustomMapView: MKMapView {
   func setupMapRegion(location: CLLocation) {
     let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+    setupRegion(center)
+  }
+  
+  func setupMapRegionWithCoordinate(coordinate: CLLocationCoordinate2D) {
+    setupRegion(coordinate)
+  }
+  
+  func setupRegion(center: CLLocationCoordinate2D) {
     let span = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
     let region = MKCoordinateRegion(center: center, span: span)
     

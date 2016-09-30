@@ -151,23 +151,9 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     
     mapView.removeAnnotationsIfNeeded()
     mapView.setupAnnotationWithCoordinate(coordinate)
-    updateMapRegion()
+    mapView.setupMapRegionWithCoordinate(coordinate)
     clearSearchBarText()
     resizeTable()
-  }
-  
-  func updateMapRegion() {
-    if searchBar.isActive() {
-      fitRegionToAnnotations()
-    } else {
-      mapView.setupMapRegion(locationManager.location!)
-    }
-  }
-  
-  func fitRegionToAnnotations() {
-    if mapView.annotations.isEmpty == false {
-      mapView.showAnnotations(mapView.annotations, animated: true)
-    }
   }
   
   func clearSearchBarText() {
