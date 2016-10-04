@@ -14,7 +14,7 @@ class CustomNavigationitem: UINavigationItem {
     image = image?.imageWithRenderingMode(.AlwaysOriginal)
     
     let locationImage = UIBarButtonItem(image: image, style: .Plain, target: nil, action: nil)
-    let flexibleSpace = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+    let flexibleSpace = UIBarButtonItem.init(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
     leftBarButtonItems = [flexibleSpace, locationImage]
   }
 }

@@ -39,7 +39,7 @@ class CustomSearchBar: UISearchBar {
   }
   
   private func setupClearButton() {
-    textField.clearButtonMode = UITextFieldViewMode.WhileEditing
+    textField.clearButtonMode = .WhileEditing
   }
   
   func changeSearchIcon() {
