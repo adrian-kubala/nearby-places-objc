@@ -9,20 +9,20 @@
 import UIKit
 
 class CustomButton: UIButton {
-  override func drawRect(rect: CGRect) {
+  override func draw(_ rect: CGRect) {
     drawButton()
     setupImageView()
   }
   
   func drawButton() {
     let customView = CustomView(view: self)
-    customView.drawViewByBezierPath(5.0, with: UIColor.blackColor())
+    customView.drawViewByBezierPath(5.0, with: UIColor.black)
   }
   
   func setupImageView() {
     let imgView = UIImageView()
     imgView.image = UIImage(named: "tick")
-    imgView.changeTintColor(UIColor.whiteColor())
-    setImage(imgView.image, forState: .Normal)
+    imgView.changeTintColor(UIColor.white)
+    setImage(imgView.image, for: UIControlState())
   }
 }

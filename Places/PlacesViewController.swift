@@ -33,12 +33,12 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   var placemark: CLPlacemark?
   var currentAddress = String()
   
-  private var requestTimer = NSTimer()
+  fileprivate var requestTimer = Timer()
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    centerLocationButton.hidden = true
+    centerLocationButton.isHidden = true
     setupNavigationItem()
     setupMapView()
     setupLocationManager()
@@ -57,7 +57,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   }
   
   func setupPlacesClient() {
-    placesClient = GMSPlacesClient.sharedClient()
+    placesClient = GMSPlacesClient.shared()
   }
   
   func setupLocationManager() {
@@ -69,26 +69,26 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   }
   
   // MARK: - CLLocationManagerDelegate
-  func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     locationManager.stopUpdatingLocation()
   }
   
-  func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
     switch status {
-    case .Denied, .NotDetermined, .Restricted:
+    case .denied, .notDetermined, .restricted:
       print("Authorization error")
     default:
       locationManager.startUpdatingLocation()
     }
   }
   
-  func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
     locationManager.stopUpdatingLocation()
     print(error)
   }
   
   // MARK: - MKMapViewDelegate
-  func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+  func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
     guard let location = userLocation.location else {
       return
     }
@@ -98,7 +98,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     showNearbyPlaces()
   }
   
-  func setupGeocoder(location: CLLocation) {
+  func setupGeocoder(_ location: CLLocation) {
     let geocoder = CLGeocoder()
     let completionHandler: CLGeocodeCompletionHandler = { (placemarks, error) -> Void in
       if let placemark = placemarks?.first {
@@ -109,10 +109,10 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     geocoder.reverseGeocodeLocation(location, completionHandler: completionHandler)
   }
   
-  func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
     if annotation is MKPointAnnotation {
       let identifier = "placePin"
-      var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+      var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
       if pinView == nil {
         pinView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
         pinView?.image = UIImage(named: "map-location")
@@ -125,14 +125,14 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     return nil
   }
   
-  func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+  func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
     let center = mapView.centerCoordinate
     let bounds = setupMapBounds(center, span: 0.0002)
-    let userIsInsideBounds = bounds.containsCoordinate(userLocation)
+    let userIsInsideBounds = bounds.contains(userLocation)
     
     guard userIsInsideBounds == false else {
       self.mapView.hideAnnotationIfNeeded()
-      centerLocationButton.hidden = true
+      centerLocationButton.isHidden = true
       searchBar.setupCurrentLocationIcon()
       return
     }
@@ -140,7 +140,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     self.mapView.showAnnotation()
     self.mapView.setupMapRegionWithCoordinate(center)
     searchBar.setupSearchIcon()
-    centerLocationButton.hidden = false
+    centerLocationButton.isHidden = false
     
     let annotationLocation = CLLocation(latitude: center.latitude, longitude: center.longitude)
     setupGeocoder(annotationLocation)
@@ -152,15 +152,15 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   }
   
   // MARK: - UITableViewDataSource
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if searchBar.isActive() {
       return typedPlaces.count
     }
     return nearbyPlaces.count
   }
   
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCellWithIdentifier("placeView") as? PlaceView else {
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: "placeView") as? PlaceView else {
       return UITableViewCell()
     }
     
@@ -171,7 +171,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     return cell
   }
   
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let data = chooseData(indexPath.row)
     let address = data.address
     let coordinate = data.coordinate
@@ -188,21 +188,21 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     searchBar.updateSearchText(currentAddress)
   }
   
-  @IBAction func centerMapView(sender: AnyObject) {
+  @IBAction func centerMapView(_ sender: AnyObject) {
     guard let userLocation = locationManager.location else {
       return
     }
     
     mapView.setupMapRegion(userLocation)
-    centerLocationButton.hidden = true
+    centerLocationButton.isHidden = true
   }
   
-  @IBAction func sendImageFromMapView(sender: AnyObject) {
-    performSegueWithIdentifier("showChatVC", sender: nil)
+  @IBAction func sendImageFromMapView(_ sender: AnyObject) {
+    performSegue(withIdentifier: "showChatVC", sender: nil)
   }
   
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    guard let destinationVC = segue.destinationViewController as? ChatViewController where segue.identifier == "showChatVC" else {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    guard let destinationVC = segue.destination as? ChatViewController, segue.identifier == "showChatVC" else {
       return
     }
     
@@ -213,13 +213,13 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     destinationVC.image = mapViewImage
   }
   
-  func getImageFromView(view: UIView) -> UIImage? {
+  func getImageFromView(_ view: UIView) -> UIImage? {
     UIGraphicsBeginImageContext(view.bounds.size)
     guard let context = UIGraphicsGetCurrentContext() else {
       return nil
     }
     
-    view.layer.renderInContext(context)
+    view.layer.render(in: context)
     let image = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     return image
@@ -231,18 +231,18 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   }
   
   // MARK: - UISearchBarDelegate
-  func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+  func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     requestTimer.invalidate()
-    requestTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(PlacesViewController.makeRequestForPlaces), userInfo: nil, repeats: false)
+    requestTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(PlacesViewController.makeRequestForPlaces), userInfo: nil, repeats: false)
   }
   
-  func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+  func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
     self.searchBar.changeSearchIcon()
     resizeTable()
     searchBar.text?.removeAll()
   }
   
-  func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
+  func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
     if self.searchBar.isActive() {
       searchBar.resignFirstResponder()
       return true
@@ -250,7 +250,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     return false
   }
   
-  func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+  func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
     self.searchBar.changeSearchIcon()
     resizeTable()
     self.searchBar.updateSearchText(currentAddress)
@@ -258,7 +258,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   }
   
   func makeRequestForPlaces() {
-    guard let searchText = searchBar.text where searchText.isEmpty == false else {
+    guard let searchText = searchBar.text, searchText.isEmpty == false else {
       searchBarShouldEndEditing(searchBar)
       return
     }
@@ -267,7 +267,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     
     let bounds = setupMapBounds(userLocation, span: 0.01)
     placesClient.autocompleteQuery(searchText, bounds: bounds, filter: nil, callback: { (predictions, error) -> Void in
-      guard let predictions = predictions where error == nil else {
+      guard let predictions = predictions, error == nil else {
         print("Autocomplete error: \(error!.localizedDescription)")
         return
       }
@@ -283,7 +283,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     })
   }
   
-  func setupPlaceByID(placeID: String, location: CLLocationCoordinate2D) {
+  func setupPlaceByID(_ placeID: String, location: CLLocationCoordinate2D) {
     placesClient.lookUpPlaceID(placeID, callback: {(place, error) -> Void in
       if let predictedPlace = place {
         self.checkForPlacePhotos(predictedPlace, location: location)
@@ -291,7 +291,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     })
   }
   
-  func setupMapBounds(location: CLLocationCoordinate2D, span: Double) -> GMSCoordinateBounds {
+  func setupMapBounds(_ location: CLLocationCoordinate2D, span: Double) -> GMSCoordinateBounds {
     let northEast = CLLocationCoordinate2DMake(location.latitude + span, location.longitude + span)
     let southWest = CLLocationCoordinate2DMake(location.latitude - span, location.longitude - span)
     return GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
@@ -304,8 +304,8 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   }
   
   func showNearbyPlaces() {
-    placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
-      guard let placeLikelihoods = placeLikelihoods where error == nil else {
+    placesClient.currentPlace(callback: { (placeLikelihoods, error) -> Void in
+      guard let placeLikelihoods = placeLikelihoods, error == nil else {
         print("Nearby places error: \(error!.localizedDescription)")
         return
       }
@@ -318,8 +318,8 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     })
   }
   
-  func checkForPlacePhotos(place: GMSPlace, location: CLLocationCoordinate2D) {
-    placesClient.lookUpPhotosForPlaceID(place.placeID, callback: { (photos, error) -> Void in
+  func checkForPlacePhotos(_ place: GMSPlace, location: CLLocationCoordinate2D) {
+    placesClient.lookUpPhotos(forPlaceID: place.placeID, callback: { (photos, error) -> Void in
       guard error == nil else {
         print(error!.localizedDescription)
         return
@@ -329,7 +329,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     })
   }
   
-  func setupPlaceWithPhoto(place: GMSPlace, photo: GMSPlacePhotoMetadata?, location: CLLocationCoordinate2D) {
+  func setupPlaceWithPhoto(_ place: GMSPlace, photo: GMSPlacePhotoMetadata?, location: CLLocationCoordinate2D) {
     guard let photo = photo else {
       let place = Place(name: place.name, address: place.formattedAddress, coordinate: place.coordinate, photo: UIImage(named: "av-location")!, userLocation: location)
       self.updatePlaces(with: place)
@@ -365,17 +365,17 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   
   func sortPlacesByDistance() {
     if searchBar.isActive() {
-      typedPlaces.sortInPlace({
+      typedPlaces.sort(by: {
         $0.distance < $1.distance
       })
     } else {
-      nearbyPlaces.sortInPlace({
+      nearbyPlaces.sort(by: {
         $0.distance < $1.distance
       })
     }
   }
   
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     
     resizeTable()
@@ -393,12 +393,12 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   }
   
   func animateTableResizing() {
-    UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+    UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions(), animations: {
       self.placesView.layoutIfNeeded()
       }, completion: nil)
   }
   
-  func chooseData(row: Int) -> Place {
+  func chooseData(_ row: Int) -> Place {
     if searchBar.isActive() {
       return typedPlaces[row]
     }

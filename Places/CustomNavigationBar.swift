@@ -9,7 +9,7 @@
 import UIKit
 
 class CustomNavigationBar: UINavigationBar {
-  override func drawRect(rect: CGRect) {
+  override func draw(_ rect: CGRect) {
     drawNavigationBar()
   }
   

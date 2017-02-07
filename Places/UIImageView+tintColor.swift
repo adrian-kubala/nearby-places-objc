@@ -9,8 +9,8 @@
 import UIKit
 
 extension UIImageView {
-  func changeTintColor(color: UIColor) {
-    image = image?.imageWithRenderingMode(.AlwaysTemplate)
+  func changeTintColor(_ color: UIColor) {
+    image = image?.withRenderingMode(.alwaysTemplate)
     tintColor = color
   }
 }

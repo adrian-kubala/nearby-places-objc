@@ -8,8 +8,8 @@
 
 import UIKit
 extension UIImage {
-  func cropToBounds(width width: Double, height: Double) -> UIImage {
-    let contextImage = UIImage(CGImage: CGImage!)
+  func cropToBounds(width: Double, height: Double) -> UIImage {
+    let contextImage = UIImage(cgImage: cgImage!)
     let contextSize = contextImage.size
     
     var posX = CGFloat(0.0)
@@ -29,13 +29,13 @@ extension UIImage {
       cgHeight = contextSize.width
     }
     
-    let rect = CGRectMake(posX, posY, cgWidth, cgHeight)
+    let rect = CGRect(x: posX, y: posY, width: cgWidth, height: cgHeight)
     
     // Create bitmap image from context using the rect
-    let imageRef: CGImageRef = CGImageCreateWithImageInRect(contextImage.CGImage, rect)!
+    let imageRef: CGImage = contextImage.cgImage!.cropping(to: rect)!
     
     // Create a new image based on the imageRef and rotate back to the original orientation
-    let newImage = UIImage(CGImage: imageRef, scale: scale, orientation: imageOrientation)
+    let newImage = UIImage(cgImage: imageRef, scale: scale, orientation: imageOrientation)
     
     return newImage
   }

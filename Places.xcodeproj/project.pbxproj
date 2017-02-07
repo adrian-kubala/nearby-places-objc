@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22B7CD8E5EA4B193B8D20034 /* libPods-Places.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63D4235B3BC85DB056E43CBF /* libPods-Places.a */; };
 		3A2E72F21D9CF1C6008CDE51 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E72F11D9CF1C6008CDE51 /* CustomNavigationBar.swift */; };
 		3A2E72F61D9D245D008CDE51 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E72F51D9D245D008CDE51 /* CustomSearchBar.swift */; };
 		3A5F64EB1D95150F00FF8645 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5F64EA1D95150F00FF8645 /* PlacesViewController.swift */; };
@@ -26,9 +25,11 @@
 		3AFF213F1D9DB662005A3AA0 /* UIImage+cropToBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF213E1D9DB662005A3AA0 /* UIImage+cropToBounds.swift */; };
 		3AFF21411D9DB790005A3AA0 /* UIImage+scaleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF21401D9DB790005A3AA0 /* UIImage+scaleImage.swift */; };
 		3AFF21431D9DC407005A3AA0 /* CustomMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF21421D9DC407005A3AA0 /* CustomMapView.swift */; };
+		5E49349C9F815951E8FF2C08 /* Pods_Places.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F61554873A56C0BBC2068B7A /* Pods_Places.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		11051506DCEC2B6B96D01460 /* Pods-Places.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Places.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Places/Pods-Places.debug.xcconfig"; sourceTree = "<group>"; };
 		3A2E72F11D9CF1C6008CDE51 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		3A2E72F51D9D245D008CDE51 /* CustomSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		3A5F64EA1D95150F00FF8645 /* PlacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesViewController.swift; sourceTree = "<group>"; };
@@ -49,9 +50,8 @@
 		3AFF213E1D9DB662005A3AA0 /* UIImage+cropToBounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+cropToBounds.swift"; sourceTree = "<group>"; };
 		3AFF21401D9DB790005A3AA0 /* UIImage+scaleImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+scaleImage.swift"; sourceTree = "<group>"; };
 		3AFF21421D9DC407005A3AA0 /* CustomMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMapView.swift; sourceTree = "<group>"; };
-		63D4235B3BC85DB056E43CBF /* libPods-Places.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Places.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C943431030427DD0D0361180 /* Pods-Places.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Places.release.xcconfig"; path = "Pods/Target Support Files/Pods-Places/Pods-Places.release.xcconfig"; sourceTree = "<group>"; };
-		F5D6FB190A515D752F58A85C /* Pods-Places.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Places.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Places/Pods-Places.debug.xcconfig"; sourceTree = "<group>"; };
+		8DA242E9D83AEA77DED43231 /* Pods-Places.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Places.release.xcconfig"; path = "Pods/Target Support Files/Pods-Places/Pods-Places.release.xcconfig"; sourceTree = "<group>"; };
+		F61554873A56C0BBC2068B7A /* Pods_Places.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Places.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,13 +60,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A72F5AA1D8A751F00BA2F16 /* MapKit.framework in Frameworks */,
-				22B7CD8E5EA4B193B8D20034 /* libPods-Places.a in Frameworks */,
+				5E49349C9F815951E8FF2C08 /* Pods_Places.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		338D071FB528806DF18A9FED /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				11051506DCEC2B6B96D01460 /* Pods-Places.debug.xcconfig */,
+				8DA242E9D83AEA77DED43231 /* Pods-Places.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		3A0887B41D91334300F99385 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -89,8 +98,8 @@
 			children = (
 				3A8C0E921D8A6D1C00F538B0 /* Places */,
 				3A8C0E911D8A6D1C00F538B0 /* Products */,
-				6CADE2C56542F9195E3006AC /* Pods */,
 				F4B5849B592095F042FADBBC /* Frameworks */,
+				338D071FB528806DF18A9FED /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -142,20 +151,11 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		6CADE2C56542F9195E3006AC /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				F5D6FB190A515D752F58A85C /* Pods-Places.debug.xcconfig */,
-				C943431030427DD0D0361180 /* Pods-Places.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		F4B5849B592095F042FADBBC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				3A72F5A91D8A751F00BA2F16 /* MapKit.framework */,
-				63D4235B3BC85DB056E43CBF /* libPods-Places.a */,
+				F61554873A56C0BBC2068B7A /* Pods_Places.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -167,12 +167,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3A8C0EB81D8A6D1D00F538B0 /* Build configuration list for PBXNativeTarget "Places" */;
 			buildPhases = (
-				C905505B350274E8E47B88B9 /* [CP] Check Pods Manifest.lock */,
+				E89291879583246B7CE2D52D /* [CP] Check Pods Manifest.lock */,
 				3A8C0E8C1D8A6D1C00F538B0 /* Sources */,
 				3A8C0E8D1D8A6D1C00F538B0 /* Frameworks */,
 				3A8C0E8E1D8A6D1C00F538B0 /* Resources */,
-				FA33FB26DD3C23924FD7FF08 /* [CP] Embed Pods Frameworks */,
-				DC6D8609073958B8B8EBA6B1 /* [CP] Copy Pods Resources */,
+				9AC4E812A829CBD266FCC926 /* [CP] Embed Pods Frameworks */,
+				8F036507CA249AEC6FF5B66A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -195,6 +195,7 @@
 				TargetAttributes = {
 					3A8C0E8F1D8A6D1C00F538B0 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -230,22 +231,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		C905505B350274E8E47B88B9 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		DC6D8609073958B8B8EBA6B1 /* [CP] Copy Pods Resources */ = {
+		8F036507CA249AEC6FF5B66A /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -260,7 +246,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Places/Pods-Places-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FA33FB26DD3C23924FD7FF08 /* [CP] Embed Pods Frameworks */ = {
+		9AC4E812A829CBD266FCC926 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -273,6 +259,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Places/Pods-Places-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E89291879583246B7CE2D52D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -408,7 +409,7 @@
 		};
 		3A8C0EB91D8A6D1D00F538B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F5D6FB190A515D752F58A85C /* Pods-Places.debug.xcconfig */;
+			baseConfigurationReference = 11051506DCEC2B6B96D01460 /* Pods-Places.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -416,12 +417,13 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = kubala.adrian.Places;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		3A8C0EBA1D8A6D1D00F538B0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C943431030427DD0D0361180 /* Pods-Places.release.xcconfig */;
+			baseConfigurationReference = 8DA242E9D83AEA77DED43231 /* Pods-Places.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -429,6 +431,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = kubala.adrian.Places;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

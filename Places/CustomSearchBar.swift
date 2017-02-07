@@ -11,7 +11,7 @@ import CoreLocation
 
 class CustomSearchBar: UISearchBar {
   var textField: UITextField {
-    return valueForKey("searchField") as! UITextField
+    return value(forKey: "searchField") as! UITextField
   }
   
   func setupSearchBar() {
@@ -19,27 +19,27 @@ class CustomSearchBar: UISearchBar {
     setupTextField()
   }
   
-  private func setupImages() {
+  fileprivate func setupImages() {
     var image = UIImage(named: "loc-clear")
-    setImage(image, forSearchBarIcon: .Clear, state: .Normal)
+    setImage(image, for: .clear, state: UIControlState())
     
     image = UIImage(named: "loc-current")
-    setImage(image, forSearchBarIcon: .Search, state: .Normal)
+    setImage(image, for: .search, state: UIControlState())
   }
   
-  private func setupTextField() {
+  fileprivate func setupTextField() {
     setupTextFieldBackgroundColor()
     setupClearButton()
-    autocapitalizationType = .None
+    autocapitalizationType = .none
     text = "Current location"
   }
   
-  private func setupTextFieldBackgroundColor() {
+  fileprivate func setupTextFieldBackgroundColor() {
     textField.backgroundColor = barTintColor
   }
   
-  private func setupClearButton() {
-    textField.clearButtonMode = .WhileEditing
+  fileprivate func setupClearButton() {
+    textField.clearButtonMode = .whileEditing
   }
   
   func changeSearchIcon() {
@@ -52,27 +52,27 @@ class CustomSearchBar: UISearchBar {
   
   func setupSearchIcon() {
     let image = UIImage(named: "loc-search")!
-    setImage(image, forSearchBarIcon: .Search, state: .Normal)
+    setImage(image, for: .search, state: UIControlState())
   }
   
   func setupCurrentLocationIcon() {
     let image = UIImage(named: "loc-current")!
-    setImage(image, forSearchBarIcon: .Search, state: .Normal)
+    setImage(image, for: .search, state: UIControlState())
   }
   
   func updateSearchText(with placemark: CLPlacemark) {
-    if let street = placemark.thoroughfare, city = placemark.locality, country = placemark.country {
+    if let street = placemark.thoroughfare, let city = placemark.locality, let country = placemark.country {
       let separator = ", "
       let formattedAddress = street + separator + city + separator + country
       text = formattedAddress
     }
   }
   
-  func updateSearchText(text: String) {
+  func updateSearchText(_ text: String) {
     self.text = text
   }
   
   func isActive() -> Bool {
-    return isFirstResponder() ? true : false
+    return isFirstResponder ? true : false
   }
 }

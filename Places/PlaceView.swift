@@ -13,17 +13,17 @@ class PlaceView: UITableViewCell {
   @IBOutlet weak var address: UILabel!
   @IBOutlet weak var photo: UIImageView!
   
-  func setupWithData(place: Place) {
+  func setupWithData(_ place: Place) {
     setupName(place.name)
     setupAddress(place.address, distance: place.distance)
     setupPhoto(place.photo)
   }
   
-  private func setupName(name: String) {
+  fileprivate func setupName(_ name: String) {
     self.name.text = name
   }
   
-  private func setupAddress(address: String?, distance: Int) {
+  fileprivate func setupAddress(_ address: String?, distance: Int) {
     guard let address = address else {
       return
     }
@@ -36,7 +36,7 @@ class PlaceView: UITableViewCell {
     }
   }
   
-  private func setupPhoto(photo: UIImage) {
+  fileprivate func setupPhoto(_ photo: UIImage) {
     self.photo.layer.cornerRadius = photo.size.width/2
     self.photo.clipsToBounds = true
     self.photo.image = photo

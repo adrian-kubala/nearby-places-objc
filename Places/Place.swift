@@ -28,7 +28,7 @@ class Place {
     let firstLocation = CLLocation(latitude: place.latitude, longitude: place.longitude)
     let secondLocation = CLLocation(latitude: otherPlace.latitude, longitude: otherPlace.longitude)
     
-    let distanceInMeters = secondLocation.distanceFromLocation(firstLocation)
+    let distanceInMeters = secondLocation.distance(from: firstLocation)
     distance = Int(distanceInMeters)
     return distance
   }

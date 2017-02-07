@@ -9,12 +9,12 @@
 import UIKit
 
 class CustomNavigationitem: UINavigationItem {
-  func setupIcon(name: String) {
+  func setupIcon(_ name: String) {
     var image = UIImage(named: name)
-    image = image?.imageWithRenderingMode(.AlwaysOriginal)
+    image = image?.withRenderingMode(.alwaysOriginal)
     
-    let locationImage = UIBarButtonItem(image: image, style: .Plain, target: nil, action: nil)
-    let flexibleSpace = UIBarButtonItem.init(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+    let locationImage = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
+    let flexibleSpace = UIBarButtonItem.init(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     leftBarButtonItems = [flexibleSpace, locationImage]
   }
 }

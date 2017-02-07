@@ -12,40 +12,40 @@ import MapKit
 class CustomMapView: MKMapView {
   let pinView = UIImageView(image: UIImage(named: "map-location"))
   
-  override func drawRect(rect: CGRect) {
+  override func draw(_ rect: CGRect) {
     setupAnnotation()
   }
   
-  func setupMapRegion(location: CLLocation) {
+  func setupMapRegion(_ location: CLLocation) {
     let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
     setupRegion(center)
   }
   
-  func setupMapRegionWithCoordinate(coordinate: CLLocationCoordinate2D) {
+  func setupMapRegionWithCoordinate(_ coordinate: CLLocationCoordinate2D) {
     setupRegion(coordinate)
   }
   
-  private func setupRegion(center: CLLocationCoordinate2D) {
+  fileprivate func setupRegion(_ center: CLLocationCoordinate2D) {
     let span = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
     let region = MKCoordinateRegion(center: center, span: span)
     
     setRegion(region, animated: true)
   }
   
-  private func setupAnnotation() {
+  fileprivate func setupAnnotation() {
     addSubview(pinView)
     centerPin()
   }
   
-  private func centerPin() {
-    pinView.center = convertPoint(center, fromView: superview)
+  fileprivate func centerPin() {
+    pinView.center = convert(center, from: superview)
   }
   
   func hideAnnotationIfNeeded() {
-    pinView.hidden = true
+    pinView.isHidden = true
   }
   
   func showAnnotation() {
-    pinView.hidden = false
+    pinView.isHidden = false
   }
 }

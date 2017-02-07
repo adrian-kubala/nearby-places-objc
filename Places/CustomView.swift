@@ -10,19 +10,19 @@ import UIKit
 
 @IBDesignable
 class CustomView {
-  private let view: UIView
+  fileprivate let view: UIView
   
   init(view: UIView) {
     self.view = view
   }
   
-  func drawViewByBezierPath(leftBottomCornerOffset: CGFloat, with color: UIColor) {
+  func drawViewByBezierPath(_ leftBottomCornerOffset: CGFloat, with color: UIColor) {
     let bezierPath = UIBezierPath()
-    bezierPath.moveToPoint(view.bounds.origin)
-    bezierPath.addLineToPoint(CGPoint(x: view.bounds.maxX, y: view.bounds.origin.y))
-    bezierPath.addLineToPoint(CGPoint(x: view.bounds.maxX, y: view.bounds.maxY))
-    bezierPath.addLineToPoint(CGPoint(x: view.bounds.origin.x, y: view.bounds.maxY - leftBottomCornerOffset))
-    bezierPath.closePath()
+    bezierPath.move(to: view.bounds.origin)
+    bezierPath.addLine(to: CGPoint(x: view.bounds.maxX, y: view.bounds.origin.y))
+    bezierPath.addLine(to: CGPoint(x: view.bounds.maxX, y: view.bounds.maxY))
+    bezierPath.addLine(to: CGPoint(x: view.bounds.origin.x, y: view.bounds.maxY - leftBottomCornerOffset))
+    bezierPath.close()
     
     color.setFill()
     bezierPath.fill()

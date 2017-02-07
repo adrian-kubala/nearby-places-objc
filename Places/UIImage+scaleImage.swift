@@ -9,15 +9,15 @@
 import UIKit
 
 extension UIImage {
-  func scaleImage(width width: Double) -> UIImage {
+  func scaleImage(width: Double) -> UIImage {
     let newWidth = CGFloat(width)
     let scale = newWidth / size.width
     let newHeight = size.height * scale
-    UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
-    drawInRect(CGRectMake(0, 0, newWidth, newHeight))
+    UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+    draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
     let newImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     
-    return newImage
+    return newImage!
   }
 }
