@@ -25,18 +25,18 @@
 		3AFF213F1D9DB662005A3AA0 /* UIImage+cropToBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF213E1D9DB662005A3AA0 /* UIImage+cropToBounds.swift */; };
 		3AFF21411D9DB790005A3AA0 /* UIImage+scaleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF21401D9DB790005A3AA0 /* UIImage+scaleImage.swift */; };
 		3AFF21431D9DC407005A3AA0 /* CustomMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF21421D9DC407005A3AA0 /* CustomMapView.swift */; };
-		5E49349C9F815951E8FF2C08 /* Pods_Places.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F61554873A56C0BBC2068B7A /* Pods_Places.framework */; };
+		A6612042F63430072BB7083E /* Pods_NearbyPlaces.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01D9BED10520DB38DED414B4 /* Pods_NearbyPlaces.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		11051506DCEC2B6B96D01460 /* Pods-Places.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Places.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Places/Pods-Places.debug.xcconfig"; sourceTree = "<group>"; };
+		01D9BED10520DB38DED414B4 /* Pods_NearbyPlaces.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NearbyPlaces.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A2E72F11D9CF1C6008CDE51 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		3A2E72F51D9D245D008CDE51 /* CustomSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		3A5F64EA1D95150F00FF8645 /* PlacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesViewController.swift; sourceTree = "<group>"; };
 		3A72F5A71D8A6FCD00BA2F16 /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		3A72F5A91D8A751F00BA2F16 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3A8B47DE1D9BCD6900901F86 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
-		3A8C0E901D8A6D1C00F538B0 /* Places.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Places.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A8C0E901D8A6D1C00F538B0 /* NearbyPlaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NearbyPlaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A8C0E931D8A6D1C00F538B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A8C0E981D8A6D1D00F538B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3A8C0E9A1D8A6D1D00F538B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -50,8 +50,8 @@
 		3AFF213E1D9DB662005A3AA0 /* UIImage+cropToBounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+cropToBounds.swift"; sourceTree = "<group>"; };
 		3AFF21401D9DB790005A3AA0 /* UIImage+scaleImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+scaleImage.swift"; sourceTree = "<group>"; };
 		3AFF21421D9DC407005A3AA0 /* CustomMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMapView.swift; sourceTree = "<group>"; };
-		8DA242E9D83AEA77DED43231 /* Pods-Places.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Places.release.xcconfig"; path = "Pods/Target Support Files/Pods-Places/Pods-Places.release.xcconfig"; sourceTree = "<group>"; };
-		F61554873A56C0BBC2068B7A /* Pods_Places.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Places.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FE2B3BA2027569E5B0E5723 /* Pods-NearbyPlaces.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NearbyPlaces.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NearbyPlaces/Pods-NearbyPlaces.debug.xcconfig"; sourceTree = "<group>"; };
+		854BCFFDBA4F2C5B4F78F532 /* Pods-NearbyPlaces.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NearbyPlaces.release.xcconfig"; path = "Pods/Target Support Files/Pods-NearbyPlaces/Pods-NearbyPlaces.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,22 +60,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A72F5AA1D8A751F00BA2F16 /* MapKit.framework in Frameworks */,
-				5E49349C9F815951E8FF2C08 /* Pods_Places.framework in Frameworks */,
+				A6612042F63430072BB7083E /* Pods_NearbyPlaces.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		338D071FB528806DF18A9FED /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				11051506DCEC2B6B96D01460 /* Pods-Places.debug.xcconfig */,
-				8DA242E9D83AEA77DED43231 /* Pods-Places.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		3A0887B41D91334300F99385 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -96,22 +87,22 @@
 		3A8C0E871D8A6D1C00F538B0 = {
 			isa = PBXGroup;
 			children = (
-				3A8C0E921D8A6D1C00F538B0 /* Places */,
+				3A8C0E921D8A6D1C00F538B0 /* NearbyPlaces */,
 				3A8C0E911D8A6D1C00F538B0 /* Products */,
 				F4B5849B592095F042FADBBC /* Frameworks */,
-				338D071FB528806DF18A9FED /* Pods */,
+				7BF511B4FD4226C268D1ED58 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
 		3A8C0E911D8A6D1C00F538B0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3A8C0E901D8A6D1C00F538B0 /* Places.app */,
+				3A8C0E901D8A6D1C00F538B0 /* NearbyPlaces.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3A8C0E921D8A6D1C00F538B0 /* Places */ = {
+		3A8C0E921D8A6D1C00F538B0 /* NearbyPlaces */ = {
 			isa = PBXGroup;
 			children = (
 				3A0887B41D91334300F99385 /* Model */,
@@ -124,7 +115,7 @@
 				3A8C0E9C1D8A6D1D00F538B0 /* LaunchScreen.storyboard */,
 				3A8C0E9F1D8A6D1D00F538B0 /* Info.plist */,
 			);
-			path = Places;
+			path = NearbyPlaces;
 			sourceTree = "<group>";
 		};
 		3AF51AAA1D9C294E0039D426 /* Extensions */ = {
@@ -151,11 +142,20 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		7BF511B4FD4226C268D1ED58 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3FE2B3BA2027569E5B0E5723 /* Pods-NearbyPlaces.debug.xcconfig */,
+				854BCFFDBA4F2C5B4F78F532 /* Pods-NearbyPlaces.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		F4B5849B592095F042FADBBC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				3A72F5A91D8A751F00BA2F16 /* MapKit.framework */,
-				F61554873A56C0BBC2068B7A /* Pods_Places.framework */,
+				01D9BED10520DB38DED414B4 /* Pods_NearbyPlaces.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -163,24 +163,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3A8C0E8F1D8A6D1C00F538B0 /* Places */ = {
+		3A8C0E8F1D8A6D1C00F538B0 /* NearbyPlaces */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3A8C0EB81D8A6D1D00F538B0 /* Build configuration list for PBXNativeTarget "Places" */;
+			buildConfigurationList = 3A8C0EB81D8A6D1D00F538B0 /* Build configuration list for PBXNativeTarget "NearbyPlaces" */;
 			buildPhases = (
-				E89291879583246B7CE2D52D /* [CP] Check Pods Manifest.lock */,
+				D00726310FCF62D40F05ABDC /* [CP] Check Pods Manifest.lock */,
 				3A8C0E8C1D8A6D1C00F538B0 /* Sources */,
 				3A8C0E8D1D8A6D1C00F538B0 /* Frameworks */,
 				3A8C0E8E1D8A6D1C00F538B0 /* Resources */,
-				9AC4E812A829CBD266FCC926 /* [CP] Embed Pods Frameworks */,
-				8F036507CA249AEC6FF5B66A /* [CP] Copy Pods Resources */,
+				0B33EA81B9A0CF469ADC367F /* [CP] Embed Pods Frameworks */,
+				8752595E8965363BB948DBDC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = Places;
+			name = NearbyPlaces;
 			productName = Places;
-			productReference = 3A8C0E901D8A6D1C00F538B0 /* Places.app */;
+			productReference = 3A8C0E901D8A6D1C00F538B0 /* NearbyPlaces.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -199,7 +199,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3A8C0E8B1D8A6D1C00F538B0 /* Build configuration list for PBXProject "Places" */;
+			buildConfigurationList = 3A8C0E8B1D8A6D1C00F538B0 /* Build configuration list for PBXProject "NearbyPlaces" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -212,7 +212,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3A8C0E8F1D8A6D1C00F538B0 /* Places */,
+				3A8C0E8F1D8A6D1C00F538B0 /* NearbyPlaces */,
 			);
 		};
 /* End PBXProject section */
@@ -231,22 +231,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8F036507CA249AEC6FF5B66A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Places/Pods-Places-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9AC4E812A829CBD266FCC926 /* [CP] Embed Pods Frameworks */ = {
+		0B33EA81B9A0CF469ADC367F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -258,10 +243,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Places/Pods-Places-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NearbyPlaces/Pods-NearbyPlaces-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E89291879583246B7CE2D52D /* [CP] Check Pods Manifest.lock */ = {
+		8752595E8965363BB948DBDC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NearbyPlaces/Pods-NearbyPlaces-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D00726310FCF62D40F05ABDC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -414,13 +414,13 @@
 		};
 		3A8C0EB91D8A6D1D00F538B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 11051506DCEC2B6B96D01460 /* Pods-Places.debug.xcconfig */;
+			baseConfigurationReference = 3FE2B3BA2027569E5B0E5723 /* Pods-NearbyPlaces.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = Places/Info.plist;
+				INFOPLIST_FILE = NearbyPlaces/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = kubala.adrian.Places;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.adrian-kubala.NearbyPlaces";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -428,13 +428,13 @@
 		};
 		3A8C0EBA1D8A6D1D00F538B0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8DA242E9D83AEA77DED43231 /* Pods-Places.release.xcconfig */;
+			baseConfigurationReference = 854BCFFDBA4F2C5B4F78F532 /* Pods-NearbyPlaces.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = Places/Info.plist;
+				INFOPLIST_FILE = NearbyPlaces/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = kubala.adrian.Places;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.adrian-kubala.NearbyPlaces";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -443,7 +443,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3A8C0E8B1D8A6D1C00F538B0 /* Build configuration list for PBXProject "Places" */ = {
+		3A8C0E8B1D8A6D1C00F538B0 /* Build configuration list for PBXProject "NearbyPlaces" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3A8C0EB61D8A6D1D00F538B0 /* Debug */,
@@ -452,7 +452,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3A8C0EB81D8A6D1D00F538B0 /* Build configuration list for PBXNativeTarget "Places" */ = {
+		3A8C0EB81D8A6D1D00F538B0 /* Build configuration list for PBXNativeTarget "NearbyPlaces" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3A8C0EB91D8A6D1D00F538B0 /* Debug */,
