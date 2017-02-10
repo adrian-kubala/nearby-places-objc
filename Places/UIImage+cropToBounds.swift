@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 extension UIImage {
   func cropToBounds(width: Double, height: Double) -> UIImage {
     let contextImage = UIImage(cgImage: cgImage!)

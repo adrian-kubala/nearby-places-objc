@@ -266,7 +266,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     print(searchText)
     
     let bounds = setupMapBounds(userLocation, span: 0.01)
-    placesClient.autocompleteQuery(searchText, bounds: bounds, filter: nil, callback: { (predictions, error) -> Void in
+    placesClient.autocompleteQuery(searchText, bounds: bounds, filter: nil) { (predictions, error) -> Void in
       guard let predictions = predictions, error == nil else {
         print("Autocomplete error: \(error!.localizedDescription)")
         return
@@ -280,15 +280,15 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         
         self.setupPlaceByID(placeID, location: self.userLocation)
       }
-    })
+    }
   }
   
   func setupPlaceByID(_ placeID: String, location: CLLocationCoordinate2D) {
-    placesClient.lookUpPlaceID(placeID, callback: {(place, error) -> Void in
+    placesClient.lookUpPlaceID(placeID) { (place, error) -> Void in
       if let predictedPlace = place {
         self.checkForPlacePhotos(predictedPlace, location: location)
       }
-    })
+    }
   }
   
   func setupMapBounds(_ location: CLLocationCoordinate2D, span: Double) -> GMSCoordinateBounds {
@@ -304,7 +304,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   }
   
   func showNearbyPlaces() {
-    placesClient.currentPlace(callback: { (placeLikelihoods, error) -> Void in
+    placesClient.currentPlace { (placeLikelihoods, error) -> Void in
       guard let placeLikelihoods = placeLikelihoods, error == nil else {
         print("Nearby places error: \(error!.localizedDescription)")
         return
@@ -315,18 +315,18 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
         let nearbyPlace = likelihood.place
         self.checkForPlacePhotos(nearbyPlace, location: self.userLocation)
       }
-    })
+    }
   }
   
   func checkForPlacePhotos(_ place: GMSPlace, location: CLLocationCoordinate2D) {
-    placesClient.lookUpPhotos(forPlaceID: place.placeID, callback: { (photos, error) -> Void in
+    placesClient.lookUpPhotos(forPlaceID: place.placeID) { (photos, error) -> Void in
       guard error == nil else {
         print(error!.localizedDescription)
         return
       }
       
       self.setupPlaceWithPhoto(place, photo: photos?.results.first, location: location)
-    })
+    }
   }
   
   func setupPlaceWithPhoto(_ place: GMSPlace, photo: GMSPlacePhotoMetadata?, location: CLLocationCoordinate2D) {
@@ -337,7 +337,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
       return
     }
     
-    placesClient.loadPlacePhoto(photo, callback: {(placePhoto, error) -> Void in
+    placesClient.loadPlacePhoto(photo) { (placePhoto, error) -> Void in
       guard error == nil else {
         print(error!.localizedDescription)
         return
@@ -350,7 +350,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
       place.photo = scaledImage
       
       self.updatePlaces(with: place)
-    })
+    }
   }
   
   func updatePlaces(with place: Place) {
@@ -365,13 +365,13 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   
   func sortPlacesByDistance() {
     if searchBar.isActive() {
-      typedPlaces.sort(by: {
+      typedPlaces.sort {
         $0.distance < $1.distance
-      })
+      }
     } else {
-      nearbyPlaces.sort(by: {
+      nearbyPlaces.sort {
         $0.distance < $1.distance
-      })
+      }
     }
   }
   
