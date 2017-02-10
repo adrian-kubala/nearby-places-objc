@@ -184,8 +184,8 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   
   func clearSearchBarText() {
     searchBar.text?.removeAll()
-    searchBarShouldEndEditing(searchBar)
-    searchBar.updateSearchText(currentAddress)
+    _ = searchBarShouldEndEditing(searchBar)
+    _ = searchBar.updateSearchText(currentAddress)
   }
   
   @IBAction func centerMapView(_ sender: AnyObject) {
@@ -259,7 +259,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
   
   func makeRequestForPlaces() {
     guard let searchText = searchBar.text, searchText.isEmpty == false else {
-      searchBarShouldEndEditing(searchBar)
+      _ = searchBarShouldEndEditing(searchBar)
       return
     }
     
