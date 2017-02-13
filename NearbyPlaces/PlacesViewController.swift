@@ -346,8 +346,8 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
       let place = Place(name: place.name, address: place.formattedAddress, coordinate: place.coordinate, photo: UIImage(), userLocation: location)
       
       let croppedImage = placePhoto?.cropToBounds(width: 40, height: 40)
-      let scaledImage = croppedImage!.scaleImage(width: 40)
-      place.photo = scaledImage
+      let scaledImage = croppedImage!.scaleImage(40)
+      place.photo = scaledImage!
       
       self.updatePlaces(with: place)
     }
