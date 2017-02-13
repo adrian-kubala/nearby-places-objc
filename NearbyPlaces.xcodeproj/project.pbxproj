@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3A2E72F21D9CF1C6008CDE51 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E72F11D9CF1C6008CDE51 /* CustomNavigationBar.swift */; };
 		3A2E72F61D9D245D008CDE51 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E72F51D9D245D008CDE51 /* CustomSearchBar.swift */; };
+		3A4CE3391E52758300A5E06A /* UIImage+scaleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4CE3381E52758300A5E06A /* UIImage+scaleImage.m */; };
 		3A5F64EB1D95150F00FF8645 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5F64EA1D95150F00FF8645 /* PlacesViewController.swift */; };
 		3A72F5A81D8A6FCD00BA2F16 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A72F5A71D8A6FCD00BA2F16 /* Place.swift */; };
 		3A72F5AA1D8A751F00BA2F16 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A72F5A91D8A751F00BA2F16 /* MapKit.framework */; };
@@ -32,6 +33,8 @@
 		01D9BED10520DB38DED414B4 /* Pods_NearbyPlaces.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NearbyPlaces.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A2E72F11D9CF1C6008CDE51 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		3A2E72F51D9D245D008CDE51 /* CustomSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
+		3A4CE3371E52758300A5E06A /* UIImage+scaleImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+scaleImage.h"; sourceTree = "<group>"; };
+		3A4CE3381E52758300A5E06A /* UIImage+scaleImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+scaleImage.m"; sourceTree = "<group>"; };
 		3A5F64EA1D95150F00FF8645 /* PlacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesViewController.swift; sourceTree = "<group>"; };
 		3A72F5A71D8A6FCD00BA2F16 /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		3A72F5A91D8A751F00BA2F16 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -128,6 +131,8 @@
 				3A8A41C81E5271DE00522460 /* UIImageView+tintColor.h */,
 				3A8A41C91E5271DE00522460 /* UIImageView+tintColor.m */,
 				3A8A41C71E5271DE00522460 /* NearbyPlaces-Bridging-Header.h */,
+				3A4CE3371E52758300A5E06A /* UIImage+scaleImage.h */,
+				3A4CE3381E52758300A5E06A /* UIImage+scaleImage.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -292,6 +297,7 @@
 				3AF51AB01D9C45F60039D426 /* CustomView.swift in Sources */,
 				3AFF213D1D9DADD1005A3AA0 /* CustomNavigationitem.swift in Sources */,
 				3AFF213F1D9DB662005A3AA0 /* UIImage+cropToBounds.swift in Sources */,
+				3A4CE3391E52758300A5E06A /* UIImage+scaleImage.m in Sources */,
 				3AFF21431D9DC407005A3AA0 /* CustomMapView.swift in Sources */,
 				3A2E72F61D9D245D008CDE51 /* CustomSearchBar.swift in Sources */,
 				3A72F5A81D8A6FCD00BA2F16 /* Place.swift in Sources */,
