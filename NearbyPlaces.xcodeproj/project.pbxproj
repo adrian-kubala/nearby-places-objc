@@ -87,6 +87,14 @@
 			name = ViewController;
 			sourceTree = "<group>";
 		};
+		3A4CE33A1E52794100A5E06A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3A8A41C71E5271DE00522460 /* NearbyPlaces-Bridging-Header.h */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		3A8C0E871D8A6D1C00F538B0 = {
 			isa = PBXGroup;
 			children = (
@@ -108,16 +116,16 @@
 		3A8C0E921D8A6D1C00F538B0 /* NearbyPlaces */ = {
 			isa = PBXGroup;
 			children = (
-				3A0887B41D91334300F99385 /* Model */,
-				3AF807DE1D9851CA007E4BA7 /* View */,
-				3A0887B51D91335300F99385 /* ViewController */,
-				3AF51AAA1D9C294E0039D426 /* Extensions */,
 				3A8C0E931D8A6D1C00F538B0 /* AppDelegate.swift */,
 				3A8C0E971D8A6D1D00F538B0 /* Main.storyboard */,
 				3A8C0E9A1D8A6D1D00F538B0 /* Assets.xcassets */,
 				3A8C0E9C1D8A6D1D00F538B0 /* LaunchScreen.storyboard */,
 				3A8C0E9F1D8A6D1D00F538B0 /* Info.plist */,
-				3A8A41C71E5271DE00522460 /* NearbyPlaces-Bridging-Header.h */,
+				3A0887B41D91334300F99385 /* Model */,
+				3AF807DE1D9851CA007E4BA7 /* View */,
+				3A0887B51D91335300F99385 /* ViewController */,
+				3AF51AAA1D9C294E0039D426 /* Extensions */,
+				3A4CE33A1E52794100A5E06A /* Supporting Files */,
 			);
 			path = NearbyPlaces;
 			sourceTree = "<group>";
