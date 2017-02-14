@@ -1,14 +1,14 @@
 //
-//  UIImage+cropToBounds.m
+//  UIImage+Resizing.m
 //  NearbyPlaces
 //
 //  Created by Adrian Kubała on 14.02.2017.
 //  Copyright © 2017 Adrian Kubała. All rights reserved.
 //
 
-#import "UIImage+cropToBounds.h"
+#import "UIImage+Resizing.h"
 
-@implementation UIImage (cropToBounds)
+@implementation UIImage (Resizing)
 
 - (instancetype)cropToWidth:(double)width height:(double)height {
   UIImage *contextImage = [[UIImage alloc] initWithCGImage:self.CGImage];
@@ -35,6 +35,18 @@
   CGImageRef imageRef = CGImageCreateWithImageInRect(contextImage.CGImage, rect);
   
   UIImage *newImage = [[UIImage alloc] initWithCGImage:imageRef scale:self.scale orientation:self.imageOrientation];
+  return newImage;
+}
+
+- (instancetype)scaleImage:(double)width {
+  CGFloat scale = width / self.size.width;
+  CGFloat newHeight = self.size.height * scale;
+  
+  UIGraphicsBeginImageContext(CGSizeMake(width, newHeight));
+  [self drawInRect:CGRectMake(0, 0, width, newHeight)];
+  UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
+  
   return newImage;
 }
 
