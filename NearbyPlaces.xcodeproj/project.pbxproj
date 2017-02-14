@@ -21,7 +21,6 @@
 		3A8C0E9E1D8A6D1D00F538B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A8C0E9C1D8A6D1D00F538B0 /* LaunchScreen.storyboard */; };
 		3AA7D7281E539595005A844D /* UIImage+Resizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA7D7271E539595005A844D /* UIImage+Resizing.m */; };
 		3AA7D72B1E539848005A844D /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA7D72A1E539848005A844D /* Place.m */; };
-		3AF51AB01D9C45F60039D426 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF51AAF1D9C45F60039D426 /* CustomView.swift */; };
 		3AF807DD1D97FBC6007E4BA7 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF807DC1D97FBC6007E4BA7 /* ChatViewController.swift */; };
 		3AFF213D1D9DADD1005A3AA0 /* CustomNavigationitem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF213C1D9DADD1005A3AA0 /* CustomNavigationitem.swift */; };
 		3AFF21431D9DC407005A3AA0 /* CustomMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF21421D9DC407005A3AA0 /* CustomMapView.swift */; };
@@ -52,7 +51,6 @@
 		3AA7D7271E539595005A844D /* UIImage+Resizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resizing.m"; sourceTree = "<group>"; };
 		3AA7D7291E539848005A844D /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
 		3AA7D72A1E539848005A844D /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
-		3AF51AAF1D9C45F60039D426 /* CustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		3AF807DC1D97FBC6007E4BA7 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		3AFF213C1D9DADD1005A3AA0 /* CustomNavigationitem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationitem.swift; sourceTree = "<group>"; };
 		3AFF21421D9DC407005A3AA0 /* CustomMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMapView.swift; sourceTree = "<group>"; };
@@ -150,7 +148,6 @@
 			children = (
 				3A0FEC851E53AC910030D53D /* PlaceView.h */,
 				3A0FEC841E53AC910030D53D /* PlaceView.m */,
-				3AF51AAF1D9C45F60039D426 /* CustomView.swift */,
 				3A12E8FD1E53BB2F00C68991 /* CustomView.h */,
 				3A12E8FE1E53BB2F00C68991 /* CustomView.m */,
 				3A8B47DE1D9BCD6900901F86 /* CustomButton.swift */,
@@ -307,7 +304,6 @@
 				3A0FEC861E53AC910030D53D /* PlaceView.m in Sources */,
 				3AA7D7281E539595005A844D /* UIImage+Resizing.m in Sources */,
 				3A5F64EB1D95150F00FF8645 /* PlacesViewController.swift in Sources */,
-				3AF51AB01D9C45F60039D426 /* CustomView.swift in Sources */,
 				3AFF213D1D9DADD1005A3AA0 /* CustomNavigationitem.swift in Sources */,
 				3AFF21431D9DC407005A3AA0 /* CustomMapView.swift in Sources */,
 				3A2E72F61D9D245D008CDE51 /* CustomSearchBar.swift in Sources */,

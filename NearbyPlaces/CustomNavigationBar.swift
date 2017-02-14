@@ -15,6 +15,6 @@ class CustomNavigationBar: UINavigationBar {
   
   func drawNavigationBar() {
     let customView = CustomView(view: self)
-    customView.drawViewByBezierPath(5.0, with: barTintColor!)
+    customView.drawByBezierPath(withOffset: 5.0, color: barTintColor!)
   }
 }

@@ -5,3 +5,4 @@
 #import "UIImage+Resizing.h"
 #import "Place.h"
 #import "PlaceView.h"
+#import "CustomView.h"

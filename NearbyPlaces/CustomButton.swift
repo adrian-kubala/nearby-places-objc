@@ -16,7 +16,7 @@ class CustomButton: UIButton {
   
   func drawButton() {
     let customView = CustomView(view: self)
-    customView.drawViewByBezierPath(5.0, with: UIColor.black)
+    customView.drawByBezierPath(withOffset: 5.0, color: UIColor.black)
   }
   
   func setupImageView() {
