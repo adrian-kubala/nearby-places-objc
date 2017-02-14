@@ -3,3 +3,4 @@
 //
 #import "UIImageView+tintColor.h"
 #import "UIImage+scaleImage.h"
+#import "UIImage+cropToBounds.h"
