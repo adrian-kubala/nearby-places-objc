@@ -122,13 +122,13 @@
 				3A0887B41D91334300F99385 /* Model */,
 				3AF807DE1D9851CA007E4BA7 /* View */,
 				3A0887B51D91335300F99385 /* ViewController */,
-				3AF51AAA1D9C294E0039D426 /* Extensions */,
+				3AF51AAA1D9C294E0039D426 /* Categories */,
 				3A4CE33A1E52794100A5E06A /* Supporting Files */,
 			);
 			path = NearbyPlaces;
 			sourceTree = "<group>";
 		};
-		3AF51AAA1D9C294E0039D426 /* Extensions */ = {
+		3AF51AAA1D9C294E0039D426 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
 				3A8A41C81E5271DE00522460 /* UIImageView+TintColor.h */,
@@ -136,7 +136,7 @@
 				3AA7D7261E539595005A844D /* UIImage+Resizing.h */,
 				3AA7D7271E539595005A844D /* UIImage+Resizing.m */,
 			);
-			name = Extensions;
+			name = Categories;
 			sourceTree = "<group>";
 		};
 		3AF807DE1D9851CA007E4BA7 /* View */ = {
