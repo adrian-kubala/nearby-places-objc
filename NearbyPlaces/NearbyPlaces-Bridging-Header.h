@@ -4,3 +4,4 @@
 #import "UIImageView+TintColor.h"
 #import "UIImage+Resizing.h"
 #import "Place.h"
+#import "PlaceView.h"

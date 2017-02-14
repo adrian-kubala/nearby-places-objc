@@ -166,7 +166,7 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     
     let row = indexPath.row
     let data = chooseData(row)
-    cell.setupWithData(data)
+    cell.setup(with: data)
     
     return cell
   }
