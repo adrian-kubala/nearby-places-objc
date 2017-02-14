@@ -32,7 +32,7 @@
   CLLocation *firstLocation = [[CLLocation alloc] initWithLatitude:place.latitude longitude:place.longitude];
   CLLocation *secondLocation = [[CLLocation alloc] initWithLatitude:otherPlace.latitude longitude:otherPlace.longitude];
   
-  int distanceInMeters = [secondLocation distanceFromLocation:firstLocation];
+  NSInteger distanceInMeters = [secondLocation distanceFromLocation:firstLocation];
   return distanceInMeters;
 }
 
