@@ -1,5 +1,5 @@
 //
-//  UIImageView+tintColor.h
+//  UIImageView+TintColor.h
 //  NearbyPlaces
 //
 //  Created by Adrian Kubała on 13.02.2017.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIImageView (tintColor)
+@interface UIImageView (TintColor)
 
 - (void)changeTintColor:(UIColor *)color;
 
