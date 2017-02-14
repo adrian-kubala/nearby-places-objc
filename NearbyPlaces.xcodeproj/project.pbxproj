@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3A0FEC861E53AC910030D53D /* PlaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0FEC841E53AC910030D53D /* PlaceView.m */; };
+		3A12E8FF1E53BB2F00C68991 /* CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A12E8FE1E53BB2F00C68991 /* CustomView.m */; };
 		3A2E72F21D9CF1C6008CDE51 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E72F11D9CF1C6008CDE51 /* CustomNavigationBar.swift */; };
 		3A2E72F61D9D245D008CDE51 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E72F51D9D245D008CDE51 /* CustomSearchBar.swift */; };
 		3A5F64EB1D95150F00FF8645 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5F64EA1D95150F00FF8645 /* PlacesViewController.swift */; };
@@ -31,6 +32,8 @@
 		01D9BED10520DB38DED414B4 /* Pods_NearbyPlaces.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NearbyPlaces.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A0FEC841E53AC910030D53D /* PlaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceView.m; sourceTree = "<group>"; };
 		3A0FEC851E53AC910030D53D /* PlaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceView.h; sourceTree = "<group>"; };
+		3A12E8FD1E53BB2F00C68991 /* CustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomView.h; sourceTree = "<group>"; };
+		3A12E8FE1E53BB2F00C68991 /* CustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomView.m; sourceTree = "<group>"; };
 		3A2E72F11D9CF1C6008CDE51 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		3A2E72F51D9D245D008CDE51 /* CustomSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		3A5F64EA1D95150F00FF8645 /* PlacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +151,8 @@
 				3A0FEC851E53AC910030D53D /* PlaceView.h */,
 				3A0FEC841E53AC910030D53D /* PlaceView.m */,
 				3AF51AAF1D9C45F60039D426 /* CustomView.swift */,
+				3A12E8FD1E53BB2F00C68991 /* CustomView.h */,
+				3A12E8FE1E53BB2F00C68991 /* CustomView.m */,
 				3A8B47DE1D9BCD6900901F86 /* CustomButton.swift */,
 				3A2E72F11D9CF1C6008CDE51 /* CustomNavigationBar.swift */,
 				3AFF213C1D9DADD1005A3AA0 /* CustomNavigationitem.swift */,
@@ -310,6 +315,7 @@
 				3A2E72F21D9CF1C6008CDE51 /* CustomNavigationBar.swift in Sources */,
 				3AA7D72B1E539848005A844D /* Place.m in Sources */,
 				3A8B47DF1D9BCD6900901F86 /* CustomButton.swift in Sources */,
+				3A12E8FF1E53BB2F00C68991 /* CustomView.m in Sources */,
 				3AF807DD1D97FBC6007E4BA7 /* ChatViewController.swift in Sources */,
 				3A8C0E941D8A6D1C00F538B0 /* AppDelegate.swift in Sources */,
 			);
