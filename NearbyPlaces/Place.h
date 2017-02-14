@@ -9,12 +9,22 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
+NS_ASSUME_NONNULL_BEGIN
 @interface Place : NSObject
 
-@property (copy, nonnull, nonatomic) NSString *name;
+@property (copy, nonatomic) NSString *name;
 @property (copy, nullable, nonatomic) NSString *address;
 @property (nonatomic) NSInteger distance;
 @property (nonatomic) CLLocationCoordinate2D coordinate;
-@property (nonnull, nonatomic) UIImage *photo;
+@property (nonatomic) UIImage *photo;
+
+- (instancetype)initWithName:(NSString *)name
+                     address:(nullable NSString *)address
+                          coordinate:(CLLocationCoordinate2D)coordinate
+                               photo:(UIImage *)photo
+                        userLocation:(CLLocationCoordinate2D)userLocation;
+
+- (NSInteger)getDistanceFrom:(CLLocationCoordinate2D)place to:(CLLocationCoordinate2D)otherPlace;
 
 @end
+NS_ASSUME_NONNULL_END
