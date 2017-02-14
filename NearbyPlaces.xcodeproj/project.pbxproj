@@ -19,6 +19,7 @@
 		3A8C0E991D8A6D1D00F538B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A8C0E971D8A6D1D00F538B0 /* Main.storyboard */; };
 		3A8C0E9B1D8A6D1D00F538B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A8C0E9A1D8A6D1D00F538B0 /* Assets.xcassets */; };
 		3A8C0E9E1D8A6D1D00F538B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A8C0E9C1D8A6D1D00F538B0 /* LaunchScreen.storyboard */; };
+		3AA7D7231E5388DD005A844D /* UIImage+cropToBounds.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA7D7221E5388DD005A844D /* UIImage+cropToBounds.m */; };
 		3AF51AB01D9C45F60039D426 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF51AAF1D9C45F60039D426 /* CustomView.swift */; };
 		3AF807DD1D97FBC6007E4BA7 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF807DC1D97FBC6007E4BA7 /* ChatViewController.swift */; };
 		3AF807E01D9851F8007E4BA7 /* PlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF807DF1D9851F8007E4BA7 /* PlaceView.swift */; };
@@ -47,6 +48,8 @@
 		3A8C0E9A1D8A6D1D00F538B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A8C0E9D1D8A6D1D00F538B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3A8C0E9F1D8A6D1D00F538B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3AA7D7211E5388DD005A844D /* UIImage+cropToBounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+cropToBounds.h"; sourceTree = "<group>"; };
+		3AA7D7221E5388DD005A844D /* UIImage+cropToBounds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+cropToBounds.m"; sourceTree = "<group>"; };
 		3AF51AAF1D9C45F60039D426 /* CustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		3AF807DC1D97FBC6007E4BA7 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		3AF807DF1D9851F8007E4BA7 /* PlaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceView.swift; sourceTree = "<group>"; };
@@ -138,6 +141,8 @@
 				3A8A41C91E5271DE00522460 /* UIImageView+tintColor.m */,
 				3A4CE3371E52758300A5E06A /* UIImage+scaleImage.h */,
 				3A4CE3381E52758300A5E06A /* UIImage+scaleImage.m */,
+				3AA7D7211E5388DD005A844D /* UIImage+cropToBounds.h */,
+				3AA7D7221E5388DD005A844D /* UIImage+cropToBounds.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -301,6 +306,7 @@
 				3A5F64EB1D95150F00FF8645 /* PlacesViewController.swift in Sources */,
 				3AF51AB01D9C45F60039D426 /* CustomView.swift in Sources */,
 				3AFF213D1D9DADD1005A3AA0 /* CustomNavigationitem.swift in Sources */,
+				3AA7D7231E5388DD005A844D /* UIImage+cropToBounds.m in Sources */,
 				3AFF213F1D9DB662005A3AA0 /* UIImage+cropToBounds.swift in Sources */,
 				3A4CE3391E52758300A5E06A /* UIImage+scaleImage.m in Sources */,
 				3AFF21431D9DC407005A3AA0 /* CustomMapView.swift in Sources */,
