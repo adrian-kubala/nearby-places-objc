@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A0FEC861E53AC910030D53D /* PlaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0FEC841E53AC910030D53D /* PlaceView.m */; };
 		3A2E72F21D9CF1C6008CDE51 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E72F11D9CF1C6008CDE51 /* CustomNavigationBar.swift */; };
 		3A2E72F61D9D245D008CDE51 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E72F51D9D245D008CDE51 /* CustomSearchBar.swift */; };
 		3A5F64EB1D95150F00FF8645 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5F64EA1D95150F00FF8645 /* PlacesViewController.swift */; };
@@ -29,6 +30,8 @@
 
 /* Begin PBXFileReference section */
 		01D9BED10520DB38DED414B4 /* Pods_NearbyPlaces.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NearbyPlaces.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A0FEC841E53AC910030D53D /* PlaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceView.m; sourceTree = "<group>"; };
+		3A0FEC851E53AC910030D53D /* PlaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceView.h; sourceTree = "<group>"; };
 		3A2E72F11D9CF1C6008CDE51 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		3A2E72F51D9D245D008CDE51 /* CustomSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		3A5F64EA1D95150F00FF8645 /* PlacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesViewController.swift; sourceTree = "<group>"; };
@@ -145,6 +148,8 @@
 			isa = PBXGroup;
 			children = (
 				3AF807DF1D9851F8007E4BA7 /* PlaceView.swift */,
+				3A0FEC851E53AC910030D53D /* PlaceView.h */,
+				3A0FEC841E53AC910030D53D /* PlaceView.m */,
 				3AF51AAF1D9C45F60039D426 /* CustomView.swift */,
 				3A8B47DE1D9BCD6900901F86 /* CustomButton.swift */,
 				3A2E72F11D9CF1C6008CDE51 /* CustomNavigationBar.swift */,
@@ -297,6 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A0FEC861E53AC910030D53D /* PlaceView.m in Sources */,
 				3AA7D7281E539595005A844D /* UIImage+Resizing.m in Sources */,
 				3A5F64EB1D95150F00FF8645 /* PlacesViewController.swift in Sources */,
 				3AF51AB01D9C45F60039D426 /* CustomView.swift in Sources */,
