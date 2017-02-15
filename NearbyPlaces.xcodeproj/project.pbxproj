@@ -12,6 +12,7 @@
 		3A2E72F21D9CF1C6008CDE51 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E72F11D9CF1C6008CDE51 /* CustomNavigationBar.swift */; };
 		3A2E72F61D9D245D008CDE51 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E72F51D9D245D008CDE51 /* CustomSearchBar.swift */; };
 		3A3E5A551E544E88008A7770 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3E5A541E544E88008A7770 /* CustomButton.m */; };
+		3A3E5A581E54537E008A7770 /* CustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3E5A571E54537E008A7770 /* CustomNavigationBar.m */; };
 		3A5F64EB1D95150F00FF8645 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5F64EA1D95150F00FF8645 /* PlacesViewController.swift */; };
 		3A72F5AA1D8A751F00BA2F16 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A72F5A91D8A751F00BA2F16 /* MapKit.framework */; };
 		3A8A41CA1E5271DE00522460 /* UIImageView+TintColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8A41C91E5271DE00522460 /* UIImageView+TintColor.m */; };
@@ -37,6 +38,8 @@
 		3A2E72F51D9D245D008CDE51 /* CustomSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		3A3E5A531E544E88008A7770 /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomButton.h; sourceTree = "<group>"; };
 		3A3E5A541E544E88008A7770 /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
+		3A3E5A561E54537E008A7770 /* CustomNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationBar.h; sourceTree = "<group>"; };
+		3A3E5A571E54537E008A7770 /* CustomNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationBar.m; sourceTree = "<group>"; };
 		3A5F64EA1D95150F00FF8645 /* PlacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesViewController.swift; sourceTree = "<group>"; };
 		3A72F5A91D8A751F00BA2F16 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3A8A41C71E5271DE00522460 /* NearbyPlaces-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NearbyPlaces-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -154,6 +157,8 @@
 				3A3E5A531E544E88008A7770 /* CustomButton.h */,
 				3A3E5A541E544E88008A7770 /* CustomButton.m */,
 				3A2E72F11D9CF1C6008CDE51 /* CustomNavigationBar.swift */,
+				3A3E5A561E54537E008A7770 /* CustomNavigationBar.h */,
+				3A3E5A571E54537E008A7770 /* CustomNavigationBar.m */,
 				3AFF213C1D9DADD1005A3AA0 /* CustomNavigationitem.swift */,
 				3A2E72F51D9D245D008CDE51 /* CustomSearchBar.swift */,
 				3AFF21421D9DC407005A3AA0 /* CustomMapView.swift */,
@@ -309,6 +314,7 @@
 				3AFF213D1D9DADD1005A3AA0 /* CustomNavigationitem.swift in Sources */,
 				3AFF21431D9DC407005A3AA0 /* CustomMapView.swift in Sources */,
 				3A2E72F61D9D245D008CDE51 /* CustomSearchBar.swift in Sources */,
+				3A3E5A581E54537E008A7770 /* CustomNavigationBar.m in Sources */,
 				3A8A41CA1E5271DE00522460 /* UIImageView+TintColor.m in Sources */,
 				3A2E72F21D9CF1C6008CDE51 /* CustomNavigationBar.swift in Sources */,
 				3AA7D72B1E539848005A844D /* Place.m in Sources */,
