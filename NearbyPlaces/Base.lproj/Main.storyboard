@@ -58,7 +58,7 @@
                                     <action selector="centerMapView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FUO-8r-CGy"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qVQ-Of-Vd5" customClass="CustomButton" customModule="NearbyPlaces" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qVQ-Of-Vd5" customClass="CustomButton">
                                 <rect key="frame" x="0.0" y="303" width="375" height="61"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="61" id="7Uq-xg-quv"/>
@@ -265,7 +265,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7Or-zg-gAr" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Ujx-R7-72S" customClass="CustomNavigationBar" customModule="NearbyPlaces" customModuleProvider="target">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Ujx-R7-72S" customClass="CustomNavigationBar">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.82352941176470584" green="0.9882352941176471" blue="0.078431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
