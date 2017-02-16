@@ -105,6 +105,81 @@
   NSLog(@"%@", error.localizedDescription);
 }
 
+// MARK: - MKMapViewDelegate
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+  if (userLocation.location) {
+    [self.mapView setupMapRegion:userLocation.location];
+    [self setupGeocoderWithLocation:userLocation.location];
+    [self showNearbyPlaces];
+  }
+}
+
+- (void) showNearbyPlaces {
+  [self.placesClient currentPlaceWithCallback:^(GMSPlaceLikelihoodList * _Nullable likelihoodList, NSError * _Nullable error) {
+    if (error) {
+      NSLog(@"Nearby places error: %@", error.localizedDescription);
+      return;
+    }
+    
+    [self.nearbyPlaces removeAllObjects];
+    for (GMSPlaceLikelihood *likelihood in likelihoodList.likelihoods) {
+      Place *nearbyPlace = (Place *) likelihood.place;
+//      TO-DO
+//      self.checkForPlacePhotos(nearbyPlace, location: self.userLocation)
+    }
+  }];
+
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+  if ([annotation isKindOfClass:[MKPointAnnotation class]]) {
+    NSString *identifier = @"placePin";
+    MKAnnotationView * pinView = [mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+    if (pinView) {
+      pinView.annotation = annotation;
+    } else {
+      pinView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
+      
+      [pinView setImage:[UIImage imageNamed:@"map-location"]];
+    }
+    
+    return pinView;
+  } else {
+    return nil;
+  }
+}
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+  CLLocationCoordinate2D center = mapView.centerCoordinate;
+  GMSCoordinateBounds *bounds; //let bounds = setupMapBounds(center, span: 0.0002)
+  BOOL userIsInsideBounds = [bounds containsCoordinate:self.userLocation];
+  
+  if (userIsInsideBounds) {
+    [self.mapView hideAnnotationIfNeeded];
+    [self.centerLocationButton setHidden:YES];
+    [self.searchBar setupCurrentLocationIcon];
+  } else {
+    [self.mapView showAnnotation];
+    [self.mapView setupMapRegionWithCoordinate:center];
+    [self.searchBar setupSearchIcon];
+    [self.centerLocationButton setHidden:NO];
+    
+    CLLocation *annotationLocation = [[CLLocation alloc] initWithLatitude:center.latitude longitude:center.longitude];
+    [self setupGeocoderWithLocation:annotationLocation];
+  }
+}
+
+- (void) setupGeocoderWithLocation:(CLLocation *)location {
+  CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+  [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+    CLPlacemark *placemark = [placemarks firstObject];
+    if (placemark) {
+      [self.searchBar updateSearchTextWith:placemark];
+      self.placemark = placemark;
+    }
+  }];
+}
+
 
 
 @end

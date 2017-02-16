@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <GooglePlaces/GooglePlaces.h>
+#import <MapKit/MapKit.h>
 
 @class CustomSearchBar;
 @class CustomMapView;
 @class Place;
 
-@interface NearbyPlacesViewController : UIViewController <CLLocationManagerDelegate>
+@interface NearbyPlacesViewController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate>
 
 @property (weak, nonatomic, null_unspecified) IBOutlet CustomSearchBar *searchBar;
 @property (weak, nonatomic, null_unspecified) IBOutlet CustomMapView *mapView;
