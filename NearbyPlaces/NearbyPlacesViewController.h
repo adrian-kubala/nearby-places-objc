@@ -11,6 +11,7 @@
 
 @class CustomSearchBar;
 @class CustomMapView;
+@class Place;
 
 @interface NearbyPlacesViewController : UIViewController <CLLocationManagerDelegate>
 
@@ -23,8 +24,8 @@
 
 @property (nonatomic, nonnull) CLLocationManager *locationManager;
 @property (nonatomic, nonnull) GMSPlacesClient *placesClient;
-@property (nonatomic, nonnull) NSMutableArray *nearbyPlaces;
-@property (nonatomic, nonnull) NSMutableArray *typedPlaces;
+@property (nonatomic, nonnull) NSMutableArray<Place *> *nearbyPlaces;
+@property (nonatomic, nonnull) NSMutableArray<Place *> *typedPlaces;
 
 @property (readonly, nonatomic) CLLocationCoordinate2D userLocation;
 

@@ -43,8 +43,8 @@
 }
 
 - (void)setupProperties {
-  self.nearbyPlaces = [[NSMutableArray alloc] init];
-  self.typedPlaces = [[NSMutableArray alloc] init];
+  self.nearbyPlaces = [[NSMutableArray<Place *> alloc] init];
+  self.typedPlaces = [[NSMutableArray<Place *> alloc] init];
   self.currentAddress = [[NSMutableString alloc] init];
   self.requestTimer = [[NSTimer alloc] init];
   [self.centerLocationButton setHidden:YES];
