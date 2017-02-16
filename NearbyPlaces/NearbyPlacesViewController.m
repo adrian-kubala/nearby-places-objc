@@ -230,9 +230,148 @@
 
 - (void)clearSearchBarText {
   self.searchBar.text = @"";
-//  _ = searchBarShouldEndEditing(searchBar)
+  [self searchBarShouldEndEditing:self.searchBar];
   [self.searchBar updateSearchText:self.currentAddress];
 }
+
+// MARK: - UISearchBarDelegate
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+  [self.requestTimer invalidate];
+  self.requestTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(makeRequestForPlaces) userInfo:nil repeats:false];
+}
+
+- (void)makeRequestForPlaces {
+  NSString *searchText = self.searchBar.text;
+  if (![searchText length]) {
+    [self searchBarShouldEndEditing:self.searchBar];
+    return;
+  }
+  
+  NSLog(@"%@", searchText);
+  
+  GMSCoordinateBounds *bounds = [self setupMapBoundsForLocation:self.userLocation withSpan:0.01];
+  [self.placesClient autocompleteQuery:searchText bounds:bounds filter:nil callback:^(NSArray<GMSAutocompletePrediction *> * _Nullable results, NSError * _Nullable error) {
+    if (error) {
+      NSLog(@"Autocomplete error: %@", error.localizedDescription);
+      return;
+    }
+    
+    [self.typedPlaces removeAllObjects];
+    for (GMSAutocompletePrediction *prediction in results) {
+      NSString *placeID = prediction.placeID;
+      if (placeID) {
+//        self.setupPlaceByID(placeID, location: self.userLocation)
+      }
+    }
+  }];
+}
+
+- (GMSCoordinateBounds *)setupMapBoundsForLocation:(CLLocationCoordinate2D)location withSpan:(double)span {
+  CLLocationCoordinate2D northEast = CLLocationCoordinate2DMake(location.latitude + span, location.longitude + span);
+  CLLocationCoordinate2D southWest = CLLocationCoordinate2DMake(location.latitude - span, location.longitude - span);
+  return [[GMSCoordinateBounds alloc] initWithCoordinate:northEast coordinate:southWest];
+}
+
+- (void)setupPlaceByID:(NSString *)placeID location:(CLLocationCoordinate2D)location {
+  [self.placesClient lookUpPlaceID:placeID callback:^(GMSPlace * _Nullable result, NSError * _Nullable error) {
+    if (result) {
+//      self.checkForPlacePhotos(predictedPlace, location: location)
+    }
+  }];
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+  [self.searchBar changeSearchIcon];
+  //  [self resizeTable];
+  self.searchBar.text = @"";
+}
+
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
+  if ([self.searchBar isActive]) {
+    [searchBar resignFirstResponder];
+    return true;
+  } else {
+    return false;
+  }
+}
+
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+  [self.searchBar changeSearchIcon];
+  //  [self resizeTable];
+  [self.searchBar updateSearchText:self.currentAddress];
+  [self.typedPlaces removeAllObjects];
+}
+
+
+
+
+
+
+
+//  func checkForPlacePhotos(_ place: GMSPlace, location: CLLocationCoordinate2D) {
+//    placesClient.lookUpPhotos(forPlaceID: place.placeID) { (photos, error) -> Void in
+//      guard error == nil else {
+//        print(error!.localizedDescription)
+//        return
+//      }
+//
+//      self.setupPlaceWithPhoto(place, photo: photos?.results.first, location: location)
+//    }
+//  }
+//
+//  func setupPlaceWithPhoto(_ place: GMSPlace, photo: GMSPlacePhotoMetadata?, location: CLLocationCoordinate2D) {
+//    guard let photo = photo else {
+//      let place = Place(name: place.name, address: place.formattedAddress, coordinate: place.coordinate, photo: UIImage(named: "av-location")!, userLocation: location)
+//      self.updatePlaces(with: place)
+//
+//      return
+//    }
+//
+//    placesClient.loadPlacePhoto(photo) { (placePhoto, error) -> Void in
+//      guard error == nil else {
+//        print(error!.localizedDescription)
+//        return
+//      }
+//
+//      let place = Place(name: place.name, address: place.formattedAddress, coordinate: place.coordinate, photo: UIImage(), userLocation: location)
+//
+//      let croppedImage = placePhoto?.crop(toWidth: 40, height: 40)
+//      let scaledImage = croppedImage!.scaleImage(40)
+//      place.photo = scaledImage
+//
+//      self.updatePlaces(with: place)
+//    }
+//  }
+//
+//  func updatePlaces(with place: Place) {
+//    if searchBar.isActive() {
+//      typedPlaces.append(place)
+//    } else {
+//      nearbyPlaces.append(place)
+//    }
+//    sortPlacesByDistance()
+//    placesView.reloadData()
+//  }
+//
+//  func sortPlacesByDistance() {
+//    if searchBar.isActive() {
+//      typedPlaces.sort {
+//        $0.distance < $1.distance
+//      }
+//    } else {
+//      nearbyPlaces.sort {
+//        $0.distance < $1.distance
+//      }
+//    }
+//  }
+
+
+
+
+
+
+
+
 
 
 
