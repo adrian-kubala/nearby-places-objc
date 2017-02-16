@@ -12,7 +12,7 @@
 @class CustomSearchBar;
 @class CustomMapView;
 
-@interface NearbyPlacesViewController : UIViewController
+@interface NearbyPlacesViewController : UIViewController <CLLocationManagerDelegate>
 
 @property (weak, nonatomic, null_unspecified) IBOutlet CustomSearchBar *searchBar;
 @property (weak, nonatomic, null_unspecified) IBOutlet CustomMapView *mapView;

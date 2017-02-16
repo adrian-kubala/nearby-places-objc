@@ -81,6 +81,30 @@
   self.searchBar.delegate = self;
 }
 
+// MARK: - CLLocationManagerDelegate
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+  [self.locationManager stopUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+  switch (status) {
+    case kCLAuthorizationStatusDenied:
+    case kCLAuthorizationStatusNotDetermined:
+    case kCLAuthorizationStatusRestricted:
+      NSLog(@"Authorization error");
+      break;
+      
+    default:
+      [self.locationManager startUpdatingLocation];
+      break;
+  }
+}
+
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+  [self.locationManager startUpdatingLocation];
+  NSLog(@"%@", error.localizedDescription);
+}
+
 
 
 @end
