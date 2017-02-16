@@ -11,6 +11,8 @@
 
 @interface NearbyPlacesViewController ()
 
+@property (nonatomic) NSTimer *requestTimer;
+
 @end
 
 @implementation NearbyPlacesViewController
