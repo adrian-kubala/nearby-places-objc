@@ -26,7 +26,7 @@
 @property (nonatomic, nonnull) NSMutableArray *nearbyPlaces;
 @property (nonatomic, nonnull) NSMutableArray *typedPlaces;
 
-@property (nonatomic, nonnull) CLLocationCoordinate2D (^userLocation)(void);
+@property (readonly, nonatomic) CLLocationCoordinate2D userLocation;
 
 @property (nonatomic, nullable) CLPlacemark *placemark;
 @property (nonatomic, nonnull) NSMutableString *currentAddress;
