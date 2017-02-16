@@ -7,6 +7,7 @@
 //
 
 #import "PlaceView.h"
+#import "Place.h"
 
 @implementation PlaceView
 

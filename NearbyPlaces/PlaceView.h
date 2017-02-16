@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Place.h"
+
+@class Place;
 
 @interface PlaceView : UITableViewCell
 
