@@ -14,7 +14,7 @@
 @class CustomMapView;
 @class Place;
 
-@interface NearbyPlacesViewController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate>
+@interface NearbyPlacesViewController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic, null_unspecified) IBOutlet CustomSearchBar *searchBar;
 @property (weak, nonatomic, null_unspecified) IBOutlet CustomMapView *mapView;

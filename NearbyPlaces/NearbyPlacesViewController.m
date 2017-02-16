@@ -7,6 +7,8 @@
 //
 
 #import "NearbyPlacesViewController.h"
+#import "Place.h"
+#import "PlaceView.h"
 #import "NearbyPlaces-Swift.h"
 
 @interface NearbyPlacesViewController ()
@@ -124,11 +126,11 @@
     [self.nearbyPlaces removeAllObjects];
     for (GMSPlaceLikelihood *likelihood in likelihoodList.likelihoods) {
       Place *nearbyPlace = (Place *) likelihood.place;
-//      TO-DO
-//      self.checkForPlacePhotos(nearbyPlace, location: self.userLocation)
+      //      TO-DO
+      //      self.checkForPlacePhotos(nearbyPlace, location: self.userLocation)
     }
   }];
-
+  
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
@@ -180,6 +182,57 @@
   }];
 }
 
+//@IBAction func centerMapView(_ sender: AnyObject) {
+//  guard let userLocation = locationManager.location else {
+//    return
+//  }
+//  
+//  mapView.setupMapRegion(userLocation)
+//  centerLocationButton.isHidden = true
+//}
+
+// MARK: - UITableViewDataSource
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+  if (self.searchBar.isActive) {
+    return self.typedPlaces.count;
+  } else {
+    return self.nearbyPlaces.count;
+  }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+  PlaceView *cell = (PlaceView *) [tableView dequeueReusableCellWithIdentifier:@"placeView"];
+  
+  NSUInteger row = indexPath.row;
+  Place *place = [self chooseDataForRow:row];
+  [cell setupWithPlace:place];
+  
+  return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  Place *place = [self chooseDataForRow:indexPath.row];
+  NSString *address = place.address;
+  CLLocationCoordinate2D coordinate = place.coordinate;
+  
+  [self.mapView setupMapRegionWithCoordinate:coordinate];
+  self.currentAddress = [address mutableCopy];
+  [self clearSearchBarText];
+//  [self resizeTable];
+}
+
+- (Place *)chooseDataForRow:(NSUInteger)row {
+  if ([self.searchBar isActive]) {
+    return self.typedPlaces[row];
+  }
+  return self.nearbyPlaces[row];
+}
+
+- (void)clearSearchBarText {
+  self.searchBar.text = @"";
+//  _ = searchBarShouldEndEditing(searchBar)
+  [self.searchBar updateSearchText:self.currentAddress];
+}
 
 
 @end
