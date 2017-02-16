@@ -235,4 +235,39 @@
 }
 
 
+
+
+
+
+
+
+
+//@IBAction func sendImageFromMapView(_ sender: AnyObject) {
+//  performSegue(withIdentifier: "showChatVC", sender: nil)
+//}
+
+//override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//  guard let destinationVC = segue.destination as? ChatViewController, segue.identifier == "showChatVC" else {
+//    return
+//  }
+//
+//  guard let mapViewImage = getImageFromView(mapView) else {
+//    return
+//  }
+//
+//  destinationVC.image = mapViewImage
+//}
+//
+//func getImageFromView(_ view: UIView) -> UIImage? {
+//  UIGraphicsBeginImageContext(view.bounds.size)
+//  guard let context = UIGraphicsGetCurrentContext() else {
+//    return nil
+//  }
+//
+//  view.layer.render(in: context)
+//  let image = UIGraphicsGetImageFromCurrentImageContext()
+//  UIGraphicsEndImageContext()
+//  return image
+//}
+
 @end
