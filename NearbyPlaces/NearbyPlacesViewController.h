@@ -14,9 +14,9 @@
 
 @interface NearbyPlacesViewController : UIViewController
 
-@property (weak, nonatomic, null_unspecified) IBOutlet CustomSearchBar *searchbar;
+@property (weak, nonatomic, null_unspecified) IBOutlet CustomSearchBar *searchBar;
 @property (weak, nonatomic, null_unspecified) IBOutlet CustomMapView *mapView;
-@property (weak, nonatomic, null_unspecified) IBOutlet UITableView *tableView;
+@property (weak, nonatomic, null_unspecified) IBOutlet UITableView *placesView;
 @property (weak, nonatomic, null_unspecified) IBOutlet UIView *labelView;
 @property (weak, nonatomic, null_unspecified) IBOutlet NSLayoutConstraint *placesViewHeight;
 @property (weak, nonatomic, null_unspecified) IBOutlet UIButton *centerLocationButton;

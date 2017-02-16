@@ -33,15 +33,54 @@
   [super viewDidLoad];
   
   [self setupProperties];
+  [self setupLocationManager];
+  [self setupLocationManager];
+  [self setupPlacesClient];
+  [self setupNavigationItem];
+  [self setupMapView];
+  [self setupTableView];
+  [self setupSearchBar];
 }
 
 - (void)setupProperties {
-  self.locationManager = [[CLLocationManager alloc] init];
-  self.placesClient = [[GMSPlacesClient alloc] init];
   self.nearbyPlaces = [[NSMutableArray alloc] init];
   self.typedPlaces = [[NSMutableArray alloc] init];
   self.currentAddress = [[NSMutableString alloc] init];
   self.requestTimer = [[NSTimer alloc] init];
+  [self.centerLocationButton setHidden:YES];
 }
+
+- (void)setupLocationManager {
+  self.locationManager = [[CLLocationManager alloc] init];
+  self.locationManager.delegate = self;
+  self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+  [self.locationManager requestWhenInUseAuthorization];
+  [self.locationManager startUpdatingLocation];
+}
+
+- (void)setupPlacesClient {
+  self.placesClient = [GMSPlacesClient sharedClient];
+}
+
+- (void)setupNavigationItem {
+  CustomNavigationitem *navigationItem = (CustomNavigationitem *) self.navigationItem;
+  [navigationItem setupIcon:@"map-location"];
+}
+
+- (void)setupMapView {
+  self.mapView.delegate = self;
+}
+
+- (void)setupTableView {
+  self.placesView.dataSource = self;
+  self.placesView.delegate = self;
+}
+
+- (void)setupSearchBar {
+  [self.searchBar setupSearchBar];
+  self.searchBar.delegate = self;
+}
+
+
 
 @end
