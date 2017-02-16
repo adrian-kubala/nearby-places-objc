@@ -21,6 +21,7 @@
 		3A8C0E9E1D8A6D1D00F538B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A8C0E9C1D8A6D1D00F538B0 /* LaunchScreen.storyboard */; };
 		3AA7D7281E539595005A844D /* UIImage+Resizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA7D7271E539595005A844D /* UIImage+Resizing.m */; };
 		3AA7D72B1E539848005A844D /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA7D72A1E539848005A844D /* Place.m */; };
+		3AD395EC1E56165800569E26 /* NearbyPlacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD395EB1E56165800569E26 /* NearbyPlacesViewController.m */; };
 		3AF807DD1D97FBC6007E4BA7 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF807DC1D97FBC6007E4BA7 /* ChatViewController.swift */; };
 		3AFF213D1D9DADD1005A3AA0 /* CustomNavigationitem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF213C1D9DADD1005A3AA0 /* CustomNavigationitem.swift */; };
 		3AFF21431D9DC407005A3AA0 /* CustomMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF21421D9DC407005A3AA0 /* CustomMapView.swift */; };
@@ -53,6 +54,8 @@
 		3AA7D7271E539595005A844D /* UIImage+Resizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resizing.m"; sourceTree = "<group>"; };
 		3AA7D7291E539848005A844D /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
 		3AA7D72A1E539848005A844D /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
+		3AD395EA1E56165800569E26 /* NearbyPlacesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyPlacesViewController.h; sourceTree = "<group>"; };
+		3AD395EB1E56165800569E26 /* NearbyPlacesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyPlacesViewController.m; sourceTree = "<group>"; };
 		3AF807DC1D97FBC6007E4BA7 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		3AFF213C1D9DADD1005A3AA0 /* CustomNavigationitem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationitem.swift; sourceTree = "<group>"; };
 		3AFF21421D9DC407005A3AA0 /* CustomMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMapView.swift; sourceTree = "<group>"; };
@@ -87,6 +90,8 @@
 			children = (
 				3A5F64EA1D95150F00FF8645 /* PlacesViewController.swift */,
 				3AF807DC1D97FBC6007E4BA7 /* ChatViewController.swift */,
+				3AD395EA1E56165800569E26 /* NearbyPlacesViewController.h */,
+				3AD395EB1E56165800569E26 /* NearbyPlacesViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -309,6 +314,7 @@
 				3AA7D7281E539595005A844D /* UIImage+Resizing.m in Sources */,
 				3A5F64EB1D95150F00FF8645 /* PlacesViewController.swift in Sources */,
 				3AFF213D1D9DADD1005A3AA0 /* CustomNavigationitem.swift in Sources */,
+				3AD395EC1E56165800569E26 /* NearbyPlacesViewController.m in Sources */,
 				3AFF21431D9DC407005A3AA0 /* CustomMapView.swift in Sources */,
 				3A2E72F61D9D245D008CDE51 /* CustomSearchBar.swift in Sources */,
 				3A3E5A581E54537E008A7770 /* CustomNavigationBar.m in Sources */,
