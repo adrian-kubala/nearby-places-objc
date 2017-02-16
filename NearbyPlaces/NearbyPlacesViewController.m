@@ -153,7 +153,7 @@
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
   CLLocationCoordinate2D center = mapView.centerCoordinate;
-  GMSCoordinateBounds *bounds; //let bounds = setupMapBounds(center, span: 0.0002)
+  GMSCoordinateBounds *bounds = [self setupMapBoundsForLocation:center withSpan:0.0002];
   BOOL userIsInsideBounds = [bounds containsCoordinate:self.userLocation];
   
   if (userIsInsideBounds) {
