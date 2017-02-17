@@ -182,14 +182,13 @@
   }];
 }
 
-//@IBAction func centerMapView(_ sender: AnyObject) {
-//  guard let userLocation = locationManager.location else {
-//    return
-//  }
-//  
-//  mapView.setupMapRegion(userLocation)
-//  centerLocationButton.isHidden = true
-//}
+- (IBAction)centerMapView {
+  CLLocation *location = self.locationManager.location;
+  if (location) {
+    [self.mapView setupMapRegion:location];
+    [self.centerLocationButton setHidden:YES];
+  }
+}
 
 // MARK: - UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -282,7 +281,7 @@
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
   [self.searchBar changeSearchIcon];
-    [self resizeTable];
+  [self resizeTable];
   self.searchBar.text = @"";
 }
 
@@ -362,7 +361,7 @@
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
   
-    [self resizeTable];
+  [self resizeTable];
 }
 
 - (void)resizeTable {
@@ -383,35 +382,30 @@
   } completion:nil];
 }
 
+- (IBAction)sendImageFromMapView {
+  [self performSegueWithIdentifier:@"showChatVC" sender:nil];
+}
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+  ChatViewController *chatViewController = (ChatViewController *) segue.destinationViewController;
+  
+  UIImage *mapViewImage = [self getImageFromView:self.mapView];
+  if (mapViewImage) {
+    chatViewController.mapViewImage.image = mapViewImage;
+  }
+}
 
-
-//@IBAction func sendImageFromMapView(_ sender: AnyObject) {
-//  performSegue(withIdentifier: "showChatVC", sender: nil)
-//}
-
-//override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//  guard let destinationVC = segue.destination as? ChatViewController, segue.identifier == "showChatVC" else {
-//    return
-//  }
-//
-//  guard let mapViewImage = getImageFromView(mapView) else {
-//    return
-//  }
-//
-//  destinationVC.image = mapViewImage
-//}
-//
-//func getImageFromView(_ view: UIView) -> UIImage? {
-//  UIGraphicsBeginImageContext(view.bounds.size)
-//  guard let context = UIGraphicsGetCurrentContext() else {
-//    return nil
-//  }
-//
-//  view.layer.render(in: context)
-//  let image = UIGraphicsGetImageFromCurrentImageContext()
-//  UIGraphicsEndImageContext()
-//  return image
-//}
+- (nullable UIImage *)getImageFromView:(UIView *)view {
+  UIGraphicsBeginImageContext(view.bounds.size);
+  CGContextRef context = UIGraphicsGetCurrentContext();
+  if (context) {
+    [view.layer renderInContext:context];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+  } else {
+    return nil;
+  }
+}
 
 @end
