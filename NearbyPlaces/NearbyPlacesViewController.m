@@ -10,6 +10,7 @@
 #import "Place.h"
 #import "PlaceView.h"
 #import "NearbyPlaces-Swift.h"
+#import "UIImage+Resizing.h"
 
 @interface NearbyPlacesViewController ()
 
@@ -125,9 +126,8 @@
     
     [self.nearbyPlaces removeAllObjects];
     for (GMSPlaceLikelihood *likelihood in likelihoodList.likelihoods) {
-      Place *nearbyPlace = (Place *) likelihood.place;
-      //      TO-DO
-      //      self.checkForPlacePhotos(nearbyPlace, location: self.userLocation)
+      GMSPlace *nearbyPlace = likelihood.place;
+      [self checkForPlacePhotos:nearbyPlace location:self.userLocation];
     }
   }];
   
@@ -260,7 +260,7 @@
     for (GMSAutocompletePrediction *prediction in results) {
       NSString *placeID = prediction.placeID;
       if (placeID) {
-//        self.setupPlaceByID(placeID, location: self.userLocation)
+        [self setupPlaceByID:placeID location:self.userLocation];
       }
     }
   }];
@@ -275,7 +275,7 @@
 - (void)setupPlaceByID:(NSString *)placeID location:(CLLocationCoordinate2D)location {
   [self.placesClient lookUpPlaceID:placeID callback:^(GMSPlace * _Nullable result, NSError * _Nullable error) {
     if (result) {
-//      self.checkForPlacePhotos(predictedPlace, location: location)
+      [self checkForPlacePhotos:result location:location];
     }
   }];
 }
@@ -295,76 +295,69 @@
   }
 }
 
--(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
   [self.searchBar changeSearchIcon];
   //  [self resizeTable];
   [self.searchBar updateSearchText:self.currentAddress];
   [self.typedPlaces removeAllObjects];
 }
 
+- (void)checkForPlacePhotos:(GMSPlace *)place location:(CLLocationCoordinate2D)location {
+  [self.placesClient lookUpPhotosForPlaceID:place.placeID callback:^(GMSPlacePhotoMetadataList * _Nullable photos, NSError * _Nullable error) {
+    if (error) {
+      NSLog(@"%@", error.localizedDescription);
+      return;
+    }
+    
+    [self setupPlaceWithPhoto:place photo:photos.results.firstObject location:location];
+  }];
+}
 
+- (void)setupPlaceWithPhoto:(GMSPlace *)place photo:(nullable GMSPlacePhotoMetadata *)photo location:(CLLocationCoordinate2D)location {
+  if (photo) {
+    Place *place = [[Place alloc] initWithName:place.name address:place.address coordinate:place.coordinate photo:[UIImage imageNamed:@"av-location"] userLocation:location];
+    [self updatePlacesWithPlace:place];
+    return;
+  }
+  
+  [self.placesClient loadPlacePhoto:photo callback:^(UIImage * _Nullable photo, NSError * _Nullable error) {
+    if (error) {
+      NSLog(@"%@", error.localizedDescription);
+      return;
+    }
+    
+    Place *place = [[Place alloc] initWithName:place.name address:place.address coordinate:place.coordinate photo:[[UIImage alloc] init] userLocation:location];
+    
+    UIImage *croppedImage = [photo cropToWidth:40 height:40];
+    UIImage *scaledImage = [croppedImage scaleImage:40];
+    place.photo = scaledImage;
+    
+    [self updatePlacesWithPlace:place];
+  }];
+}
 
+- (void)updatePlacesWithPlace:(Place *)place {
+  if ([self.searchBar isActive]) {
+    [self.typedPlaces addObject:place];
+  } else {
+    [self.nearbyPlaces addObject:place];
+  }
+  
+  [self  sortPlacesByDistance];
+  [self.placesView reloadData];
+}
 
-
-
-
-//  func checkForPlacePhotos(_ place: GMSPlace, location: CLLocationCoordinate2D) {
-//    placesClient.lookUpPhotos(forPlaceID: place.placeID) { (photos, error) -> Void in
-//      guard error == nil else {
-//        print(error!.localizedDescription)
-//        return
-//      }
-//
-//      self.setupPlaceWithPhoto(place, photo: photos?.results.first, location: location)
-//    }
-//  }
-//
-//  func setupPlaceWithPhoto(_ place: GMSPlace, photo: GMSPlacePhotoMetadata?, location: CLLocationCoordinate2D) {
-//    guard let photo = photo else {
-//      let place = Place(name: place.name, address: place.formattedAddress, coordinate: place.coordinate, photo: UIImage(named: "av-location")!, userLocation: location)
-//      self.updatePlaces(with: place)
-//
-//      return
-//    }
-//
-//    placesClient.loadPlacePhoto(photo) { (placePhoto, error) -> Void in
-//      guard error == nil else {
-//        print(error!.localizedDescription)
-//        return
-//      }
-//
-//      let place = Place(name: place.name, address: place.formattedAddress, coordinate: place.coordinate, photo: UIImage(), userLocation: location)
-//
-//      let croppedImage = placePhoto?.crop(toWidth: 40, height: 40)
-//      let scaledImage = croppedImage!.scaleImage(40)
-//      place.photo = scaledImage
-//
-//      self.updatePlaces(with: place)
-//    }
-//  }
-//
-//  func updatePlaces(with place: Place) {
-//    if searchBar.isActive() {
-//      typedPlaces.append(place)
-//    } else {
-//      nearbyPlaces.append(place)
-//    }
-//    sortPlacesByDistance()
-//    placesView.reloadData()
-//  }
-//
-//  func sortPlacesByDistance() {
-//    if searchBar.isActive() {
-//      typedPlaces.sort {
-//        $0.distance < $1.distance
-//      }
-//    } else {
-//      nearbyPlaces.sort {
-//        $0.distance < $1.distance
-//      }
-//    }
-//  }
-
+- (void)sortPlacesByDistance {
+  if ([self.searchBar isActive]) {
+    [self.typedPlaces sortUsingComparator:^NSComparisonResult(Place * _Nonnull obj1, Place * _Nonnull obj2) {
+      return obj1.distance < obj2.distance;
+    }];
+  } else {
+    [self.nearbyPlaces sortUsingComparator:^NSComparisonResult(Place * _Nonnull obj1, Place * _Nonnull obj2) {
+      return obj1.distance < obj2.distance;
+    }];
+  }
+}
 
 
 
