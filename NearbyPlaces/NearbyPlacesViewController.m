@@ -218,7 +218,7 @@
   [self.mapView setupMapRegionWithCoordinate:coordinate];
   self.currentAddress = [address mutableCopy];
   [self clearSearchBarText];
-//  [self resizeTable];
+  [self resizeTable];
 }
 
 - (Place *)chooseDataForRow:(NSUInteger)row {
@@ -282,7 +282,7 @@
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
   [self.searchBar changeSearchIcon];
-  //  [self resizeTable];
+    [self resizeTable];
   self.searchBar.text = @"";
 }
 
@@ -297,7 +297,7 @@
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
   [self.searchBar changeSearchIcon];
-  //  [self resizeTable];
+  [self resizeTable];
   [self.searchBar updateSearchText:self.currentAddress];
   [self.typedPlaces removeAllObjects];
 }
@@ -359,17 +359,29 @@
   }
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+  [super viewDidAppear:animated];
+  
+    [self resizeTable];
+}
 
+- (void)resizeTable {
+  CGFloat frameHeight = CGRectGetMaxY(self.view.frame);
+  if ([self.searchBar isActive]) {
+    self.placesViewHeight.constant = frameHeight - CGRectGetMaxY(self.searchBar.frame);
+  } else {
+    self.placesViewHeight.constant = frameHeight - CGRectGetMaxY(self.labelView.frame);
+  }
+  
+  [self.placesView reloadData];
+  [self animateTableResizing];
+}
 
-
-
-
-
-
-
-
-
-
+- (void)animateTableResizing {
+  [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionAutoreverse animations:^{
+    [self.placesView layoutIfNeeded];
+  } completion:nil];
+}
 
 
 
