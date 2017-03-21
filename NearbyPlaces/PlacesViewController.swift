@@ -297,12 +297,6 @@ class PlacesViewController: UIViewController, CLLocationManagerDelegate, UITable
     return GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
   }
   
-  func setupAutocompleteFilter() -> GMSAutocompleteFilter {
-    let filter = GMSAutocompleteFilter()
-    filter.country = "PL"
-    return filter
-  }
-  
   func showNearbyPlaces() {
     placesClient.currentPlace { (placeLikelihoods, error) -> Void in
       guard let placeLikelihoods = placeLikelihoods, error == nil else {
